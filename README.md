@@ -8,3 +8,9 @@
 - [Пользователь](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/user-user-flow.PNG)
 - [Специалист службы поддержки](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/sup-user-flow.PNG)
 - [Менеджер](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/manager-user-flow.PNG)
+### Архитектура
+- [use-case](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/use-case.png)
+- [Диаграмма состояний](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/state-diagram.png)
+- [Диаграмма последовательности](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/sequence-diagram.png)
+- [Диаграмма развёртывания](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/deployment-diagram.png)
+- [Схема алгоритма](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/algorithm.png)
