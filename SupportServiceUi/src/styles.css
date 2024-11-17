@@ -1,1 +1,146 @@
 /* You can add global styles to this file, and also import other style files */
+.nav-links {
+    display: flex;
+    text-align: center;
+    min-height: 2rem;
+}
+
+.nav-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-link {
+    padding-left: 1rem;
+    font-size: 18px;
+}
+
+.logo-link{
+    text-align: left;
+    font-size: 18px;
+}
+
+#toast-container > div {
+    opacity: 1;
+}
+
+.toast-success {
+    background-color: #4caf50;
+    color: white;
+}
+
+.toast-error {
+    background-color: #d02c20;
+    color: white;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .wrapped-div {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #2e3137;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  }
+
+  /* Tabs */
+.tab-header{
+    text-align: center;
+}
+
+.tab-header h2.active {
+    color: #545d6a;
+    border-bottom: 4px solid #545d6a;
+}
+
+.tab-header h2 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    display:inline-block;
+    padding: 30px 40px 10px 40px;
+    cursor: pointer;
+    color: #545d6a;
+    border-bottom: 2px solid #fff;
+}
+
+.tab-header h2:focus {
+    outline: none;
+}
+
+/* Elements */
+
+.element-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+}
+
+.element-entry-text {
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.element-entry-actions {
+    justify-content: flex-end;
+}
+
+.task-content {
+    width: 70%;
+    margin: 20px 0;
+    border-radius: 20px;
+}
+
+.task-text {
+    width: 50%;
+    margin-right: 15px;
+}
+
+.task-info {
+    width: 20%;
+}
+
+.task-detail {
+    font-size: 16px;
+}
+
+.row-element {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+html, body { 
+    height: 100%;
+}
+body { 
+    margin: 0; 
+    font-family: Roboto, 
+    "Helvetica Neue", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sort-column {
+    cursor: pointer;
+    font-size: 16px;
+}
