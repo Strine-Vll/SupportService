@@ -5,6 +5,7 @@ using Application.Exceptions;
 using AutoMapper;
 using Domain.Abstractions;
 using Domain.Entities;
+using Domain.Enums;
 using FluentValidation;
 using System.Security.Cryptography;
 using System.Text;
@@ -44,6 +45,7 @@ public class UserService : IUserService
 
         user.Password = securePassword;
         user.Salt = passwordSalt;
+        user.RoleId = (int)UserRoleEnum.User;
 
         await _user.CreateAsync(user);
     }

@@ -15,6 +15,8 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString));
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IGroupRepository, GroupRepository>();
+        services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
 
         return services;
     }

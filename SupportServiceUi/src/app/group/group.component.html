@@ -1,0 +1,27 @@
+<app-header></app-header>
+<router-outlet>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Финансовые цели: (<a routerLink="/creategoal">Создать</a>)</h2>
+                        <div *ngIf="goals.length == 0"> Финансовые цели отсутствуют</div>
+                        <a [routerLink]="'/goal/' + goal.id" *ngFor="let goal of goals" class="element-entry">
+                            <div class="element-entry-text">
+                                <div class="task-text">
+                                    {{goal.category.categoryName}}
+                                </div>
+                                <div class="task-text">
+                                    Прогресс: {{goal.currentTotal}}/{{goal.moneyAmount}}
+                                </div>
+                                <mat-progress-bar [mode]="'determinate'"
+                                [value]="goal.currentTotal ? goal.currentTotal / goal.moneyAmount * 100 : 0"></mat-progress-bar>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</router-outlet>

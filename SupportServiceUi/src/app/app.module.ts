@@ -14,6 +14,9 @@ import { UserService } from './services/user.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { GroupComponent } from './group/group.component';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    UserComponent
+    UserComponent,
+    HomeComponent,
+    HeaderComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,

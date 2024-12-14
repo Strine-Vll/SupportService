@@ -12,6 +12,8 @@ public class ServiceRequest
 
     public DateTime? UpdatedDate { get; set; }
 
+    public int GroupId { get; set; }
+
     #region Navigation Properties
 
     public int CreatedById { get; set; }
@@ -25,6 +27,8 @@ public class ServiceRequest
     public Status Status { get; set; }
 
     public List<Comment> Comments { get; set; }
+
+    public Group? Group { get; set; }
 
     #endregion
 }

@@ -16,9 +16,11 @@ public class User
 
     #region Navigation Properties
 
+    public int RoleId { get; set; }
+
     public UserRole Role { get; set; }
 
-    public List<Group> Groups { get; set; }
+    public List<Group> Groups { get; set; } = new List<Group>();
 
     public List<ServiceRequest> AppointedRequests { get; set; }
 

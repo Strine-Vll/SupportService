@@ -14,7 +14,7 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Group",
+                name: "Groups",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -23,7 +23,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Group", x => x.Id);
+                    table.PrimaryKey("PK_Groups", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,7 +40,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRole",
+                name: "UserRoles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -49,7 +49,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => x.Id);
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,9 +69,9 @@ namespace Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_UserRole_RoleId",
+                        name: "FK_Users_UserRoles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "UserRole",
+                        principalTable: "UserRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -81,20 +81,20 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     GroupsId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UsersId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupUser", x => new { x.GroupsId, x.UserId });
+                    table.PrimaryKey("PK_GroupUser", x => new { x.GroupsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_GroupUser_Group_GroupsId",
+                        name: "FK_GroupUser_Groups_GroupsId",
                         column: x => x.GroupsId,
-                        principalTable: "Group",
+                        principalTable: "Groups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GroupUser_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_GroupUser_Users_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -110,19 +110,20 @@ namespace Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    GroupId = table.Column<int>(type: "int", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     AppointedId = table.Column<int>(type: "int", nullable: true),
-                    StatusId = table.Column<int>(type: "int", nullable: false),
-                    GroupId = table.Column<int>(type: "int", nullable: true)
+                    StatusId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ServiceRequests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServiceRequests_Group_GroupId",
+                        name: "FK_ServiceRequests_Groups_GroupId",
                         column: x => x.GroupId,
-                        principalTable: "Group",
-                        principalColumn: "Id");
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ServiceRequests_Statuses_StatusId",
                         column: x => x.StatusId,
@@ -183,6 +184,17 @@ namespace Infrastructure.Migrations
                     { 5, "Закрыто" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "Id", "RoleName" },
+                values: new object[,]
+                {
+                    { 1, "Анонимный пользователь" },
+                    { 2, "Пользователь" },
+                    { 3, "Специалист поддержки" },
+                    { 4, "Менеджер" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Comment_CreatedById",
                 table: "Comment",
@@ -194,9 +206,9 @@ namespace Infrastructure.Migrations
                 column: "ServiceRequestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupUser_UserId",
+                name: "IX_GroupUser_UsersId",
                 table: "GroupUser",
-                column: "UserId");
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ServiceRequests_AppointedId",
@@ -237,7 +249,7 @@ namespace Infrastructure.Migrations
                 name: "ServiceRequests");
 
             migrationBuilder.DropTable(
-                name: "Group");
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Statuses");
@@ -246,7 +258,7 @@ namespace Infrastructure.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "UserRole");
+                name: "UserRoles");
         }
     }
 }

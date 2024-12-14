@@ -16,6 +16,8 @@ public static class DependencyInjection
 
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IGroupService, GroupService>();
+        services.AddScoped<IServiceRequestService, ServiceRequestService>();
 
         return services;
     }

@@ -1,0 +1,22 @@
+<app-header></app-header>
+<router-outlet>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"></h2>
+                        <div *ngIf="groups.length == 0">Группы отсутствуют</div>
+                        <a [routerLink]="'/group/' + group.id" *ngFor="let group of groups" class="element-entry">
+                            <div class="element-entry-text">
+                                <div class="task-text">
+                                    {{group.name}}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</router-outlet>

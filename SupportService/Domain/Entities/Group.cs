@@ -8,7 +8,7 @@ public class Group
 
     #region Navigation Properties
 
-    public List<User> User { get; set; }
+    public List<User> Users { get; set; } = new List<User>();
 
     public List<ServiceRequest> ServiceRequests { get; set; }
 

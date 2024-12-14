@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241109173444_Initial")]
+    [Migration("20241214101210_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -69,7 +69,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.ServiceRequest", b =>
@@ -93,7 +93,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GroupId")
+                    b.Property<int>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<int>("StatusId")
@@ -214,7 +214,29 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleName = "Анонимный пользователь"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleName = "Пользователь"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "Специалист поддержки"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            RoleName = "Менеджер"
+                        });
                 });
 
             modelBuilder.Entity("GroupUser", b =>
@@ -222,12 +244,12 @@ namespace Infrastructure.Migrations
                     b.Property<int>("GroupsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UsersId")
                         .HasColumnType("int");
 
-                    b.HasKey("GroupsId", "UserId");
+                    b.HasKey("GroupsId", "UsersId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("GroupUser");
                 });
@@ -261,9 +283,11 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Group", null)
+                    b.HasOne("Domain.Entities.Group", "Group")
                         .WithMany("ServiceRequests")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.Status", "Status")
                         .WithMany()
@@ -274,6 +298,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("Appointed");
 
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("Group");
 
                     b.Navigation("Status");
                 });
@@ -299,7 +325,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.User", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
