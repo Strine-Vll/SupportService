@@ -78,7 +78,7 @@ public class UserServiceTests
     public async Task RegisterAsync_ShouldThrowValidationException_WhenValidationFails()
     {
         // Arrange
-        var registerDto = new RegisterDto { Email = "test@example.com", Password = "password" };
+        var registerDto = new RegisterDto { Email = "test.com", Password = "password" };
         var validationResult = new ValidationResult(new[] { new ValidationFailure("Email", "Invalid email") });
 
         _registerDtoValidatorMock.Setup(v => v.ValidateAsync(registerDto, default)).ReturnsAsync(validationResult);
@@ -88,38 +88,6 @@ public class UserServiceTests
         Assert.IsNotNull(ex);
         Assert.AreEqual(validationResult.Errors, ex.Errors);
     }
-
-    //TODO Remake to be integration
-    //[Test]
-    //public async Task RegisterAsync_ShouldCreateUser_WhenValidationSucceeds()
-    //{
-    //    // Arrange
-    //    var registerDto = new RegisterDto { Email = "test@example.com", Password = "password" };
-    //    var user = new User();
-
-    //    // Настройка валидации
-    //    _registerDtoValidatorMock.Setup(v => v.ValidateAsync(registerDto, default)).ReturnsAsync(new ValidationResult());
-
-    //    // Настройка маппинга
-    //    _mapperMock.Setup(m => m.Map<User>(registerDto)).Returns(user);
-
-    //    // Настройка репозитория
-    //    _userRepositoryMock.Setup(u => u.CreateAsync(It.IsAny<User>())).Returns(Task.CompletedTask);
-
-    //    // Act
-    //    await _userService.RegisterAsync(registerDto);
-
-    //    // Assert
-    //    Assert.IsNotNull(user.Password);
-    //    Assert.IsNotNull(user.Salt);
-    //    Assert.AreEqual((int)UserRoleEnum.User, user.RoleId);
-
-    //    // Проверка, что пользователь был сохранен в репозитории
-    //    _userRepositoryMock.Verify(u => u.CreateAsync(It.IsAny<User>()), Times.Once);
-
-    //    // Проверка, что пароль был хэширован
-    //    Assert.IsNotEmpty(user.Password);
-    //}
 
     [Test]
     public async Task Authenticate_ShouldReturnToken_WhenCredentialsAreValid()
@@ -150,12 +118,12 @@ public class UserServiceTests
         var user = new User
         {
             Password = "hashedpassword",
-            Salt = new byte[64] // Example salt
+            Salt = new byte[64] 
         };
 
         _authenticationRequestValidatorMock.Setup(v => v.Validate(request)).Returns(new ValidationResult());
         _userRepositoryMock.Setup(u => u.GetUserByEmailAsync(request.Email)).ReturnsAsync(user);
-        _userService.CreatePassword("password", out byte[] salt); // Mock the password hash generation
+        _userService.CreatePassword("password", out byte[] salt);
 
         // Act & Assert
         var ex = Assert.ThrowsAsync<InvalidCredentialsException>(() => _userService.Authenticate(request));

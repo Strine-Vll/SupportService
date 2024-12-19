@@ -27,4 +27,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Group> Groups { get; set; }
 
     public DbSet<ServiceRequest> ServiceRequests { get; set; }
+
+    public DbSet<Comment> Comments { get; set; }
 }

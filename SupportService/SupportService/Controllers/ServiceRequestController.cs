@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Dtos.ServiceRequestDtos;
 using Application.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ public class ServiceRequestController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpGet("GetOverview")]
     public async Task<ActionResult> GetServiceRequestOverview(int requestId)
     {
         try
@@ -40,5 +41,21 @@ public class ServiceRequestController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> CreateServiceRequest(CreateRequestDto serviceRequest)
+    {
+        await _serviceRequestService.CreateRequest(serviceRequest);
+
+        return Ok();
+    }
+
+    [HttpPost("UpdateRequest")]
+    public async Task<ActionResult> UpdateServiceRequest(UpdateRequestDto serviceRequest)
+    {
+        await _serviceRequestService.UpdateRequest(serviceRequest);
+
+        return Ok();
     }
 }

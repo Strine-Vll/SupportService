@@ -30,4 +30,20 @@ public class GroupController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost("Invite")]
+    public async Task<ActionResult> InviteUser(int groupId, int userId)
+    {
+        await _groupService.InviteUser(groupId, userId);
+
+        return Ok();
+    }
+
+    [HttpPost("RemoveUser")]
+    public async Task<ActionResult> RemoveUserFromGroup(int groupId, int userId)
+    {
+        await _groupService.RemoveUserFromGroup(groupId, userId);
+
+        return Ok();
+    }
 }

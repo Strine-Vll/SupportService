@@ -12,7 +12,7 @@ public class ServiceRequest
 
     public DateTime? UpdatedDate { get; set; }
 
-    public int GroupId { get; set; }
+    public int? GroupId { get; set; }
 
     #region Navigation Properties
 

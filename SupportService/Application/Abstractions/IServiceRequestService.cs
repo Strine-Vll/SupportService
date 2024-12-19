@@ -12,4 +12,8 @@ public interface IServiceRequestService
     Task<List<ServiceRequestPreviewDto>> GetGroupRequestsPreview(int groupId);
 
     Task<ServiceRequestDto> GetServiceRequestOverview(int requestId);
+
+    Task CreateRequest(CreateRequestDto serviceRequest);
+
+    Task UpdateRequest(UpdateRequestDto serviceRequest);
 }

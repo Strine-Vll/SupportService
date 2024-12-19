@@ -46,4 +46,18 @@ public class ServiceRequestService : IServiceRequestService
 
         return serviceRequest;
     }
+
+    public async Task CreateRequest(CreateRequestDto serviceRequest)
+    {
+        var dbRequest = _mapper.Map<ServiceRequest>(serviceRequest);
+
+        await _serviceRequestRepository.CreateAsync(dbRequest);
+    }
+
+    public async Task UpdateRequest(UpdateRequestDto serviceRequest)
+    {
+        var dbRequest = _mapper.Map<ServiceRequest>(serviceRequest);
+
+        await _serviceRequestRepository.UpdateAsync(dbRequest);
+    }
 }

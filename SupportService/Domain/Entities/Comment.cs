@@ -10,6 +10,12 @@ public class Comment
 
     #region Navigation Properties
 
+    public int? ServiceRequestId { get; set; }
+
+    public ServiceRequest ServiceRequest { get; set; }
+
+    public int? CreatedById { get; set; }
+
     public User CreatedBy { get; set; }
 
     #endregion

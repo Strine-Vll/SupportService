@@ -10,4 +10,6 @@ namespace Domain.Abstractions;
 public interface IServiceRequestRepository : IBaseRepository<ServiceRequest>
 {
     Task<List<ServiceRequest>> GetByGroup(int groupId);
+
+    Task<ServiceRequest> GetOverviewByIdWithComments(int requestId);
 }

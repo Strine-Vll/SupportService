@@ -21,4 +21,14 @@ public class GroupRepository : BaseRepository<Group>, IGroupRepository
 
         return result;
     }
+
+    public async Task<Group> GetGroupByIdWithUsers(int groupId)
+    {
+        var result = await _dbContext.Groups
+            .Where(g => g.Id == groupId)
+            .Include(g => g.Users)
+            .FirstOrDefaultAsync();
+
+        return result;
+    }
 }

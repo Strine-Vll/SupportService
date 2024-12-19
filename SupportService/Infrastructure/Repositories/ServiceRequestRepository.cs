@@ -26,4 +26,14 @@ public class ServiceRequestRepository : BaseRepository<ServiceRequest>, IService
 
         return result;
     }
+
+    public async Task<ServiceRequest> GetOverviewByIdWithComments(int requestId)
+    {
+        var result = await _dbContext.ServiceRequests
+            .Where(sr => sr.Id == requestId)
+            .Include(sr => sr.Comments)
+            .FirstOrDefaultAsync();
+
+        return result;
+    }
 }

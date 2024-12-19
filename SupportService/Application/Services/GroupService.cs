@@ -40,4 +40,26 @@ public class GroupService : IGroupService
 
         await _groupRepository.CreateAsync(dbGroup);
     }
+
+    public async Task InviteUser(int groupId, int userId)
+    {
+        var group = await _groupRepository.GetByIdAsync(groupId);
+
+        var user = await _userRepository.GetByIdAsync(userId);
+
+        group.Users.Add(user);
+
+        await _groupRepository.UpdateAsync(group);
+    }
+
+    public async Task RemoveUserFromGroup(int groupId, int userId)
+    {
+        var group = await _groupRepository.GetByIdAsync(groupId);
+
+        var user = await _userRepository.GetByIdAsync(userId);
+
+        group.Users.Remove(user);
+
+        await _groupRepository.UpdateAsync(group);
+    }
 }

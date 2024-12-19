@@ -13,4 +13,8 @@ public interface IGroupService
     Task<List<GroupDto>> GetUserGroups(int userId);
 
     Task CreateGroup(GroupDto group, int userId);
+
+    Task InviteUser(int groupId, int userId);
+
+    Task RemoveUserFromGroup(int groupId, int userId);
 }
