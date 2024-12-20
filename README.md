@@ -20,4 +20,4 @@
 ![Рисунок 1](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/metrics1.png)
 ![Рисунок 2](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/metrics2.png)
 ### 
-![Tests Result](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/testsResult.png)
+![Tests Result](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/testsResult.PNG)
