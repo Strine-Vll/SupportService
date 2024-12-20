@@ -51,7 +51,7 @@ public class ServiceRequestController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("UpdateRequest")]
+    [HttpPut("UpdateRequest")]
     public async Task<ActionResult> UpdateServiceRequest(UpdateRequestDto serviceRequest)
     {
         await _serviceRequestService.UpdateRequest(serviceRequest);

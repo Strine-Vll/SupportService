@@ -14,3 +14,10 @@
 - [Диаграмма последовательности](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/sequence-diagram.png)
 - [Диаграмма развёртывания](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/deployment-diagram.png)
 - [Схема алгоритма](https://github.com/Strine-Vll/SupportService/blob/main/diagrams/algorithm.png)
+### Документация
+[Документация к разработанному API](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/swagger.json)
+### Оценка качества кода
+![Рисунок 1](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/metrics1.png)
+![Рисунок 2](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/metrics2.png)
+### 
+![Tests Result](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/testsResult.png)

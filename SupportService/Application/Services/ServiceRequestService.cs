@@ -35,7 +35,7 @@ public class ServiceRequestService : IServiceRequestService
 
     public async Task<ServiceRequestDto> GetServiceRequestOverview(int requestId)
     {
-        var dbServiceRequest = await _serviceRequestRepository.GetByIdAsync(requestId);
+        var dbServiceRequest = await _serviceRequestRepository.GetOverviewById(requestId);
 
         var serviceRequest = _mapper.Map<ServiceRequestDto>(dbServiceRequest);
 
@@ -56,8 +56,20 @@ public class ServiceRequestService : IServiceRequestService
 
     public async Task UpdateRequest(UpdateRequestDto serviceRequest)
     {
-        var dbRequest = _mapper.Map<ServiceRequest>(serviceRequest);
+        var dbRequest = await _serviceRequestRepository.GetRequestForUpdate(serviceRequest.Id);
+
+        UpdateRequestFields(dbRequest, serviceRequest);
 
         await _serviceRequestRepository.UpdateAsync(dbRequest);
+    }
+
+    private void UpdateRequestFields(ServiceRequest dbRequest, UpdateRequestDto updateRequest)
+    {
+        dbRequest.Title = updateRequest.Title;
+        dbRequest.Description = updateRequest.Description;
+        dbRequest.UpdatedDate = DateTime.UtcNow;
+        dbRequest.GroupId = updateRequest.GroupId;
+        dbRequest.AppointedId = updateRequest.AppointedId;
+        dbRequest.Status = updateRequest.Status;
     }
 }

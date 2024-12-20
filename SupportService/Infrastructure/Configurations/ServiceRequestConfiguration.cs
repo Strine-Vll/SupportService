@@ -28,6 +28,7 @@ public class ServiceRequestConfiguration : IEntityTypeConfiguration<ServiceReque
 
         builder.HasOne(sr => sr.Status)
             .WithMany()
+            .HasForeignKey(sr => sr.StatusId)
             .IsRequired();
 
         builder.HasMany(sr => sr.Comments)

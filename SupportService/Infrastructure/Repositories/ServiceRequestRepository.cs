@@ -22,16 +22,31 @@ public class ServiceRequestRepository : BaseRepository<ServiceRequest>, IService
     {
         var result = await _dbContext.ServiceRequests
             .Where(sr => sr.GroupId == groupId)
+            .Include(sr => sr.Status)
             .ToListAsync();
 
         return result;
     }
 
-    public async Task<ServiceRequest> GetOverviewByIdWithComments(int requestId)
+    public async Task<ServiceRequest> GetOverviewById(int requestId)
     {
         var result = await _dbContext.ServiceRequests
             .Where(sr => sr.Id == requestId)
-            .Include(sr => sr.Comments)
+            .Include(sr => sr.CreatedBy)
+            .FirstOrDefaultAsync();
+
+        return result;
+    }
+
+    public async Task<ServiceRequest> GetRequestForUpdate(int requestId)
+    {
+        var result = await _dbContext.ServiceRequests
+            .Where(sr => sr.Id == requestId)
+            .Include(sr => sr.CreatedBy)
+            .Include(sr => sr.Appointed)
+            .Include(sr => sr.Status)
+            //.Include(sr => sr.Comments)
+            .Include(sr => sr.Group)
             .FirstOrDefaultAsync();
 
         return result;

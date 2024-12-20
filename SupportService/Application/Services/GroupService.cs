@@ -43,7 +43,7 @@ public class GroupService : IGroupService
 
     public async Task InviteUser(int groupId, int userId)
     {
-        var group = await _groupRepository.GetByIdAsync(groupId);
+        var group = await _groupRepository.GetGroupByIdWithUsers(groupId);
 
         var user = await _userRepository.GetByIdAsync(userId);
 
@@ -54,7 +54,7 @@ public class GroupService : IGroupService
 
     public async Task RemoveUserFromGroup(int groupId, int userId)
     {
-        var group = await _groupRepository.GetByIdAsync(groupId);
+        var group = await _groupRepository.GetGroupByIdWithUsers(groupId);
 
         var user = await _userRepository.GetByIdAsync(userId);
 

@@ -18,9 +18,10 @@ public class StatusConfiguration : IEntityTypeConfiguration<Status>
             {
                 new Status { Id = 1, StatusName = "Новое" },
                 new Status { Id = 2, StatusName = "В работе" },
-                new Status { Id = 3, StatusName = "Не закрыта" },
-                new Status { Id = 4, StatusName = "Решено" },
-                new Status { Id = 5, StatusName = "Закрыто" },
+                new Status { Id = 3, StatusName = "Решено" },
+                new Status { Id = 4, StatusName = "Принято" },
+                new Status { Id = 5, StatusName = "На доработку" },
+                new Status { Id = 6, StatusName = "Закрыто" }
            });
     }
 }
