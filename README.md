@@ -19,5 +19,7 @@
 ### Оценка качества кода
 ![Рисунок 1](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/metrics1.png)
 ![Рисунок 2](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/metrics2.png)
-### 
+### Тестирование
 ![Tests Result](https://github.com/Strine-Vll/SupportService/blob/main/miscellaneous/testsResult.PNG)
+
+Для запуска интеграционных тестов требуется докер (используется библиотека testcontainers)
