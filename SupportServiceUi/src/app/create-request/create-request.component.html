@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="container mt-5">
+    <div class="col-md-8 offset-2">
+        <div class="row text">
+            <div >
+                <form>
+                    <div class="form-group mb-4">
+                        <label class="control-label">Название </label>
+                        <input formControlName="taskName" class="form-control"/>
+                        <!--<span *ngIf="workspaceName.errors?.required && workspaceName.touched" class="text-danger">Название является обязательным полем</span>-->
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="control-label">Описание </label>
+                        <textarea style="resize: none;" rows="10" id="description" name="description" class="form-control"></textarea>
+                        <!--<span *ngIf="workspaceName.errors?.required && workspaceName.touched" class="text-danger">Название является обязательным полем</span>-->
+                    </div>
+                    <div class="form-group mb-4">
+                        <button type="submit" class="btn btn-main float-right">Создать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

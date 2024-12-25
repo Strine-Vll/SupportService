@@ -81,6 +81,17 @@
     outline: none;
 }
 
+.btn-main {
+    color: #FFFFFF;
+    background-color: #1B6EC2;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-family: 'Inconsolata', sans-serif;
+    font-weight: 900;
+    border-radius: 10px;
+    border-width: 3px;
+}
+
 /* Elements */
 
 .element-entry {
@@ -143,4 +154,25 @@ a {
 .sort-column {
     cursor: pointer;
     font-size: 16px;
+}
+
+/*------------------------------   USERS/WORKSPACES   -------------------------------------*/
+.element-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+    margin: 10px 0;
+    padding: 20px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.element-entry-text {
+    display: flex;
+    flex-grow: 1;
+}
+
+.element-entry-actions{
+    justify-content: flex-end;
 }

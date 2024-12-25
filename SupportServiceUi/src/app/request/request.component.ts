@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../services/request.service';
 import { JwtService } from '../services/jwt.service';
-import { ServiceRequestPreview } from '../interfaces/ServiceRequest';
+import { ServiceRequestOverview } from '../interfaces/ServiceRequest';
 import { Subscription, switchMap } from 'rxjs';
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.component.html',
+  selector: 'app-request',
+  templateUrl: './request.component.html',
   styles: [
   ]
 })
-export class GroupComponent {
+export class RequestComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -19,13 +19,10 @@ export class GroupComponent {
     private jwtService: JwtService
   ){}
 
-  groupId!: string;
-  request!: ServiceRequestPreview;
-  requests: ServiceRequestPreview[] = [];
+  requestId!: string;
+  request!: ServiceRequestOverview;
   private requestSubscription!: Subscription;
-  sortAscending = true;
-  statuses: string[] = ['Новое', 'В работе', 'Не закрыта', 'Решено', 'Закрыто']
-  
+
   /*parseDateString(dateString: string): Date {
     const [time, dayMonthYear] = dateString.split(' ');
     const [day, month, year] = dayMonthYear.split('-');
@@ -36,12 +33,12 @@ export class GroupComponent {
   }*/
 
   ngOnInit(): void {
-    this.groupId = this.route.snapshot.params['id'];
+    this.requestId = this.route.snapshot.params['id'];
   
-    this.requestSubscription = this.requestService.getRequests(parseInt(this.groupId))
+    this.requestSubscription = this.requestService.getRequest(parseInt(this.requestId))
       .subscribe(
-        (requests: ServiceRequestPreview[]) => {
-          this.requests = requests;
+        (request: ServiceRequestOverview) => {
+          this.request = request;
         },
         error => {
           console.error('Ошибка при получении групп:', error);

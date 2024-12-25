@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit{
         this.router.navigateByUrl("home");
       },
       (error) => {
-        console.error('Ошибка при регистрации:', error);
+        console.error('Ошибка при авторизации:', error);
         if (error.error && error.error instanceof Array) {
           error.error.forEach((err: ValidationError) => {
             this.toastr.error(err.errorMessage, 'Ошибка авторизации');

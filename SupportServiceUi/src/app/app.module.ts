@@ -17,6 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { GroupComponent } from './group/group.component';
+import { RequestComponent } from './request/request.component';
+import { CreateRequestComponent } from './create-request/create-request.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { GroupComponent } from './group/group.component';
     UserComponent,
     HomeComponent,
     HeaderComponent,
-    GroupComponent
+    GroupComponent,
+    RequestComponent,
+    CreateRequestComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div class="container mt-5">
+    <div class="col-md-12">
+        <div class="row mb-2">
+            <div class="row task-detail-row">
+                <div class="col-11 task-detail">
+                    <div class="task-detail-text">
+                        <div class="mb-2">{{request.title}}</div>
+                        <div class="mb-2">Статус: {{request.status}}</div>
+                        <div class="mb-2 task-detail-task">{{request.description}}</div>
+                        <div class="mb-2 task-detail-task">Обновлено: {{request.updatedDate | date: 'dd.MM.yyyy, HH:mm'}}</div>
+                        <div class="mb-2 task-detail-task">Создано: {{request.createdDate | date: 'dd.MM.yyyy, HH:mm'}}</div>
+                        <div class="mb-4 task-detail-task">Заявку подал: {{request.createdBy}}</div>
+                        <div *ngIf="request.appointed !='' " class="mb-4 task-detail-task">Заявку обрабатывает: {{request.appointed}}</div>
+                        <div>
+                            <a class="btn btn-outline-primary" >Редактировать</a>
+                            <a class="btn btn-outline-danger m-2">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 close-button-section">
+                    <a routerLink="/home" class="btn btn-close"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

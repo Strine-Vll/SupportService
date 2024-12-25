@@ -6,6 +6,8 @@ import { LoginComponent } from './user/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { GroupComponent } from './group/group.component';
+import { RequestComponent } from './request/request.component';
+import { CreateRequestComponent } from './create-request/create-request.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full'},
@@ -14,10 +16,12 @@ const routes: Routes = [
     children: [
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-      { path: 'group/:id', component: GroupComponent, canActivate: [AuthGuard] },
     ]
   },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'group/:id', component: GroupComponent, canActivate: [AuthGuard] },
+  { path: 'servicerequest/create', component: CreateRequestComponent, canActivate: [AuthGuard] },
+  { path: 'servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard] }  
 ];
 
 @NgModule({
