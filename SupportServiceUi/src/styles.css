@@ -176,3 +176,21 @@ a {
 .element-entry-actions{
     justify-content: flex-end;
 }
+
+/*------------------------------   MODAL   -------------------------------------*/
+.form-background{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.creation-form{
+    width: 500px;
+    position: absolute;
+    background-color: white;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

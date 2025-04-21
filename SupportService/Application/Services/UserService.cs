@@ -30,6 +30,15 @@ public class UserService : IUserService
         _authenticationRequestValidator = authenticationRequestValidator;
     }
 
+    public async Task<List<UserPreviewDto>> GetGroupUsersAsync(int groupId)
+    {
+        var dbUsers = await _user.GetGroupUsersAsync(groupId);
+
+        var viewUsers = _mapper.Map<List<UserPreviewDto>>(dbUsers);
+
+        return viewUsers;
+    }
+
     public async Task RegisterAsync(RegisterDto userToRegistrate)
     {
         var validationResult = await _registerDtoValidator.ValidateAsync(userToRegistrate);

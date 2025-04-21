@@ -1,0 +1,29 @@
+<div class="row col-md-12 mb-2 justify-content-center">
+    <div class="row text">
+        <div>
+            <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
+                <div class="form-group mb-2">
+                    <label class="control-label">Заголовок</label>
+                    <input formControlName="title" class="form-control"/>
+                    <span *ngIf="title.hasError('required') && title.touched" class="text-danger">Пожалуйста, введите значение</span>
+                </div>
+                <div class="form-group mb-2">
+                    <label class="control-label">Описание</label>
+                    <input formControlName="description" class="form-control"/>
+                    <span *ngIf="description.hasError('required') && description.touched" class="text-danger">Пожалуйста, введите значение</span>
+                </div>
+                <div class="form-group mb-2">
+                    <label class="control-label">Назначить сотрудника</label>
+                    <select formControlName="appointed" class="form-control">
+                        <option *ngFor="let user of users" [ngValue]="user.id">{{user.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-main float-right" [disabled]="!form.valid">
+                    Создать
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

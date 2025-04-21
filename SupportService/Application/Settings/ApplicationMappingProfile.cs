@@ -15,7 +15,7 @@ public class ApplicationMappingProfile : Profile
 
         CreateMap<AuthenticationRequest, User>().ReverseMap();
 
-        CreateMap<User, UserPreviewDto>();
+        CreateMap<User, UserPreviewDto>().ReverseMap();
 
         CreateMap<Group, GroupDto>().ReverseMap();
 

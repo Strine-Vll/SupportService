@@ -18,6 +18,6 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
 
         builder.HasOne(c => c.ServiceRequest)
             .WithMany(sr => sr.Comments)
-            .HasForeignKey(c => c.ServiceRequestId);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

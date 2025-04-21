@@ -17,4 +17,14 @@
             </div>
         </div>
     </div>
+
+    <div style="position: fixed; right: 30px; bottom: 30px;">
+        <button type="submit" class="btn btn-main float-right" (click)="modalService.open()">
+            Создать
+        </button>
+    </div>
+
+    <app-modal *ngIf="modalService.isVisible$ | async" [title]="'Создать'">
+        <app-create-request-modal></app-create-request-modal>
+    </app-modal>
 </router-outlet>

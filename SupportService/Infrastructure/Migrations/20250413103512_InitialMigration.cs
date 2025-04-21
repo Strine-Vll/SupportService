@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -110,7 +110,7 @@ namespace Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    GroupId = table.Column<int>(type: "int", nullable: false),
+                    GroupId = table.Column<int>(type: "int", nullable: true),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     AppointedId = table.Column<int>(type: "int", nullable: true),
                     StatusId = table.Column<int>(type: "int", nullable: false)
@@ -122,8 +122,7 @@ namespace Infrastructure.Migrations
                         name: "FK_ServiceRequests_Groups_GroupId",
                         column: x => x.GroupId,
                         principalTable: "Groups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ServiceRequests_Statuses_StatusId",
                         column: x => x.StatusId,
@@ -145,31 +144,30 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedById = table.Column<int>(type: "int", nullable: false),
-                    ServiceRequestId = table.Column<int>(type: "int", nullable: true)
+                    ServiceRequestId = table.Column<int>(type: "int", nullable: true),
+                    CreatedById = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_ServiceRequests_ServiceRequestId",
+                        name: "FK_Comments_ServiceRequests_ServiceRequestId",
                         column: x => x.ServiceRequestId,
                         principalTable: "ServiceRequests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_Users_CreatedById",
+                        name: "FK_Comments_Users_CreatedById",
                         column: x => x.CreatedById,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -179,9 +177,10 @@ namespace Infrastructure.Migrations
                 {
                     { 1, "Новое" },
                     { 2, "В работе" },
-                    { 3, "Не закрыта" },
-                    { 4, "Решено" },
-                    { 5, "Закрыто" }
+                    { 3, "Решено" },
+                    { 4, "Принято" },
+                    { 5, "На доработку" },
+                    { 6, "Закрыто" }
                 });
 
             migrationBuilder.InsertData(
@@ -196,13 +195,13 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_CreatedById",
-                table: "Comment",
+                name: "IX_Comments_CreatedById",
+                table: "Comments",
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_ServiceRequestId",
-                table: "Comment",
+                name: "IX_Comments_ServiceRequestId",
+                table: "Comments",
                 column: "ServiceRequestId");
 
             migrationBuilder.CreateIndex(
@@ -240,7 +239,7 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "GroupUser");

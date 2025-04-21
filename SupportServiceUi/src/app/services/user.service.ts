@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from 'src/environments/environment.development';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { UserPreview } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,15 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   baseUrl: string = environment.apiBaseUrl;
+
+  getGroupUsers(groupId: number){
+    let params = new HttpParams().set('groupId', groupId);
+    
+    return this.http.get<UserPreview[]>(this.baseUrl + '/user/groupusers', { params })
+    .pipe(
+      map(data => data)
+    );
+  }
 
   register(name: string, email: string, password: string){
     var body = {

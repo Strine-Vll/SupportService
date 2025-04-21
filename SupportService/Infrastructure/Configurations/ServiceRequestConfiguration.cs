@@ -32,8 +32,7 @@ public class ServiceRequestConfiguration : IEntityTypeConfiguration<ServiceReque
             .IsRequired();
 
         builder.HasMany(sr => sr.Comments)
-            .WithOne()
-            .IsRequired(false)
-            .OnDelete(DeleteBehavior.SetNull);
+            .WithOne(c => c.ServiceRequest)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

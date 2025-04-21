@@ -13,6 +13,15 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         _dbContext = dbContext;
     }
 
+    public async Task<List<User>> GetGroupUsersAsync(int groupId)
+    {
+        var result = await _dbContext.Users
+            .Where(u => u.Groups.Any(g => g.Id == groupId))
+            .ToListAsync();
+
+        return result;
+    }
+
     public async Task<User> GetUserByEmailAsync(string email)
     {
         var result = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);

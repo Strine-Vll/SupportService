@@ -19,6 +19,10 @@ import { HeaderComponent } from './header/header.component';
 import { GroupComponent } from './group/group.component';
 import { RequestComponent } from './request/request.component';
 import { CreateRequestComponent } from './create-request/create-request.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
+import { ModalComponent } from './modal/modal.component';
+import { ModalContentComponent } from './modal-content/modal-content.component';
+import { CreateRequestModalComponent } from './create-request-modal/create-request-modal.component';
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import { CreateRequestComponent } from './create-request/create-request.componen
     HeaderComponent,
     GroupComponent,
     RequestComponent,
-    CreateRequestComponent
+    CreateRequestComponent,
+    CreateGroupComponent,
+    ModalComponent,
+    ModalContentComponent,
+    CreateRequestModalComponent
   ],
   imports: [
     BrowserModule,

@@ -15,27 +15,13 @@ export class GroupService {
 
   baseUrl: string = environment.apiBaseUrl;
 
-  /*getGroups(userId: number): Observable<Group[]> {
+  getGroups(userId: number): Observable<Group[]> {
     let params = new HttpParams().set('userId', userId.toString());
 
     return this.http.get<Group[]>(this.baseUrl + '/group', { params })
     .pipe(
       map(data => data)
     );
-  }*/
-
-    getGroups(userId: number): Observable<Group[]> {
-      // Захардкодженные группы
-      const groups: Group[] = [
-          { id: 1, name: 'Group A' },
-          { id: 2, name: 'Group B' },
-          { id: 3, name: 'Group C' }
-      ];
-
-      // Возвращаем группы как Observable
-      return of(groups).pipe(
-          map(data => data) // Здесь можно добавить дополнительные преобразования, если нужно
-      );
   }
 
   createGroup(group: Group, userId: number): Observable<any> {

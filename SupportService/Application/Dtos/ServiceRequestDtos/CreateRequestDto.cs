@@ -15,4 +15,6 @@ public class CreateRequestDto
     public int GroupId { get; set; }
 
     public int CreatedById { get; set; }
+
+    public int? AppointedId { get; set; }
 }

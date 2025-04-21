@@ -4,6 +4,7 @@ import { RequestService } from '../services/request.service';
 import { JwtService } from '../services/jwt.service';
 import { ServiceRequestPreview } from '../interfaces/ServiceRequest';
 import { Subscription, switchMap } from 'rxjs';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-group',
@@ -14,6 +15,7 @@ import { Subscription, switchMap } from 'rxjs';
 export class GroupComponent {
   constructor(
     private route: ActivatedRoute,
+    public modalService: ModalService,
     private router: Router,
     private requestService: RequestService,
     private jwtService: JwtService

@@ -14,3 +14,11 @@ export interface ServiceRequestOverview {
     createdBy: string,
     appointed: string
 }
+
+export interface CreateServiceRequestDto {
+    title: string,
+    description: string,
+    groupId: number,
+    createdById: number,
+    appointedId: number | null
+}

@@ -4,6 +4,7 @@ import { Group } from '../interfaces/Group';
 import { GroupService } from '../services/group.service';
 import { JwtService } from '../services/jwt.service';
 import { Subscription } from 'rxjs';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   constructor(
+    public modalService: ModalService,
     private router: Router,
     private groupService: GroupService,
     private jwtService: JwtService
@@ -31,7 +33,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error('Ошибка при получении групп:', error);
       }
     );
-
   }
 
   ngOnDestroy(){

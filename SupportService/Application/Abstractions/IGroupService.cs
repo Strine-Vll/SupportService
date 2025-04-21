@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.GroupDtos;
+using Application.Dtos.UserDtos;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;

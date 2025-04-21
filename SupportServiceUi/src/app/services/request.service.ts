@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from 'src/environments/environment.development';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ServiceRequestOverview, ServiceRequestPreview } from '../interfaces/ServiceRequest';
+import { CreateServiceRequestDto, ServiceRequestOverview, ServiceRequestPreview } from '../interfaces/ServiceRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +13,12 @@ export class RequestService {
 
   baseUrl: string = environment.apiBaseUrl;
 
-  /*getGroups(userId: number): Observable<Group[]> {
-    let params = new HttpParams().set('userId', userId.toString());
+  getRequests(groupId: number): Observable<ServiceRequestPreview[]> {
+    let params = new HttpParams().set('groupId', groupId.toString());
 
-    return this.http.get<Group[]>(this.baseUrl + '/group', { params })
+    return this.http.get<ServiceRequestPreview[]>(this.baseUrl + '/servicerequest/requestspreview', { params })
     .pipe(
       map(data => data)
-    );
-  }*/
-
-  getRequests(groupId: number): Observable<ServiceRequestPreview[]> {
-    const requests: ServiceRequestPreview[] = [
-        { id: 1, title: 'Test Task', status: ''},
-        { id: 2, title: 'Test Task', status: ''},
-        { id: 3, title: 'Test Task', status: ''}
-    ];
-    
-    return of(requests).pipe(
-        map(data => data)
     );
   }
 
@@ -47,5 +35,22 @@ export class RequestService {
     };
     
     return of(exampleRequest);
-}
+  }
+
+  createRequest(serviceRequest: CreateServiceRequestDto): Observable<any> {
+    const body = {
+      title: serviceRequest.title,
+      description: serviceRequest.description,
+      groupId: serviceRequest.groupId,
+      createdById: serviceRequest.createdById,
+      appointedId: serviceRequest.appointedId
+    };
+
+    return this.http.post<any>(`${this.baseUrl}/servicerequest`, body).pipe(
+        catchError(error => {
+            console.error('Ошибка при создании группы:', error);
+            return throwError(error);
+        })
+    );
+  }
 }

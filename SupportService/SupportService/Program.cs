@@ -34,6 +34,7 @@ public class Program
             options.WithOrigins("http://localhost:4200")
             .AllowAnyMethod()
             .AllowAnyHeader()
+            .AllowCredentials()
         );
 
         if (app.Environment.IsDevelopment())

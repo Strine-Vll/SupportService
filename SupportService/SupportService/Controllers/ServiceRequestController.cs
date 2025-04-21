@@ -16,7 +16,7 @@ public class ServiceRequestController : ControllerBase
         _serviceRequestService = serviceRequestService;
     }
 
-    [HttpGet]
+    [HttpGet("RequestsPreview")]
     public async Task<ActionResult> GetGroupRequestsPreview(int groupId)
     {
         var result = await _serviceRequestService.GetGroupRequestsPreview(groupId);

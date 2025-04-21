@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241214101210_Initial")]
-    partial class Initial
+    [Migration("20250413103512_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CreatedById")
+                    b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
                     b.Property<string>("Message")
@@ -52,7 +52,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ServiceRequestId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Group", b =>
@@ -93,10 +93,11 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int?>("GroupId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StatusId")
+                    b.Property<int?>("StatusId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -149,16 +150,21 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            StatusName = "Не закрыта"
-                        },
-                        new
-                        {
-                            Id = 4,
                             StatusName = "Решено"
                         },
                         new
                         {
+                            Id = 4,
+                            StatusName = "Принято"
+                        },
+                        new
+                        {
                             Id = 5,
+                            StatusName = "На доработку"
+                        },
+                        new
+                        {
+                            Id = 6,
                             StatusName = "Закрыто"
                         });
                 });
@@ -258,16 +264,16 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.User", "CreatedBy")
                         .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatedById");
 
-                    b.HasOne("Domain.Entities.ServiceRequest", null)
+                    b.HasOne("Domain.Entities.ServiceRequest", "ServiceRequest")
                         .WithMany("Comments")
                         .HasForeignKey("ServiceRequestId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("ServiceRequest");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServiceRequest", b =>
@@ -285,9 +291,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.Group", "Group")
                         .WithMany("ServiceRequests")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GroupId");
 
                     b.HasOne("Domain.Entities.Status", "Status")
                         .WithMany()
