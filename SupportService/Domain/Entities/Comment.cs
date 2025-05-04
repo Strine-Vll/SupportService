@@ -18,5 +18,7 @@ public class Comment
 
     public User CreatedBy { get; set; }
 
+    public List<Attachment> Attachments { get; set; }
+
     #endregion
 }

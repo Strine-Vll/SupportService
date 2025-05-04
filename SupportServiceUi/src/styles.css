@@ -20,6 +20,14 @@
     font-size: 18px;
 }
 
+#toast-container {
+    padding: 2px;
+    position: fixed !important;
+    z-index: 1050 !important;
+    top: 1rem;
+    right: 1rem;
+}
+
 #toast-container > div {
     opacity: 1;
 }

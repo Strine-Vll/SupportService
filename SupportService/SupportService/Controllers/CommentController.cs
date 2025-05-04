@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions;
 using Application.Dtos.CommentDtos;
+using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +25,9 @@ public class CommentController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateComment(CreateCommentDto commentDto)
+    public async Task<ActionResult> CreateComment([FromForm] CreateCommentDto commentDto, [FromForm] List<IFormFile> attachments/*CreateCommentDto commentDto, List<Attachment> attachments*/)
     {
-        await _commentService.CreateComment(commentDto);
+        await _commentService.CreateComment(commentDto, attachments);
 
         return Ok();
     }

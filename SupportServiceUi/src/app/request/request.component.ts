@@ -20,6 +20,7 @@ export class RequestComponent {
   ){}
 
   requestId!: string;
+  groupId!: string;
   request!: ServiceRequestOverview;
   private requestSubscription!: Subscription;
 
@@ -34,6 +35,7 @@ export class RequestComponent {
 
   ngOnInit(): void {
     this.requestId = this.route.snapshot.params['id'];
+    this.groupId = this.route.snapshot.params['groupid'];
   
     this.requestSubscription = this.requestService.getRequest(parseInt(this.requestId))
       .subscribe(

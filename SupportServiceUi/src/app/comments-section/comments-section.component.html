@@ -1,0 +1,40 @@
+<div class="comments-section mt-3">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="comment-form mt-4" enctype="multipart/form-data">
+        <div class="mb-2">
+            <label for="text" class="form-label">Комментарий</label>
+            <textarea formControlName="message" rows="3" class="form-control" name="message"></textarea>
+        </div>
+  
+        <div class="mb-2">
+            <input type="file" (change)="onFilesSelected($event)" multiple class="form-control" />
+            <small class="text-muted">Максимум 10 файлов, каждый не более 10 МБ</small>
+        </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid || isUploading">Отправить</button>
+    </form>
+  
+    <hr class="my-3">
+  
+    <div *ngIf="comments.length === 0" class="text-muted mb-3">
+        Оставьте свой комментарий. Здесь вы можете дополнить проблему деталями или выяснить интересующие вас вопросы.
+    </div>
+  
+    <div *ngFor="let comment of comments" class="comment mb-3 p-3 border rounded">
+        <!--<div><strong>{{comment.author}}</strong> <small class="text-muted">{{comment.date | date:'dd.MM.yyyy, HH:mm'}}</small></div>-->
+        <div>{{comment.message}}</div>
+        
+        <div *ngIf="comment.attachments?.length" class="attachments d-flex flex-wrap gap-3 mt-3">
+            <div *ngFor="let att of comment.attachments" class="attachment-item text-center" style="width: 100px;">
+                <a [href]="att.url" target="_blank" rel="noopener noreferrer" download>
+                    <div class="file-icon d-flex align-items-center justify-content-center bg-light border rounded mb-1" 
+                        style="height: 80px; font-size: 2.5rem; color: #666;">
+                        📄
+                    </div>
+                    <small class="d-block text-truncate" title="{{att.name}}" style="max-width: 100px;">{{att.name}}</small>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+  

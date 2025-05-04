@@ -1,4 +1,5 @@
-﻿using Application.Dtos.CommentDtos;
+﻿using Application.Dtos.AttachmentDtos;
+using Application.Dtos.CommentDtos;
 using Application.Dtos.GroupDtos;
 using Application.Dtos.ServiceRequestDtos;
 using Application.Dtos.UserDtos;
@@ -32,5 +33,9 @@ public class ApplicationMappingProfile : Profile
         CreateMap<Comment, CommentDto>();
 
         CreateMap<CreateCommentDto, Comment>();
+
+        CreateMap<Attachment, AttachmentDto>()
+            .ForMember(x => x.Url,
+                       y => y.MapFrom(src => $"https://localhost:7239/api/Attachment/{src.Id}"));
     }
 }

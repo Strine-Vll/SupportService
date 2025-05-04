@@ -1,10 +1,4 @@
-﻿using Application.Dtos.UserDtos;
-using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Dtos.AttachmentDtos;
 
 namespace Application.Dtos.CommentDtos;
 
@@ -14,11 +8,11 @@ public class CommentDto
 
     public string Message { get; set; }
 
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public List<AttachmentDto> Attachments { get; set; }
+
     public DateTime CreatedAt { get; set; }
-
-    #region Navigation Properties
-
-    public UserPreviewDto CreatedBy { get; set; }
-
-    #endregion
 }

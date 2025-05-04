@@ -23,6 +23,7 @@ import { CreateGroupComponent } from './create-group/create-group.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { CreateRequestModalComponent } from './create-request-modal/create-request-modal.component';
+import { CommentsSectionComponent } from './comments-section/comments-section.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CreateRequestModalComponent } from './create-request-modal/create-reque
     CreateGroupComponent,
     ModalComponent,
     ModalContentComponent,
-    CreateRequestModalComponent
+    CreateRequestModalComponent,
+    CommentsSectionComponent
   ],
   imports: [
     BrowserModule,

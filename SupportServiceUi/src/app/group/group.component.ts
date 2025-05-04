@@ -5,6 +5,7 @@ import { JwtService } from '../services/jwt.service';
 import { ServiceRequestPreview } from '../interfaces/ServiceRequest';
 import { Subscription, switchMap } from 'rxjs';
 import { ModalService } from '../services/modal.service';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-group',
@@ -49,6 +50,10 @@ export class GroupComponent {
           console.error('Ошибка при получении групп:', error);
         }
       );
+  }
+
+  getRequestsByStatus(status: string) {
+    return this.requests.filter(request => request.status === status);
   }
 
   ngOnDestroy(){

@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'group/:id', component: GroupComponent, canActivate: [AuthGuard] },
   { path: 'servicerequest/create', component: CreateRequestComponent, canActivate: [AuthGuard] },
-  { path: 'servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard] }  
+  { path: ':groupid/servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard] }  
 ];
 
 @NgModule({

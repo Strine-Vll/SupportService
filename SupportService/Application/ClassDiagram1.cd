@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Application.Authentication.JwtProvider">
+    <Position X="12.5" Y="3.5" Width="1.5" />
+    <AssociationLine Name="_options" Type="Application.Settings.JwtOptions" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.062" Y="4.796" />
+        <Point X="13.062" Y="5.244" />
+        <Point X="15.25" Y="5.244" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Authentication\JwtProvider.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_options" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Application.Services.CommentService" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="6.5" Width="2" />
+    <AssociationLine Name="_commentRepository" Type="Domain.Abstractions.ICommentRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.375" Y="6.5" />
+        <Point X="5.375" Y="3.616" />
+        <Point X="6" Y="3.616" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAABAAAAAAAAAAAAAAAAAAAAQBA=</HashCode>
+      <FileName>Services\CommentService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_commentRepository" />
+      <Field Name="_mapper" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Application.Services.GroupService" BaseTypeListCollapsed="true">
+    <Position X="6" Y="5.25" Width="2" />
+    <AssociationLine Name="_groupRepository" Type="Domain.Abstractions.IGroupRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.438" Y="5.25" />
+        <Point X="7.438" Y="4.741" />
+        <Point X="9" Y="4.741" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAQAAoAAAAAIAAAAABAAQAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Services\GroupService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_groupRepository" />
+      <Field Name="_userRepository" />
+      <Field Name="_mapper" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Application.Services.ServiceRequestService" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="8.75" Width="2.25" />
+    <AssociationLine Name="_mapper" Type="AutoMapper.IMapper" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="8.969" />
+        <Point X="6.375" Y="8.969" />
+        <Point X="6.375" Y="8.252" />
+        <Point X="10.25" Y="8.252" />
+        <Point X="10.25" Y="7.877" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAQBAAAAAAAAgCAAAAAAAQAAAAI=</HashCode>
+      <FileName>Services\ServiceRequestService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_mapper" />
+      <Field Name="_serviceRequestRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Application.Services.UserService" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="8.75" Width="1.75" />
+    <AssociationLine Name="_user" Type="Domain.Abstractions.IUserRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.25" Y="8.75" />
+        <Point X="12.25" Y="6.75" />
+        <Point X="13" Y="6.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_jwtProvider" Type="Application.Authentication.IJwtProvider" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.5" Y="9.063" />
+        <Point X="13.844" Y="9.063" />
+        <Point X="13.844" Y="8.603" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAIAAAAAJAAIAIAAAAIAgAgAAAAAAAgA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_user" />
+      <Field Name="_jwtProvider" />
+      <Field Name="_mapper" />
+      <Field Name="_registerDtoValidator" />
+      <Field Name="_authenticationRequestValidator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Application.Settings.JwtOptions">
+    <Position X="15.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAEAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Settings\JwtOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Application.Abstractions.ICommentService">
+    <Position X="15" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Abstractions\ICommentService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Application.Abstractions.IGroupService">
+    <Position X="17" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Abstractions\IGroupService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Application.Abstractions.IServiceRequestService">
+    <Position X="16.75" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAQAAAAI=</HashCode>
+      <FileName>Abstractions\IServiceRequestService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Application.Abstractions.IUserService">
+    <Position X="17.25" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAIAIAAAAAAgAAAAAAAAAgA=</HashCode>
+      <FileName>Abstractions\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Application.Authentication.IJwtProvider">
+    <Position X="13.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Authentication\IJwtProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Domain.Abstractions.IGroupRepository">
+    <Position X="9" Y="4" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="AutoMapper.IMapper">
+    <Position X="9" Y="6" Width="3" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Domain.Abstractions.IUserRepository">
+    <Position X="13" Y="5.5" Width="1.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="FluentValidation.IValidator&lt;T&gt;">
+    <Position X="15" Y="9.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Domain.Abstractions.IServiceRequestRepository">
+    <Position X="8" Y="8.75" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Domain.Abstractions.ICommentRepository">
+    <Position X="6" Y="3" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

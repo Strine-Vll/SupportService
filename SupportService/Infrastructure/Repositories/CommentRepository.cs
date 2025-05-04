@@ -23,6 +23,7 @@ public class CommentRepository : BaseRepository<Comment>, ICommentRepository
         var result = await _dbContext.Comments
             .Where(c => c.ServiceRequestId == serviceRequestId)
             .Include(c => c.CreatedBy)
+            .Include(c => c.Attachments)
             .ToListAsync();
 
         return result;

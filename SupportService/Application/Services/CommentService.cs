@@ -3,6 +3,7 @@ using Application.Dtos.CommentDtos;
 using AutoMapper;
 using Domain.Abstractions;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +33,29 @@ public class CommentService : ICommentService
         return comments;
     }
 
-    public async Task CreateComment(CreateCommentDto commentDto)
+    public async Task CreateComment(CreateCommentDto commentDto, List<IFormFile> rawAttachments)
     {
         var comment = _mapper.Map<Comment>(commentDto);
+
+        var attachments = new List<Attachment>();
+
+        if (rawAttachments != null && rawAttachments.Any())
+        {
+            foreach (var file in rawAttachments)
+            {
+                using var ms = new MemoryStream();
+                await file.CopyToAsync(ms);
+                var bytes = ms.ToArray();
+
+                attachments.Add(new Attachment
+                {
+                    Name = file.FileName,
+                    Content = bytes
+                });
+            }
+        }
+
+        comment.Attachments = attachments;
 
         await _commentRepository.CreateAsync(comment);
     }

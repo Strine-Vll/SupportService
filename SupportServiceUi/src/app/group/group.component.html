@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <h2 class="card-title">{{status}}</h2>
                     <div *ngIf="requests.length == 0">Задания отсутствуют</div>
-                    <a [routerLink]="'/request/' + request.id" *ngFor="let request of requests" class="element-entry">
+                    <a [routerLink]="['/', groupId, 'servicerequest', request.id]" *ngFor="let request of getRequestsByStatus(status)" class="element-entry">
                         <div class="element-entry-text">
                             <div class="task-text">
                                 {{request.title}}
