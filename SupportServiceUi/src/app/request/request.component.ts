@@ -4,6 +4,7 @@ import { RequestService } from '../services/request.service';
 import { JwtService } from '../services/jwt.service';
 import { ServiceRequestOverview } from '../interfaces/ServiceRequest';
 import { Subscription, switchMap } from 'rxjs';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-request',
@@ -15,6 +16,7 @@ export class RequestComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    public modalService: ModalService,
     private requestService: RequestService,
     private jwtService: JwtService
   ){}

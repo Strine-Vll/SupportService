@@ -5,15 +5,26 @@
             <div class="row task-detail-row">
                 <div class="col-11 task-detail">
                     <div class="task-detail-text">
-                        <div class="mb-2">{{request.title}}</div>
-                        <div class="mb-2">Статус: {{request.status}}</div>
+                        <h3 class="mb-2">
+                            <strong>
+                                {{request.title}}
+                            </strong>
+                        </h3>
                         <div class="mb-2 task-detail-task">{{request.description}}</div>
-                        <div class="mb-2 task-detail-task">Обновлено: {{request.updatedDate | date: 'dd.MM.yyyy, HH:mm'}}</div>
-                        <div class="mb-2 task-detail-task">Создано: {{request.createdDate | date: 'dd.MM.yyyy, HH:mm'}}</div>
+                        <hr class="my-3">
+                        <div class="mb-2">Статус: {{request.status}}</div>
+                        <div class="mb-2 task-detail-task">
+                            Создано: {{request.createdDate | date: 'dd.MM.yyyy, HH:mm'}}
+                        </div>
+                        <div class="mb-2 task-detail-task">
+                            Обновлено: {{ request.updatedDate ? (request.updatedDate | date: 'dd.MM.yyyy, HH:mm') : '-' }}
+                        </div>
                         <div class="mb-4 task-detail-task">Заявку подал: {{request.createdBy}}</div>
-                        <div *ngIf="request.appointed !='' " class="mb-4 task-detail-task">Заявку обрабатывает: {{request.appointed}}</div>
+                        <div *ngIf="request.appointed !='' " class="mb-4 task-detail-task">
+                            Заявку обрабатывает: {{ request.appointed && request.appointed.trim() !== '' ? request.appointed : '-' }}
+                        </div>
                         <div>
-                            <a class="btn btn-outline-primary" >Редактировать</a>
+                            <a class="btn btn-outline-primary" (click)="modalService.open()">Редактировать</a>
                             <a class="btn btn-outline-danger m-2">Удалить</a>
                         </div>
                     </div>
@@ -26,4 +37,7 @@
             </div>
         </div>
     </div>
+    <app-modal *ngIf="modalService.isVisible$ | async" [title]="'Редактировать'">
+        <app-edit-request-modal></app-edit-request-modal>
+    </app-modal>
 </div>

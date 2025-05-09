@@ -16,7 +16,7 @@ public class AttachmentController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetRequestComments(int attachmentId)
+    public async Task<ActionResult> GetAttachment(int attachmentId)
     {
         var attachment = await _attachmentService.GetAttachmentByIdAsync(attachmentId);
 

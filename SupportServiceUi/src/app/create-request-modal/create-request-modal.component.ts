@@ -57,7 +57,6 @@ export class CreateRequestModalComponent {
   }
 
   onSubmit() {
-    console.log("sub");
     if (this.form.valid) {
       const serviceRequest: CreateServiceRequestDto = {
         title: this.title.value,

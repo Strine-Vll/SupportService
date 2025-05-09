@@ -33,6 +33,7 @@ public class ServiceRequestRepository : BaseRepository<ServiceRequest>, IService
         var result = await _dbContext.ServiceRequests
             .Where(sr => sr.Id == requestId)
             .Include(sr => sr.CreatedBy)
+            .Include(sr => sr.Status)
             .FirstOrDefaultAsync();
 
         return result;

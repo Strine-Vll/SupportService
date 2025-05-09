@@ -21,9 +21,9 @@ import { RequestComponent } from './request/request.component';
 import { CreateRequestComponent } from './create-request/create-request.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { ModalComponent } from './modal/modal.component';
-import { ModalContentComponent } from './modal-content/modal-content.component';
 import { CreateRequestModalComponent } from './create-request-modal/create-request-modal.component';
 import { CommentsSectionComponent } from './comments-section/comments-section.component';
+import { EditRequestModalComponent } from './edit-request-modal/edit-request-modal.component';
 
 
 @NgModule({
@@ -39,9 +39,9 @@ import { CommentsSectionComponent } from './comments-section/comments-section.co
     CreateRequestComponent,
     CreateGroupComponent,
     ModalComponent,
-    ModalContentComponent,
     CreateRequestModalComponent,
-    CommentsSectionComponent
+    CommentsSectionComponent,
+    EditRequestModalComponent
   ],
   imports: [
     BrowserModule,

@@ -43,6 +43,25 @@ public class ServiceRequestController : ControllerBase
         }
     }
 
+    [HttpGet("GetEditRequest")]
+    public async Task<ActionResult> GetEditRequest(int requestId)
+    {
+        try
+        {
+            var result = await _serviceRequestService.GetEditRequest(requestId);
+
+            return Ok(result);
+        }
+        catch (ServiceRequestNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     [HttpPost]
     public async Task<ActionResult> CreateServiceRequest(CreateRequestDto serviceRequest)
     {
@@ -52,7 +71,7 @@ public class ServiceRequestController : ControllerBase
     }
 
     [HttpPut("UpdateRequest")]
-    public async Task<ActionResult> UpdateServiceRequest(UpdateRequestDto serviceRequest)
+    public async Task<ActionResult> UpdateServiceRequest(EditServiceRequestDto serviceRequest)
     {
         await _serviceRequestService.UpdateRequest(serviceRequest);
 

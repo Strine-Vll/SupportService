@@ -13,7 +13,9 @@ public interface IServiceRequestService
 
     Task<ServiceRequestDto> GetServiceRequestOverview(int requestId);
 
-    Task CreateRequest(CreateRequestDto serviceRequest);
+    Task<EditServiceRequestDto> GetEditRequest(int requestId);
 
-    Task UpdateRequest(UpdateRequestDto serviceRequest);
+    Task CreateRequest(CreateRequestDto serviceRequest);
+    
+    Task UpdateRequest(EditServiceRequestDto serviceRequest);
 }

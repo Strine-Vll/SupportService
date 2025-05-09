@@ -21,21 +21,25 @@ public class ApplicationMappingProfile : Profile
         CreateMap<Group, GroupDto>().ReverseMap();
 
         CreateMap<ServiceRequest, ServiceRequestDto>()
-            .ForMember(x => x.CreatedBy, y => y.MapFrom(x => x.CreatedBy.Name));
+            .ForMember(x => x.CreatedBy, y => y.MapFrom(x => x.CreatedBy.Name))
+            .ForMember(x => x.Status, y => y.MapFrom(x => x.Status.StatusName));
 
         CreateMap<ServiceRequest, ServiceRequestPreviewDto>()
             .ForMember(x => x.Status, y => y.MapFrom(x => x.Status.StatusName));
 
         CreateMap<CreateRequestDto, ServiceRequest>();
 
-        CreateMap<UpdateRequestDto, ServiceRequest>();
+        CreateMap<EditServiceRequestDto, ServiceRequest>().ReverseMap();
 
-        CreateMap<Comment, CommentDto>();
+        CreateMap<Comment, CommentDto>()
+            .ForMember(x => x.Name, y => y.MapFrom(x => x.CreatedBy != null ? x.CreatedBy.Name : null))
+            .ForMember(x => x.Email, y => y.MapFrom(x => x.CreatedBy != null ? x.CreatedBy.Email : null));
+
 
         CreateMap<CreateCommentDto, Comment>();
 
         CreateMap<Attachment, AttachmentDto>()
             .ForMember(x => x.Url,
-                       y => y.MapFrom(src => $"https://localhost:7239/api/Attachment/{src.Id}"));
+                       y => y.MapFrom(src => $"https://localhost:7239/api/Attachment?attachmentId={src.Id}"));
     }
 }

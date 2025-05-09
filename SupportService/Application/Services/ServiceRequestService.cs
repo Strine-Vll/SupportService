@@ -14,7 +14,7 @@ namespace Application.Services;
 
 public class ServiceRequestService : IServiceRequestService
 {
-    public ServiceRequestService(IMapper mapper, IServiceRequestRepository serviceRequestRepository)
+    public ServiceRequestService(IMapper mapper, IServiceRequestRepository serviceRequestRepository, IStatusRepository statusRepository)
     {
         _mapper = mapper;
         _serviceRequestRepository = serviceRequestRepository;
@@ -47,6 +47,20 @@ public class ServiceRequestService : IServiceRequestService
         return serviceRequest;
     }
 
+    public async Task<EditServiceRequestDto> GetEditRequest(int requestId)
+    {
+        var dbServiceRequest = await _serviceRequestRepository.GetOverviewById(requestId);
+
+        var serviceRequest = _mapper.Map<EditServiceRequestDto>(dbServiceRequest);
+
+        if (serviceRequest is null)
+        {
+            throw new ServiceRequestNotFoundException(requestId);
+        }
+
+        return serviceRequest;
+    }
+
     public async Task CreateRequest(CreateRequestDto serviceRequest)
     {
         var dbRequest = _mapper.Map<ServiceRequest>(serviceRequest);
@@ -54,7 +68,7 @@ public class ServiceRequestService : IServiceRequestService
         await _serviceRequestRepository.CreateAsync(dbRequest);
     }
 
-    public async Task UpdateRequest(UpdateRequestDto serviceRequest)
+    public async Task UpdateRequest(EditServiceRequestDto serviceRequest)
     {
         var dbRequest = await _serviceRequestRepository.GetRequestForUpdate(serviceRequest.Id);
 
@@ -63,13 +77,12 @@ public class ServiceRequestService : IServiceRequestService
         await _serviceRequestRepository.UpdateAsync(dbRequest);
     }
 
-    private void UpdateRequestFields(ServiceRequest dbRequest, UpdateRequestDto updateRequest)
+    private void UpdateRequestFields(ServiceRequest dbRequest, EditServiceRequestDto updateRequest)
     {
         dbRequest.Title = updateRequest.Title;
         dbRequest.Description = updateRequest.Description;
         dbRequest.UpdatedDate = DateTime.UtcNow;
-        dbRequest.GroupId = updateRequest.GroupId;
-        dbRequest.AppointedId = updateRequest.AppointedId;
-        dbRequest.Status = updateRequest.Status;
+        dbRequest.AppointedId = updateRequest.Appointed?.Id;
+        dbRequest.StatusId = updateRequest.Status.Id;
     }
 }

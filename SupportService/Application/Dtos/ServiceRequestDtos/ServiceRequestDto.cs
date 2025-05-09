@@ -19,5 +19,7 @@ public class ServiceRequestDto
 
     public DateTime? UpdatedDate { get; set; }
 
+    public string Status { get; set; }
+
     public string CreatedBy { get; set; }
 }

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from 'src/environments/environment.development';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CreateServiceRequestDto, ServiceRequestOverview, ServiceRequestPreview } from '../interfaces/ServiceRequest';
+import { CreateServiceRequestDto, EditServiceRequest, ServiceRequestOverview, ServiceRequestPreview } from '../interfaces/ServiceRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -23,18 +23,21 @@ export class RequestService {
   }
 
   getRequest(requestId: number): Observable<ServiceRequestOverview> {
-    const exampleRequest: ServiceRequestOverview = {
-        id: requestId,
-        title: "Запрос на обслуживание",
-        description: "При заходе на сайт отображается ошибка 401. Логин и пароль ввожу правильные, проверял. После сброса и повторного входа та же ошибка.",
-        status: "В обработке",
-        createdDate: new Date("2024-12-01T10:00:00"),
-        updatedDate: new Date("2024-12-25T15:30:00"),
-        createdBy: "Иван Иванов",
-        appointed: "Сергей Сергеев"
-    };
+    let params = new HttpParams().set('requestId', requestId.toString());
     
-    return of(exampleRequest);
+    return this.http.get<ServiceRequestOverview>(this.baseUrl + '/ServiceRequest/GetOverview', { params })
+    .pipe(
+      map(data => data)
+    );
+  }
+
+  getEditRequest(requestId: number): Observable<EditServiceRequest> {
+    let params = new HttpParams().set('requestId', requestId.toString());
+    
+    return this.http.get<EditServiceRequest>(this.baseUrl + '/ServiceRequest/GetEditRequest', { params })
+    .pipe(
+      map(data => data)
+    );
   }
 
   createRequest(serviceRequest: CreateServiceRequestDto): Observable<any> {
@@ -51,6 +54,17 @@ export class RequestService {
             console.error('Ошибка при создании группы:', error);
             return throwError(error);
         })
+    );
+  }
+
+  editRequest(request: EditServiceRequest) : Observable<any> {
+    const url = `${this.baseUrl}/servicerequest/UpdateRequest`;
+
+    return this.http.put<any>(url, request).pipe(
+      catchError(error => {
+        console.error('Ошибка при обновлении запроса:', error);
+        return throwError(() => error);
+      })
     );
   }
 }

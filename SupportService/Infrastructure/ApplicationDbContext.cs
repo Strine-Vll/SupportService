@@ -31,4 +31,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Comment> Comments { get; set; }
 
     public DbSet<Attachment> Attachments { get; set; }
+
+    public DbSet<Status> Statuses { get; set; }
 }

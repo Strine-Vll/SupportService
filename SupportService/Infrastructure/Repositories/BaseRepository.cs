@@ -21,7 +21,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         return result;
     }
 
-    public async virtual Task<IEnumerable<T>> GetAllAsync()
+    public async virtual Task<List<T>> GetAllAsync()
     {
         var result = await _dbSet.AsNoTracking().ToListAsync();
 
