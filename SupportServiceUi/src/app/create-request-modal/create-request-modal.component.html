@@ -15,6 +15,7 @@
                 <div class="form-group mb-2">
                     <label class="control-label">Назначить сотрудника</label>
                     <select formControlName="appointed" class="form-control">
+                        <option [ngValue]="null">-- Не назначено --</option>
                         <option *ngFor="let user of users" [ngValue]="user.id">{{user.name}}</option>
                     </select>
                 </div>

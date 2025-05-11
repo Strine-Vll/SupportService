@@ -1,8 +1,8 @@
 <div class="form-background bg-dark" style="--bs-bg-opacity: .5;"
-(click)="modalService.close()">
+    (click)="close()">
 </div>
 
-<div class="creation-form rounded">
+<div class="creation-form rounded" (click)="$event.stopPropagation()">
     <h2 class="text-center mb-2">{{title}}</h2>
 
     <ng-content></ng-content>

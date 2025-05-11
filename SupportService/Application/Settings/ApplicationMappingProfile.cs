@@ -22,6 +22,7 @@ public class ApplicationMappingProfile : Profile
 
         CreateMap<ServiceRequest, ServiceRequestDto>()
             .ForMember(x => x.CreatedBy, y => y.MapFrom(x => x.CreatedBy.Name))
+            .ForMember(x => x.Appointed, y => y.MapFrom(x => x.Appointed.Name))
             .ForMember(x => x.Status, y => y.MapFrom(x => x.Status.StatusName));
 
         CreateMap<ServiceRequest, ServiceRequestPreviewDto>()

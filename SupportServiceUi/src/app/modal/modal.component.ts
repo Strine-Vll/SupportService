@@ -9,6 +9,11 @@ import { ModalService } from '../services/modal.service';
 })
 export class ModalComponent {
   @Input() title: string = '';
+  @Input() modalId!: string;
 
   constructor(public modalService: ModalService) {}
+
+  close() {
+    this.modalService.close(this.modalId);
+  }
 }

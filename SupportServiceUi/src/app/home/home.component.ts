@@ -5,6 +5,7 @@ import { GroupService } from '../services/group.service';
 import { JwtService } from '../services/jwt.service';
 import { Subscription } from 'rxjs';
 import { ModalService } from '../services/modal.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +18,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     public modalService: ModalService,
     private router: Router,
     private groupService: GroupService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private toastr: ToastrService
   ){}
 
   groups: Group[] = [];
   private groupSubscription!: Subscription;
+  groupId!: number;  
 
   ngOnInit(): void {
     this.groupSubscription = this.groupService.getGroups(Number(this.jwtService.getUserId()))
@@ -35,9 +38,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     if(this.groupSubscription) {
       this.groupSubscription.unsubscribe();
     }
   }
+
+  openDeleteModal(id: number) {
+    this.groupId = id;
+    this.modalService.open('deleteGroup');
+  }
+
+
+  deleteGroup() {
+  console.log(this.groupId);
+  this.groupService.deleteGroup(this.groupId).subscribe(
+    response => {
+      this.modalService.close('deleteGroup');
+      window.location.reload();
+    },
+    error => {
+      this.toastr.error('Ошибка при удалении запроса');
+    }
+  );
+}
 }

@@ -57,12 +57,23 @@ export class RequestService {
     );
   }
 
-  editRequest(request: EditServiceRequest) : Observable<any> {
+  editRequest(request: EditServiceRequest): Observable<any> {
     const url = `${this.baseUrl}/servicerequest/UpdateRequest`;
 
     return this.http.put<any>(url, request).pipe(
       catchError(error => {
         console.error('Ошибка при обновлении запроса:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  deleteRequest(requestId: string): Observable<any> {
+    let params = new HttpParams().set('id', requestId);
+
+    return this.http.delete<any>(`${this.baseUrl}/servicerequest`, { params }).pipe(
+      catchError(error => {
+        console.error('Ошибка при удалении запроса:', error);
         return throwError(() => error);
       })
     );

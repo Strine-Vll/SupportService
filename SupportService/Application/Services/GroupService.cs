@@ -62,4 +62,9 @@ public class GroupService : IGroupService
 
         await _groupRepository.UpdateAsync(group);
     }
+
+    public async Task DeleteGroup(int groupId)
+    {
+        await _groupRepository.DeleteByIdAsync(groupId);
+    }
 }

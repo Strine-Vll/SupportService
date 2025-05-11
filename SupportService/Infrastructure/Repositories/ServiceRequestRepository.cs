@@ -34,6 +34,7 @@ public class ServiceRequestRepository : BaseRepository<ServiceRequest>, IService
             .Where(sr => sr.Id == requestId)
             .Include(sr => sr.CreatedBy)
             .Include(sr => sr.Status)
+            .Include(sr => sr.Appointed)
             .FirstOrDefaultAsync();
 
         return result;

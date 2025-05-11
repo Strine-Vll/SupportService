@@ -46,4 +46,12 @@ public class GroupController : ControllerBase
 
         return Ok();
     }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteGroup(int groupId)
+    {
+        await _groupService.DeleteGroup(groupId);
+
+        return Ok();
+    }
 }

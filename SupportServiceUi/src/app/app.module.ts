@@ -24,6 +24,7 @@ import { ModalComponent } from './modal/modal.component';
 import { CreateRequestModalComponent } from './create-request-modal/create-request-modal.component';
 import { CommentsSectionComponent } from './comments-section/comments-section.component';
 import { EditRequestModalComponent } from './edit-request-modal/edit-request-modal.component';
+import { PromptModalComponent } from './prompt-modal/prompt-modal.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { EditRequestModalComponent } from './edit-request-modal/edit-request-mod
     ModalComponent,
     CreateRequestModalComponent,
     CommentsSectionComponent,
-    EditRequestModalComponent
+    EditRequestModalComponent,
+    PromptModalComponent
   ],
   imports: [
     BrowserModule,

@@ -6,15 +6,24 @@ import { BehaviorSubject } from 'rxjs'
 })
 export class ModalService {
 
-  isVisible$ = new BehaviorSubject<boolean>(false);
-
-  open() : void{
-    this.isVisible$.next(true);
+  private modalsVisibility = new Map<string, BehaviorSubject<boolean>>();
+  
+  private getModalSubject(key: string): BehaviorSubject<boolean> {
+    if (!this.modalsVisibility.has(key)) {
+      this.modalsVisibility.set(key, new BehaviorSubject<boolean>(false));
+    }
+    return this.modalsVisibility.get(key)!;
   }
 
-  close() : void{
-    this.isVisible$.next(false);
+  open(key: string): void {
+    this.getModalSubject(key).next(true);
   }
-
-  constructor() { }
+  
+  close(key: string): void {
+    this.getModalSubject(key).next(false);
+  }
+  
+  isVisible$(key: string) {
+    return this.getModalSubject(key).asObservable();
+  }
 }

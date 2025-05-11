@@ -28,11 +28,13 @@ export class EditRequestModalComponent {
   ){
     this.activateRoute.params.subscribe(params => {
       this.requestId = params['id'];
+      this.groupId = params['groupid'];
     });
   }
 
   form!: FormGroup;
   public requestId: number = 0;
+  public groupId: number = 0;
   public request!: EditServiceRequest;
   public users: UserPreview[] = [];
   public statuses: Status[] = [];
@@ -46,7 +48,7 @@ export class EditRequestModalComponent {
       this.patchForm();
     });
 
-    this.userService.getGroupUsers(this.requestId).subscribe(users => {
+    this.userService.getGroupUsers(this.groupId).subscribe(users => {
       this.users = users;
     });
     
@@ -111,8 +113,6 @@ export class EditRequestModalComponent {
       status: selectedStatus!,
       appointed: selectedAppointed!
     };
-
-    console.log(updatedRequest);
 
     this.requestService.editRequest(updatedRequest).subscribe({
       next: () => {

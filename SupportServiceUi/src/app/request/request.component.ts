@@ -5,6 +5,7 @@ import { JwtService } from '../services/jwt.service';
 import { ServiceRequestOverview } from '../interfaces/ServiceRequest';
 import { Subscription, switchMap } from 'rxjs';
 import { ModalService } from '../services/modal.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request',
@@ -18,7 +19,8 @@ export class RequestComponent {
     private router: Router,
     public modalService: ModalService,
     private requestService: RequestService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private toastr: ToastrService,
   ){}
 
   requestId!: string;
@@ -50,10 +52,23 @@ export class RequestComponent {
       );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     if(this.requestSubscription) {
       this.requestSubscription.unsubscribe();
     }
+  }
+
+  deleteRequest() {
+    this.requestService.deleteRequest(this.requestId);
+
+    this.requestService.deleteRequest(this.requestId).subscribe(
+      response => {
+        this.router.navigate(['/group', this.groupId]);
+      },
+      error => {
+        this.toastr.error('Ошибка при удалении запроса');
+      }
+    );
   }
 
   /*onDelete() {

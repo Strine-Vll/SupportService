@@ -19,13 +19,13 @@
                         <div class="mb-2 task-detail-task">
                             Обновлено: {{ request.updatedDate ? (request.updatedDate | date: 'dd.MM.yyyy, HH:mm') : '-' }}
                         </div>
-                        <div class="mb-4 task-detail-task">Заявку подал: {{request.createdBy}}</div>
+                        <div class="mb-2 task-detail-task">Заявку подал: {{request.createdBy}}</div>
                         <div *ngIf="request.appointed !='' " class="mb-4 task-detail-task">
                             Заявку обрабатывает: {{ request.appointed && request.appointed.trim() !== '' ? request.appointed : '-' }}
                         </div>
-                        <div>
-                            <a class="btn btn-outline-primary" (click)="modalService.open()">Редактировать</a>
-                            <a class="btn btn-outline-danger m-2">Удалить</a>
+                        <div >
+                            <a class="btn btn-outline-primary" (click)="modalService.open('editRequest')">Редактировать</a>
+                            <a class="btn btn-outline-danger m-2" (click)="modalService.open('deleteRequest')">Удалить</a>
                         </div>
                     </div>
                     <hr class="my-3">
@@ -37,7 +37,14 @@
             </div>
         </div>
     </div>
-    <app-modal *ngIf="modalService.isVisible$ | async" [title]="'Редактировать'">
+    <app-modal *ngIf="(modalService.isVisible$('editRequest') | async)" [modalId]="'editRequest'" [title]="'Редактировать'">
         <app-edit-request-modal></app-edit-request-modal>
+    </app-modal>
+    <app-modal *ngIf="(modalService.isVisible$('deleteRequest') | async)" [modalId]="'deleteRequest'" [title]="'Подтверждение'">
+        <app-prompt-modal 
+            [promptText]="'Вы уверены, что хотите удалить данный запрос? Это действие невозможно отменить'"
+            (confirm)="deleteRequest()"
+            (cancel)="modalService.close('deleteRequest')">
+        </app-prompt-modal>
     </app-modal>
 </div>

@@ -18,4 +18,6 @@ public interface IServiceRequestService
     Task CreateRequest(CreateRequestDto serviceRequest);
     
     Task UpdateRequest(EditServiceRequestDto serviceRequest);
+
+    Task DeleteRequest(int requestId);
 }

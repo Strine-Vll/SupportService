@@ -77,4 +77,12 @@ public class ServiceRequestController : ControllerBase
 
         return Ok();
     }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteServiceRequest(int id)
+    {
+        await _serviceRequestService.DeleteRequest(id);
+
+        return Ok();
+    }
 }

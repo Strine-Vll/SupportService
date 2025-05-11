@@ -18,4 +18,6 @@ public interface IGroupService
     Task InviteUser(int groupId, int userId);
 
     Task RemoveUserFromGroup(int groupId, int userId);
+
+    Task DeleteGroup(int groupId);
 }

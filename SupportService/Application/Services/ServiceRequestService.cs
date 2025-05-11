@@ -14,7 +14,7 @@ namespace Application.Services;
 
 public class ServiceRequestService : IServiceRequestService
 {
-    public ServiceRequestService(IMapper mapper, IServiceRequestRepository serviceRequestRepository, IStatusRepository statusRepository)
+    public ServiceRequestService(IMapper mapper, IServiceRequestRepository serviceRequestRepository)
     {
         _mapper = mapper;
         _serviceRequestRepository = serviceRequestRepository;
@@ -75,6 +75,11 @@ public class ServiceRequestService : IServiceRequestService
         UpdateRequestFields(dbRequest, serviceRequest);
 
         await _serviceRequestRepository.UpdateAsync(dbRequest);
+    }
+
+    public async Task DeleteRequest(int requestId)
+    {
+        await _serviceRequestRepository.DeleteByIdAsync(requestId);
     }
 
     private void UpdateRequestFields(ServiceRequest dbRequest, EditServiceRequestDto updateRequest)

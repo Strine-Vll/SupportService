@@ -145,14 +145,13 @@ public class ServiceRequestServiceTests
     public async Task UpdateRequest_ShouldUpdateServiceRequest()
     {
         // Arrange
-        var updateRequestDto = new UpdateRequestDto
+        var updateRequestDto = new EditServiceRequestDto
         {
             Id = 1,
             Title = "Updated Title",
             Description = "Updated Description",
-            GroupId = 2,
-            AppointedId = 3,
-            Status = new Status()
+            Status = new Status(),
+            Appointed = null
         };
 
         var existingRequest = new ServiceRequest

@@ -22,4 +22,6 @@ public class ServiceRequestDto
     public string Status { get; set; }
 
     public string CreatedBy { get; set; }
+
+    public string Appointed {  get; set; }
 }

@@ -18,7 +18,8 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
 
         builder.HasMany(g => g.ServiceRequests)
             .WithOne(sr => sr.Group)
-            .HasForeignKey(sr => sr.GroupId);
+            .HasForeignKey(sr => sr.GroupId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(g => g.Users)
             .WithMany(u => u.Groups);
