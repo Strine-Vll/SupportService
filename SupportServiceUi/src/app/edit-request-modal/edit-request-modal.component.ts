@@ -1,7 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { RequestService } from '../services/request.service';
 import { UserService } from '../services/user.service';
-import { JwtService } from '../services/jwt.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +8,9 @@ import { UserPreview } from '../interfaces/User';
 import { CreateServiceRequestDto, EditServiceRequest, ServiceRequestOverview } from '../interfaces/ServiceRequest';
 import { Status } from '../interfaces/Status';
 import { StatusService } from '../services/status.service';
+import { Group } from '../interfaces/Group';
+import { AuthService } from '../services/auth.service';
+import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'app-edit-request-modal',
@@ -21,7 +23,8 @@ export class EditRequestModalComponent {
     private requestService: RequestService,
     private userService: UserService,
     private statusService: StatusService,
-    private jwtService: JwtService,
+    private groupService: GroupService,
+    public authService: AuthService,
     private activateRoute: ActivatedRoute,
     private toastr: ToastrService,
     private fb: FormBuilder
@@ -34,8 +37,9 @@ export class EditRequestModalComponent {
 
   form!: FormGroup;
   public requestId: number = 0;
-  public groupId: number = 0;
+  public groupId: number | null = null;
   public request!: EditServiceRequest;
+  public groups: Group[] = [];
   public users: UserPreview[] = [];
   public statuses: Status[] = [];
 
@@ -48,8 +52,15 @@ export class EditRequestModalComponent {
       this.patchForm();
     });
 
-    this.userService.getGroupUsers(this.groupId).subscribe(users => {
-      this.users = users;
+    if (this.groupId)
+    {
+      this.userService.getGroupUsers(this.groupId).subscribe(users => {
+        this.users = users;
+      });
+    }
+
+    this.groupService.getGroups(Number(this.authService.getUserId())).subscribe(groups => {
+      this.groups = groups;
     });
     
     this.statusService.getStatuses().subscribe(statuses => {
@@ -68,7 +79,8 @@ export class EditRequestModalComponent {
       title: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
-      appointed: [null]
+      appointed: [null],
+      group: [null]
     });
   }
 
@@ -77,7 +89,8 @@ export class EditRequestModalComponent {
       title: this.request.title,
       description: this.request.description,
       status: this.request.status ? this.request.status.id : null,
-      appointed: this.request.appointed ? this.request.appointed.id : null
+      appointed: this.request.appointed ? this.request.appointed.id : null,
+      group: this.request.group ? this.request.group.id : null
     });
   }
 
@@ -97,6 +110,10 @@ export class EditRequestModalComponent {
     return this.form.get('appointed') as FormControl;
   }
 
+  get group(): FormControl {
+    return this.form.get('group') as FormControl;
+  }
+
   onSubmit() {
     if (this.form.invalid) return;
     
@@ -105,13 +122,15 @@ export class EditRequestModalComponent {
     console.log(statusId, this.statuses);
     const selectedStatus = this.statuses.find(s => s.id == statusId) || null;
     const selectedAppointed = this.users.find(u => u.id == appointedId) || null;
+    const selectedGroup = this.groups.find(g => g.id == this.groupId) || null;
 
     const updatedRequest: EditServiceRequest = {
       ...this.request,
       title: this.form.value.title,
       description: this.form.value.description,
       status: selectedStatus!,
-      appointed: selectedAppointed!
+      appointed: selectedAppointed,
+      group: selectedGroup
     };
 
     this.requestService.editRequest(updatedRequest).subscribe({

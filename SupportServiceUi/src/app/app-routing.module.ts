@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { GroupComponent } from './group/group.component';
 import { RequestComponent } from './request/request.component';
 import { CreateRequestComponent } from './create-request/create-request.component';
+import { RoleGuard } from './auth/role.guard';
+import { UserHomeComponent } from './user-home/user-home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full'},
@@ -18,10 +20,16 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
     ]
   },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'group/:id', component: GroupComponent, canActivate: [AuthGuard] },
-  { path: 'servicerequest/create', component: CreateRequestComponent, canActivate: [AuthGuard] },
-  { path: ':groupid/servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard] }  
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: ['Специалист поддержки', 'Менеджер'] } },
+  { path: 'group/:id', component: GroupComponent, canActivate: [AuthGuard, RoleGuard] , 
+    data: { roles: ['Специалист поддержки', 'Менеджер'] } },
+  { path: 'servicerequest/create', component: CreateRequestComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: ['Специалист поддержки', 'Менеджер'] } },
+  { path: ':groupid/servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: ['Специалист поддержки', 'Менеджер'] } },
+  { path: 'userhome', component: UserHomeComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: 'Пользователь' }}
 ];
 
 @NgModule({

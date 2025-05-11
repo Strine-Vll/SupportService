@@ -11,6 +11,8 @@ public interface IServiceRequestRepository : IBaseRepository<ServiceRequest>
 {
     Task<List<ServiceRequest>> GetByGroup(int groupId);
 
+    Task<List<ServiceRequest>> GetPreviewByUser(int userId);
+
     Task<ServiceRequest> GetOverviewById(int requestId);
 
     Task<ServiceRequest> GetRequestForUpdate(int requestId);

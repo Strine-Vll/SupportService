@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RequestService } from '../services/request.service';
-import { JwtService } from '../services/jwt.service';
+import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateServiceRequestDto } from '../interfaces/ServiceRequest';
@@ -18,7 +18,7 @@ export class CreateRequestModalComponent {
   constructor(
     private requestService: RequestService,
     private userService: UserService,
-    private jwtService: JwtService,
+    public authService: AuthService,
     private activateRoute: ActivatedRoute,
     private toastr: ToastrService,
     private fb: FormBuilder
@@ -29,7 +29,7 @@ export class CreateRequestModalComponent {
   }
 
   form!: FormGroup;
-  public groupId: number = 0;
+  public groupId: number | null = null;
   public users: UserPreview[] = [];
   
   ngOnInit() {
@@ -39,9 +39,11 @@ export class CreateRequestModalComponent {
       appointed: [null]
     });
 
-    this.userService.getGroupUsers(this.groupId).subscribe(users => {
-      this.users = users;
-    });
+    if (this.groupId) {
+      this.userService.getGroupUsers(this.groupId).subscribe(users => {
+        this.users = users;
+      });
+    }
   }
 
   get title(): FormControl {
@@ -63,7 +65,7 @@ export class CreateRequestModalComponent {
         description: this.description.value,
         appointedId: this.appointed.value || null,
         groupId: this.groupId,
-        createdById: Number(this.jwtService.getUserId())
+        createdById: Number(this.authService.getUserId())
       }
 
       this.requestService.createRequest(serviceRequest).subscribe(

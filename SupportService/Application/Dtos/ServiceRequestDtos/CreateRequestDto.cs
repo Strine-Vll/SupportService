@@ -12,7 +12,7 @@ public class CreateRequestDto
 
     public string Description { get; set; }
 
-    public int GroupId { get; set; }
+    public int? GroupId { get; set; }
 
     public int CreatedById { get; set; }
 

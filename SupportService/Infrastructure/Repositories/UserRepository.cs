@@ -24,7 +24,9 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
     public async Task<User> GetUserByEmailAsync(string email)
     {
-        var result = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        var result = await _dbContext.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Email == email);
 
         return result;
     }

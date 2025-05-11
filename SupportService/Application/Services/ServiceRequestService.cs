@@ -33,6 +33,15 @@ public class ServiceRequestService : IServiceRequestService
         return serviceRequests;
     }
 
+    public async Task<List<ServiceRequestPreviewDto>> GetUserRequestsPreview(int userId)
+    {
+        var dbServiceRequests = await _serviceRequestRepository.GetPreviewByUser(userId);
+
+        var serviceRequests = _mapper.Map<List<ServiceRequestPreviewDto>>(dbServiceRequests);
+
+        return serviceRequests;
+    }
+
     public async Task<ServiceRequestDto> GetServiceRequestOverview(int requestId)
     {
         var dbServiceRequest = await _serviceRequestRepository.GetOverviewById(requestId);
@@ -80,6 +89,18 @@ public class ServiceRequestService : IServiceRequestService
     public async Task DeleteRequest(int requestId)
     {
         await _serviceRequestRepository.DeleteByIdAsync(requestId);
+    }
+
+    public async Task CloseRequest(int requestId)
+    {
+        var result = await _serviceRequestRepository.GetByIdAsync(requestId);
+
+        result.Status = new Status
+        {
+            Id = 6
+        };
+
+        await _serviceRequestRepository.UpdateAsync(result);
     }
 
     private void UpdateRequestFields(ServiceRequest dbRequest, EditServiceRequestDto updateRequest)

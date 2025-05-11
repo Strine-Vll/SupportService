@@ -1,0 +1,37 @@
+<div class="row col-md-12 mb-2 justify-content-center">
+    <div class="row text">
+        <div>
+            <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
+            
+                <div class="form-group mb-2">
+                    <label class="control-label">Оцените вашу удовлетворённость взаимодействием со службой поддержки</label>
+                    <div class="star-rating">
+                        <ng-container *ngFor="let rating of ratings">
+                        <input 
+                            type="radio" 
+                            [id]="'star-' + rating.value" 
+                            formControlName="satisfaction" 
+                            [value]="rating.value" 
+                            class="star-input" />
+                        <label 
+                            [for]="'star-' + rating.value" 
+                            [class.half]="rating.half" 
+                            class="star-label" 
+                            title="{{rating.value}} звёзд">
+                        </label>
+                        </ng-container>
+                    </div>
+                    <span *ngIf="form.get('satisfaction')?.hasError('required') && form.get('satisfaction')?.touched" class="text-danger">
+                        Пожалуйста, выберите оценку
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-main float-right" [disabled]="!form.valid">
+                        Закрыть
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

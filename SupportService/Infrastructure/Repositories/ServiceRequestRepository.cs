@@ -28,6 +28,16 @@ public class ServiceRequestRepository : BaseRepository<ServiceRequest>, IService
         return result;
     }
 
+    public async Task<List<ServiceRequest>> GetPreviewByUser(int userId)
+    {
+        var result = await _dbContext.ServiceRequests
+            .Where(sr => sr.CreatedById == userId)
+            .Include(sr => sr.Status)
+            .ToListAsync();
+
+        return result;
+    }
+
     public async Task<ServiceRequest> GetOverviewById(int requestId)
     {
         var result = await _dbContext.ServiceRequests

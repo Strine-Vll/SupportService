@@ -4,11 +4,8 @@ namespace Domain.Enums;
 
 public enum UserRoleEnum
 {
-    [Description("Анонимный пользователь")]
-    Anonymous = 1,
-
     [Description("Пользователь")]
-    User,
+    User = 1,
 
     [Description("Специалист поддержки")]
     SupportSpecialist,

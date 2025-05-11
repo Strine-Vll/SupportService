@@ -5,7 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 
-export class JwtService {
+export class AuthService {
 
   private jwtHelper: JwtHelperService;
 
@@ -29,8 +29,26 @@ export class JwtService {
     return decodedToken['userId'];
   }
 
+  public getUserRole(): string {
+    const decodedToken = this.decodeToken();
+    console.log(decodedToken['role']);
+    return decodedToken['role'] || '';
+  }
+
   public getClaim(claimKey: string): any {
     const decodedToken = this.decodeToken();
     return decodedToken ? decodedToken[claimKey] : null;
+  }
+
+  public hasRole(expectedRole: string): boolean {
+    return this.getUserRole() === expectedRole;
+  }
+
+  public hasAnyRole(expectedRoles: string[]): boolean {
+    return expectedRoles.includes(this.getUserRole());
+  }
+
+  public isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 }

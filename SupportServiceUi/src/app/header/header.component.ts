@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
-import { JwtService } from '../services/jwt.service';
+import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private notificationService: NotificationService,
-    private jwtService: JwtService
+    private authService: AuthService
   ){}
 
   notificationCount: number = 0;

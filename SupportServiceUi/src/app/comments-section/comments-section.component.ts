@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommentService } from '../services/comment.service';
-import { JwtService } from '../services/jwt.service';
+import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Comment, CommentToCreate } from '../interfaces/Comment';
@@ -24,7 +24,7 @@ export class CommentsSectionComponent {
   constructor
   (
     private commentService: CommentService,
-    private jwtService: JwtService,
+    private authService: AuthService,
     private toastr: ToastrService,
     private fb: FormBuilder
   ){}
@@ -75,7 +75,7 @@ export class CommentsSectionComponent {
 
       const comment: CommentToCreate = {
         message: this.message.value,
-        createdById: Number(this.jwtService.getUserId()),
+        createdById: Number(this.authService.getUserId()),
         serviceRequestId: Number(this.serviceRequestId)
       }
 

@@ -32,5 +32,7 @@ public class ServiceRequest
 
     public Group? Group { get; set; }
 
+    public ServiceRequestStats? ServiceRequestStats { get; set; } = new ServiceRequestStats();
+
     #endregion
 }

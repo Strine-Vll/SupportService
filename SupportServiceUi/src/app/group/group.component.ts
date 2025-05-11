@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../services/request.service';
-import { JwtService } from '../services/jwt.service';
 import { ServiceRequestPreview } from '../interfaces/ServiceRequest';
 import { Subscription, switchMap } from 'rxjs';
 import { ModalService } from '../services/modal.service';
@@ -18,8 +17,7 @@ export class GroupComponent {
     private route: ActivatedRoute,
     public modalService: ModalService,
     private router: Router,
-    private requestService: RequestService,
-    private jwtService: JwtService
+    private requestService: RequestService
   ){}
 
   groupId!: string;
@@ -28,15 +26,6 @@ export class GroupComponent {
   private requestSubscription!: Subscription;
   sortAscending = true;
   statuses: string[] = ['Новое', 'В работе', 'Не закрыта', 'Решено', 'Закрыто']
-  
-  /*parseDateString(dateString: string): Date {
-    const [time, dayMonthYear] = dateString.split(' ');
-    const [day, month, year] = dayMonthYear.split('-');
-    const [hours, minutes] = time.split(':');
-  
-    const formattedDateString = `${month}-${day}-${year} ${hours}:${minutes}`;
-    return new Date(formattedDateString);
-  }*/
 
   ngOnInit(): void {
     this.groupId = this.route.snapshot.params['id'];
@@ -61,15 +50,4 @@ export class GroupComponent {
       this.requestSubscription.unsubscribe();
     }
   }
-
-  /*onDelete() {
-    this.goalService.deleteGoal(this.groupId).subscribe(
-      () => {
-        this.router.navigate(['/home']);
-      },
-      error => {
-        console.error('Ошибка при удалении транзакции:', error);
-      }
-    );
-  }*/
 }

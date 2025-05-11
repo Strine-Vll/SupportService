@@ -14,4 +14,6 @@ public class EditServiceRequestDto
     public Status Status { get; set; }
 
     public UserPreviewDto? Appointed { get; set; }
+
+    public Group? Group { get; set; }
 }

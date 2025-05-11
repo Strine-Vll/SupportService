@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250511102727_userrole-delete-anonymous")]
+    partial class userroledeleteanonymous
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,51 +144,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("ServiceRequests", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.ServiceRequestStats", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("PeriodEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PeriodStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("ReactionTime")
-                        .HasColumnType("time");
-
-                    b.Property<int>("ReescalateAmount")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan>("ResolutionTime")
-                        .HasColumnType("time");
-
-                    b.Property<double>("SatisfactionIndex")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("ServiceRequestId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceRequestId")
-                        .IsUnique()
-                        .HasFilter("[ServiceRequestId] IS NOT NULL");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("ServiceRequestStats", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Status", b =>
@@ -380,23 +338,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Group");
 
                     b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ServiceRequestStats", b =>
-                {
-                    b.HasOne("Domain.Entities.ServiceRequest", "ServiceRequest")
-                        .WithOne()
-                        .HasForeignKey("Domain.Entities.ServiceRequestStats", "ServiceRequestId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithOne()
-                        .HasForeignKey("Domain.Entities.ServiceRequestStats", "UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("ServiceRequest");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

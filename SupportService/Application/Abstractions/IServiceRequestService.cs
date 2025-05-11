@@ -11,6 +11,8 @@ public interface IServiceRequestService
 {
     Task<List<ServiceRequestPreviewDto>> GetGroupRequestsPreview(int groupId);
 
+    Task<List<ServiceRequestPreviewDto>> GetUserRequestsPreview(int userId);
+
     Task<ServiceRequestDto> GetServiceRequestOverview(int requestId);
 
     Task<EditServiceRequestDto> GetEditRequest(int requestId);
@@ -20,4 +22,6 @@ public interface IServiceRequestService
     Task UpdateRequest(EditServiceRequestDto serviceRequest);
 
     Task DeleteRequest(int requestId);
+
+    Task CloseRequest(int requestId);
 }

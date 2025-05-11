@@ -33,4 +33,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Attachment> Attachments { get; set; }
 
     public DbSet<Status> Statuses { get; set; }
+
+    public DbSet<ServiceRequestStats> ServiceRequestStats { get; set; }
 }

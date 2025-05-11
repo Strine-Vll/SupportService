@@ -1,3 +1,4 @@
+import { Group } from "./Group"
 import { Status } from "./Status"
 import { UserPreview } from "./User"
 
@@ -23,13 +24,14 @@ export interface EditServiceRequest {
     title: string,
     description: string,
     status: Status,
-    appointed: UserPreview
+    appointed: UserPreview | null,
+    group: Group | null
 }
 
 export interface CreateServiceRequestDto {
     title: string,
     description: string,
-    groupId: number,
+    groupId: number | null,
     createdById: number,
     appointedId: number | null
 }

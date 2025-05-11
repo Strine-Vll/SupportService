@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Dtos.ServiceRequestDtos;
 using Application.Exceptions;
+using Domain.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +12,12 @@ public class ServiceRequestController : ControllerBase
 {
     private readonly IServiceRequestService _serviceRequestService;
 
-    public ServiceRequestController(IServiceRequestService serviceRequestService)
+    private readonly IServiceRequestStatsService _serviceRequestStatsService;
+
+    public ServiceRequestController(IServiceRequestService serviceRequestService, IServiceRequestStatsService serviceRequestStatsService)
     {
         _serviceRequestService = serviceRequestService;
+        _serviceRequestStatsService = serviceRequestStatsService;
     }
 
     [HttpGet("RequestsPreview")]
@@ -36,6 +40,21 @@ public class ServiceRequestController : ControllerBase
         catch (ServiceRequestNotFoundException ex)
         {
             return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("GetUserRequests")]
+    public async Task<ActionResult> GetUserRequestsPreview(int userId)
+    {
+        try
+        {
+            var result = await _serviceRequestService.GetUserRequestsPreview(userId);
+
+            return Ok(result);
         }
         catch (Exception ex)
         {
@@ -82,6 +101,15 @@ public class ServiceRequestController : ControllerBase
     public async Task<ActionResult> DeleteServiceRequest(int id)
     {
         await _serviceRequestService.DeleteRequest(id);
+
+        return Ok();
+    }
+
+    [HttpPost("CloseRequest")]
+    public async Task<ActionResult> CloseServiceRequest(int requestId, double satisfactionIndex)
+    {
+        await _serviceRequestService.CloseRequest(requestId);
+        await _serviceRequestStatsService.CloseServiceRequest(requestId, satisfactionIndex);
 
         return Ok();
     }

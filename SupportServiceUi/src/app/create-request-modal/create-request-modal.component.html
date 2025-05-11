@@ -9,10 +9,10 @@
                 </div>
                 <div class="form-group mb-2">
                     <label class="control-label">Описание</label>
-                    <input formControlName="description" class="form-control"/>
+                    <textarea formControlName="description" style="resize: none;" rows="7" id="description" name="description" class="form-control"></textarea>
                     <span *ngIf="description.hasError('required') && description.touched" class="text-danger">Пожалуйста, введите значение</span>
                 </div>
-                <div class="form-group mb-2">
+                <div *ngIf="authService.hasRole('Менеджер') && groupId" class="form-group mb-2">
                     <label class="control-label">Назначить сотрудника</label>
                     <select formControlName="appointed" class="form-control">
                         <option [ngValue]="null">-- Не назначено --</option>

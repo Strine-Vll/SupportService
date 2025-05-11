@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GroupService } from '../services/group.service';
-import { JwtService } from '../services/jwt.service';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ export class CreateGroupComponent {
   constructor
   (
     private groupService: GroupService,
-    private jwtService: JwtService,
+    private authService: AuthService,
     private router: Router,
     private toastr: ToastrService,
     private fb: FormBuilder
@@ -42,7 +42,7 @@ export class CreateGroupComponent {
         name: this.groupName.value 
       }
 
-      this.groupService.createGroup(group, Number(this.jwtService.getUserId())).subscribe(
+      this.groupService.createGroup(group, Number(this.authService.getUserId())).subscribe(
         response => {
           window.location.reload();
         },

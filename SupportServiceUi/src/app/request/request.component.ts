@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../services/request.service';
-import { JwtService } from '../services/jwt.service';
+import { AuthService } from '../services/auth.service';
 import { ServiceRequestOverview } from '../interfaces/ServiceRequest';
 import { Subscription, switchMap } from 'rxjs';
 import { ModalService } from '../services/modal.service';
@@ -19,12 +19,12 @@ export class RequestComponent {
     private router: Router,
     public modalService: ModalService,
     private requestService: RequestService,
-    private jwtService: JwtService,
+    private authService: AuthService,
     private toastr: ToastrService,
   ){}
 
   requestId!: string;
-  groupId!: string;
+  groupId: string | null = null;
   request!: ServiceRequestOverview;
   private requestSubscription!: Subscription;
 
@@ -63,7 +63,12 @@ export class RequestComponent {
 
     this.requestService.deleteRequest(this.requestId).subscribe(
       response => {
-        this.router.navigate(['/group', this.groupId]);
+        if(this.groupId && this.groupId.length > 0) {
+          this.router.navigate(['/group', this.groupId]);
+        }
+        else {
+          
+        }
       },
       error => {
         this.toastr.error('Ошибка при удалении запроса');

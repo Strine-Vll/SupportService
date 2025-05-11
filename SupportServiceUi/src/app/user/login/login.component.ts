@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ValidationError } from 'src/app/interfaces/validationError';
 import { LoginResponse } from 'src/app/interfaces/LoginResponce';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,14 +19,31 @@ import { LoginResponse } from 'src/app/interfaces/LoginResponce';
 
 export class LoginComponent implements OnInit{
 
-  constructor(private service: UserService, private router: Router, private toastr: ToastrService){
+  constructor(
+    private service: UserService,
+    private router: Router,
+    private toastr: ToastrService,
+    private authService: AuthService
+  ){
 
   }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token') != null)
+    if(this.authService.isAuthenticated())
     {
-      this.router.navigateByUrl('/home');
+      if(this.authService.hasAnyRole(['Специалист поддержки', 'Менеджер']))
+      {
+        this.router.navigateByUrl('/home');
+      } 
+      else if(this.authService.hasRole('Пользователь'))
+      {
+        this.router.navigateByUrl('/userhome');
+      }
+    }
+    else
+    {
+      localStorage.removeItem('token');
+      this.router.navigate(['/user/login']);
     }
   }
 
@@ -50,7 +68,14 @@ export class LoginComponent implements OnInit{
       (response) => {
         const token = (response as { token: string }).token;
         localStorage.setItem('token', token);
-        this.router.navigateByUrl("home");
+        if(this.authService.hasAnyRole(['Специалист поддержки', 'Менеджер']))
+        {
+          this.router.navigateByUrl('/home');
+        } 
+        else if(this.authService.hasRole('Пользователь'))
+        {
+          this.router.navigateByUrl('/userhome');
+        }
       },
       (error) => {
         console.error('Ошибка при авторизации:', error);

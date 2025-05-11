@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Group } from '../interfaces/Group';
 import { GroupService } from '../services/group.service';
-import { JwtService } from '../services/jwt.service';
+import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
 import { ModalService } from '../services/modal.service';
 import { ToastrService } from 'ngx-toastr';
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     public modalService: ModalService,
     private router: Router,
     private groupService: GroupService,
-    private jwtService: JwtService,
+    private authService: AuthService,
     private toastr: ToastrService
   ){}
 
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   groupId!: number;  
 
   ngOnInit(): void {
-    this.groupSubscription = this.groupService.getGroups(Number(this.jwtService.getUserId()))
+    this.groupSubscription = this.groupService.getGroups(Number(this.authService.getUserId()))
     .subscribe(
       (groups: Group[]) => {
         this.groups = groups;
@@ -49,17 +49,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.modalService.open('deleteGroup');
   }
 
-
   deleteGroup() {
-  console.log(this.groupId);
-  this.groupService.deleteGroup(this.groupId).subscribe(
-    response => {
-      this.modalService.close('deleteGroup');
-      window.location.reload();
-    },
-    error => {
-      this.toastr.error('Ошибка при удалении запроса');
-    }
-  );
-}
+    this.groupService.deleteGroup(this.groupId).subscribe(
+      response => {
+        this.modalService.close('deleteGroup');
+        window.location.reload();
+      },
+      error => {
+        this.toastr.error('Ошибка при удалении запроса');
+      }
+    );
+  }
 }

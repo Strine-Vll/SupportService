@@ -38,7 +38,6 @@ export class GroupService {
   }
 
   deleteGroup(groupId: number): Observable<any> {
-    console.log(groupId);
     let params = new HttpParams().set('groupId', groupId);
 
     return this.http.delete<any>(`${this.baseUrl}/group`, { params }).pipe(

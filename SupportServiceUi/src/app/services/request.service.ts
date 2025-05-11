@@ -31,6 +31,15 @@ export class RequestService {
     );
   }
 
+  getUserRequests(userId: number): Observable<ServiceRequestPreview[]> {
+    let params = new HttpParams().set('userId', userId.toString());
+    
+    return this.http.get<ServiceRequestPreview[]>(this.baseUrl + '/ServiceRequest/GetUserRequests', { params })
+    .pipe(
+      map(data => data)
+    );
+  }
+
   getEditRequest(requestId: number): Observable<EditServiceRequest> {
     let params = new HttpParams().set('requestId', requestId.toString());
     
@@ -74,6 +83,19 @@ export class RequestService {
     return this.http.delete<any>(`${this.baseUrl}/servicerequest`, { params }).pipe(
       catchError(error => {
         console.error('Ошибка при удалении запроса:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  closeRequest(requestId: string, satisfactionIndex: number): Observable<any> {
+    let params = new HttpParams()
+      .set('requestId', requestId)
+      .set('satisfactionIndex', satisfactionIndex);
+
+    return this.http.post<any>(`${this.baseUrl}/CloseRequest`, { params }).pipe(
+      catchError(error => {
+        console.error('Ошибка при закрытии запроса:', error);
         return throwError(() => error);
       })
     );
