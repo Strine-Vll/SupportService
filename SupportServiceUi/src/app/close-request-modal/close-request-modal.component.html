@@ -1,33 +1,33 @@
 <div class="row col-md-12 mb-2 justify-content-center">
     <div class="row text">
-        <div>
+        <div class="text-center">
             <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
-            
                 <div class="form-group mb-2">
-                    <label class="control-label">Оцените вашу удовлетворённость взаимодействием со службой поддержки</label>
-                    <div class="star-rating">
-                        <ng-container *ngFor="let rating of ratings">
+                    <div class="mb-2">
+                        Специалисты, работающие над заявкой будут оповещены о её закрытии. Данное действие невозможно отменить!
+                    </div>
+                    <label class="control-label">
+                        Оцените вашу удовлетворённость взаимодействием со службой поддержки
+                    </label>
+                    <div class="d-flex justify-content-center align-items-center mb-2">
                         <input 
-                            type="radio" 
-                            [id]="'star-' + rating.value" 
+                            type="range" 
                             formControlName="satisfaction" 
-                            [value]="rating.value" 
-                            class="star-input" />
-                        <label 
-                            [for]="'star-' + rating.value" 
-                            [class.half]="rating.half" 
-                            class="star-label" 
-                            title="{{rating.value}} звёзд">
-                        </label>
-                        </ng-container>
+                            min="0" 
+                            max="5" 
+                            step="0.5" 
+                            class="form-control-range mx-2" 
+                            (input)="onRangeChange($event)"
+                        />
+                        <span class="ml-2">{{ satisfaction.value }}</span>
                     </div>
                     <span *ngIf="form.get('satisfaction')?.hasError('required') && form.get('satisfaction')?.touched" class="text-danger">
                         Пожалуйста, выберите оценку
                     </span>
                 </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-main float-right" [disabled]="!form.valid">
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-main" [disabled]="!form.valid">
                         Закрыть
                     </button>
                 </div>

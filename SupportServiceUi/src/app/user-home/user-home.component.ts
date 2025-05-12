@@ -24,7 +24,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
 
   requests: ServiceRequestPreview[] = [];
   private requestSubscription!: Subscription;
-  groupId!: number;  
+  requestId!: number;
 
   ngOnInit(): void {
     this.requestSubscription = this.requestServcie.getUserRequests(Number(this.authService.getUserId()))
@@ -36,6 +36,11 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         console.error('Ошибка при получении групп:', error);
       }
     );
+  }
+
+  openCloseRequestModal(requestId: number) {
+    this.requestId = requestId;
+    this.modalService.open('closeRequest');
   }
 
   ngOnDestroy() {

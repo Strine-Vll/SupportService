@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,32 +12,20 @@ import { RequestService } from '../services/request.service';
   ]
 })
 export class CloseRequestModalComponent {
-  constructor(
-      private requestService: RequestService,
-      public authService: AuthService,
-      private activateRoute: ActivatedRoute,
-      private toastr: ToastrService,
-      private fb: FormBuilder
-    ){ }
-
-  public ratings = [
-    { value: 5, half: false },
-    { value: 4.5, half: true },
-    { value: 4, half: false },
-    { value: 3.5, half: true },
-    { value: 3, half: false },
-    { value: 2.5, half: true },
-    { value: 2, half: false },
-    { value: 1.5, half: true },
-    { value: 1, half: false },
-    { value: 0.5, half: true }
-  ];
   form!: FormGroup;
-  public requestId!: number;
+  @Input() requestId!: number;
+
+  constructor(
+    private requestService: RequestService,
+    public authService: AuthService,
+    private activateRoute: ActivatedRoute,
+    private toastr: ToastrService,
+    private fb: FormBuilder
+  ){ }
 
   ngOnInit() {
     this.form = this.fb.group({
-      satisfaction: [null, Validators.required]
+      satisfaction: [5, Validators.required]  // Устанавливаем начальное значение 5
     });
   }
 
@@ -45,15 +33,20 @@ export class CloseRequestModalComponent {
     return this.form.get('satisfaction') as FormControl;
   }
 
+  onRangeChange(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.satisfaction.setValue(value);
+  }
+
   onSubmit() {
     if (this.form.valid) {
-      this.requestService.closeRequest(this.requestId.toString(), this.satisfaction.value).subscribe(
+      this.requestService.closeRequest(this.requestId, this.satisfaction.value).subscribe(
         response => {
           window.location.reload();
         },
         error => {
-          console.error('Ошибка при создании:', error);
-          this.toastr.error('Ошибка при создании запроса');
+          console.error('Ошибка при закрытии:', error);
+          this.toastr.error('Ошибка при закрытии запроса');
         }
       );
     }

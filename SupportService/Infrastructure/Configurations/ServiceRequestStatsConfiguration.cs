@@ -18,7 +18,7 @@ public class ServiceRequestStatsConfiguration : IEntityTypeConfiguration<Service
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasOne(rs => rs.ServiceRequest)
-            .WithOne()
+            .WithOne(s => s.ServiceRequestStats)
             .HasForeignKey<ServiceRequestStats>(rs => rs.ServiceRequestId)
             .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);

@@ -95,10 +95,7 @@ public class ServiceRequestService : IServiceRequestService
     {
         var result = await _serviceRequestRepository.GetByIdAsync(requestId);
 
-        result.Status = new Status
-        {
-            Id = 6
-        };
+        result.StatusId = 6;
 
         await _serviceRequestRepository.UpdateAsync(result);
     }

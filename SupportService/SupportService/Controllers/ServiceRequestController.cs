@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions;
 using Application.Dtos.ServiceRequestDtos;
+using Application.Dtos.ServiceREquestStatsDtos;
 using Application.Exceptions;
 using Domain.Abstractions;
 using Microsoft.AspNetCore.Http;
@@ -106,10 +107,10 @@ public class ServiceRequestController : ControllerBase
     }
 
     [HttpPost("CloseRequest")]
-    public async Task<ActionResult> CloseServiceRequest(int requestId, double satisfactionIndex)
+    public async Task<ActionResult> CloseServiceRequest(CloseRequestDto closeRequestDto)
     {
-        await _serviceRequestService.CloseRequest(requestId);
-        await _serviceRequestStatsService.CloseServiceRequest(requestId, satisfactionIndex);
+        await _serviceRequestService.CloseRequest(closeRequestDto.RequestId);
+        await _serviceRequestStatsService.CloseServiceRequest(closeRequestDto.RequestId, closeRequestDto.SatisfactionIndex);
 
         return Ok();
     }

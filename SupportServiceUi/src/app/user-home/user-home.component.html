@@ -2,15 +2,15 @@
 <router-outlet>
     <div class="row justify-content-md-center col-12 mt-4">
         <div class="col-6">
-            <h1>Ваши группы</h1>
-            <div *ngIf="requests.length == 0">Вы ещё не создавали ни одного запроса</div>
+            <h1>Ваши заявки</h1>
+            <div *ngIf="requests.length == 0">На данный момент у вас нет ни одного активного запроса</div>
             <div *ngFor="let request of requests" class="element-entry">
                 <div class="element-entry-text">
                     {{request.title}}
                 </div>
                 <div class="element-entry-actions d-flex gap-2">
-                    <a [routerLink]="'/group/' + request.id" class="btn btn-outline-primary">Открыть подробности</a>
-                    <a (click)="openDeleteModal(request.id)" class="btn btn-outline-primary">Закрыть заявку</a>
+                    <a [routerLink]="'/servicerequest/' + request.id" class="btn btn-outline-primary">Открыть подробности</a>
+                    <a (click)="openCloseRequestModal(request.id)" class="btn btn-outline-primary">Закрыть заявку</a>
                 </div>
             </div>
         </div>
@@ -26,11 +26,9 @@
         <app-create-request-modal></app-create-request-modal>
     </app-modal>
 
-    <app-modal *ngIf="(modalService.isVisible$('deleteGroup') | async)" [modalId]="'deleteGroup'" [title]="'Подтверждение'">
-        <app-prompt-modal 
-            [promptText]="'Вы уверены, что хотите удалить данную группу? Это действие невозможно отменить'"
-            (confirm)="deleteGroup()"
-            (cancel)="modalService.close('deleteGroup')">
-        </app-prompt-modal>
+    <app-modal *ngIf="(modalService.isVisible$('closeRequest') | async)" [modalId]="'closeRequest'" [title]="'Закрытие запроса'">
+        <app-close-request-modal [requestId]="requestId">
+
+        </app-close-request-modal>
     </app-modal>
 </router-outlet>

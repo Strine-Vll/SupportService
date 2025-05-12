@@ -23,7 +23,7 @@
                 </span>
             </div>
   
-            <div class="form-group mb-2">
+            <div *ngIf="authService.hasAnyRole(['Менеджер', 'Специалист поддержки'])" class="form-group mb-2">
                 <select formControlName="status" class="form-control">
                     <option *ngFor="let status of statuses" [value]="status.id">{{ status.statusName }}</option>
                 </select>

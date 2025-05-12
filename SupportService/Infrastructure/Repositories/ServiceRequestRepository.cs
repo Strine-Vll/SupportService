@@ -31,7 +31,7 @@ public class ServiceRequestRepository : BaseRepository<ServiceRequest>, IService
     public async Task<List<ServiceRequest>> GetPreviewByUser(int userId)
     {
         var result = await _dbContext.ServiceRequests
-            .Where(sr => sr.CreatedById == userId)
+            .Where(sr => sr.CreatedById == userId && sr.StatusId != 6)
             .Include(sr => sr.Status)
             .ToListAsync();
 

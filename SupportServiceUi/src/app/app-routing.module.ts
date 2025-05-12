@@ -29,7 +29,9 @@ const routes: Routes = [
   { path: ':groupid/servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: ['Специалист поддержки', 'Менеджер'] } },
   { path: 'userhome', component: UserHomeComponent, canActivate: [AuthGuard, RoleGuard], 
-    data: { roles: 'Пользователь' }}
+    data: { roles: 'Пользователь' }},
+  { path: 'servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: 'Пользователь' } },
 ];
 
 @NgModule({

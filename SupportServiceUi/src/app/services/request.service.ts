@@ -88,12 +88,8 @@ export class RequestService {
     );
   }
 
-  closeRequest(requestId: string, satisfactionIndex: number): Observable<any> {
-    let params = new HttpParams()
-      .set('requestId', requestId)
-      .set('satisfactionIndex', satisfactionIndex);
-
-    return this.http.post<any>(`${this.baseUrl}/CloseRequest`, { params }).pipe(
+  closeRequest(requestId: Number, satisfactionIndex: Number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/servicerequest/CloseRequest`,  { requestId, satisfactionIndex }).pipe(
       catchError(error => {
         console.error('Ошибка при закрытии запроса:', error);
         return throwError(() => error);
