@@ -63,6 +63,21 @@ public class ServiceRequestController : ControllerBase
         }
     }
 
+    [HttpGet("GetUnallocatedRequests")]
+    public async Task<ActionResult> GetUnallocatedRequests()
+    {
+        try
+        {
+            var result = await _serviceRequestService.GetUnallocatedRequests();
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     [HttpGet("GetEditRequest")]
     public async Task<ActionResult> GetEditRequest(int requestId)
     {

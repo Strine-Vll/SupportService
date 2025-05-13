@@ -10,6 +10,7 @@ import { RequestComponent } from './request/request.component';
 import { CreateRequestComponent } from './create-request/create-request.component';
 import { RoleGuard } from './auth/role.guard';
 import { UserHomeComponent } from './user-home/user-home.component';
+import { RequestManagementComponent } from './request-management/request-management.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full'},
@@ -31,7 +32,9 @@ const routes: Routes = [
   { path: 'userhome', component: UserHomeComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: 'Пользователь' }},
   { path: 'servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard, RoleGuard], 
-    data: { roles: 'Пользователь' } },
+    data: { roles: ['Специалист поддержки', 'Менеджер', 'Пользователь'] } },
+  { path: 'management/requests', component: RequestManagementComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: 'Менеджер' } },
 ];
 
 @NgModule({

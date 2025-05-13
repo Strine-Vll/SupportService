@@ -13,6 +13,8 @@ public interface IServiceRequestService
 
     Task<List<ServiceRequestPreviewDto>> GetUserRequestsPreview(int userId);
 
+    Task<List<ServiceRequestPreviewDto>> GetUnallocatedRequests();
+
     Task<ServiceRequestDto> GetServiceRequestOverview(int requestId);
 
     Task<EditServiceRequestDto> GetEditRequest(int requestId);

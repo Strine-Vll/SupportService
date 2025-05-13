@@ -1,0 +1,33 @@
+<app-header></app-header>
+<router-outlet>
+    <div class="row justify-content-md-center col-12 mt-4">
+        <div class="col-6">
+            <h1>Нераспределённые заявки</h1>
+            <div *ngIf="requests.length == 0">На данный момент у вас нет ни одной активной нераспределённой заявки</div>
+            <div *ngFor="let request of requests" class="element-entry">
+                <div class="element-entry-text">
+                    {{request.title}}
+                </div>
+                <div class="element-entry-actions d-flex gap-2">
+                    <a [routerLink]="'/servicerequest/' + request.id" class="btn btn-outline-primary">Открыть подробности</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: fixed; right: 30px; bottom: 30px;">
+        <button type="submit" class="btn btn-main float-right" (click)="modalService.open('createRequest')">
+            Создать
+        </button>
+    </div>
+
+    <app-modal *ngIf="(modalService.isVisible$('createRequest') | async)" [modalId]="'createRequest'" [title]="'Создать'">
+        <app-create-request-modal></app-create-request-modal>
+    </app-modal>
+
+    <app-modal *ngIf="(modalService.isVisible$('closeRequest') | async)" [modalId]="'closeRequest'" [title]="'Закрытие запроса'">
+        <app-close-request-modal [requestId]="requestId">
+
+        </app-close-request-modal>
+    </app-modal>
+</router-outlet>

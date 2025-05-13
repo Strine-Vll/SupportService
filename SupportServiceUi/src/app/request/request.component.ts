@@ -19,7 +19,7 @@ export class RequestComponent {
     private router: Router,
     public modalService: ModalService,
     private requestService: RequestService,
-    private authService: AuthService,
+    public authService: AuthService,
     private toastr: ToastrService,
   ){}
 

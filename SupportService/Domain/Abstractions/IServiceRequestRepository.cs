@@ -13,6 +13,8 @@ public interface IServiceRequestRepository : IBaseRepository<ServiceRequest>
 
     Task<List<ServiceRequest>> GetPreviewByUser(int userId);
 
+    Task<List<ServiceRequest>> GetUnallocatedRequests();
+
     Task<ServiceRequest> GetOverviewById(int requestId);
 
     Task<ServiceRequest> GetRequestForUpdate(int requestId);

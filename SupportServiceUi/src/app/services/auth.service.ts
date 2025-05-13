@@ -31,7 +31,6 @@ export class AuthService {
 
   public getUserRole(): string {
     const decodedToken = this.decodeToken();
-    console.log(decodedToken['role']);
     return decodedToken['role'] || '';
   }
 

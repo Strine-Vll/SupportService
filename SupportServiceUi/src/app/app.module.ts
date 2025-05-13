@@ -27,6 +27,8 @@ import { EditRequestModalComponent } from './edit-request-modal/edit-request-mod
 import { PromptModalComponent } from './prompt-modal/prompt-modal.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { CloseRequestModalComponent } from './close-request-modal/close-request-modal.component';
+import { RequestManagementComponent } from './request-management/request-management.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { CloseRequestModalComponent } from './close-request-modal/close-request-
     EditRequestModalComponent,
     PromptModalComponent,
     UserHomeComponent,
-    CloseRequestModalComponent
+    CloseRequestModalComponent,
+    RequestManagementComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,

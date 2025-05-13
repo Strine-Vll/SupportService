@@ -40,6 +40,13 @@ export class RequestService {
     );
   }
 
+  getUnallocatedRequests(): Observable<ServiceRequestPreview[]> {    
+    return this.http.get<ServiceRequestPreview[]>(this.baseUrl + '/ServiceRequest/getUnallocatedRequests')
+    .pipe(
+      map(data => data)
+    );
+  }
+
   getEditRequest(requestId: number): Observable<EditServiceRequest> {
     let params = new HttpParams().set('requestId', requestId.toString());
     

@@ -1,4 +1,5 @@
-﻿using Application.Dtos.UserDtos;
+﻿using Application.Dtos.GroupDtos;
+using Application.Dtos.UserDtos;
 using Domain.Entities;
 
 namespace Application.Dtos.ServiceRequestDtos;
@@ -15,5 +16,5 @@ public class EditServiceRequestDto
 
     public UserPreviewDto? Appointed { get; set; }
 
-    public Group? Group { get; set; }
+    public GroupDto? Group { get; set; }
 }

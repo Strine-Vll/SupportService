@@ -119,10 +119,10 @@ export class EditRequestModalComponent {
     
     const statusId = this.form.value.status;
     const appointedId = this.form.value.appointed;
-    console.log(statusId, this.statuses);
+    const groupId = this.form.value.group;
     const selectedStatus = this.statuses.find(s => s.id == statusId) || null;
     const selectedAppointed = this.users.find(u => u.id == appointedId) || null;
-    const selectedGroup = this.groups.find(g => g.id == this.groupId) || null;
+    const selectedGroup = this.groups.find(g => g.id == groupId) || null;
 
     const updatedRequest: EditServiceRequest = {
       ...this.request,

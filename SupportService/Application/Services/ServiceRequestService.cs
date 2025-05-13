@@ -42,6 +42,15 @@ public class ServiceRequestService : IServiceRequestService
         return serviceRequests;
     }
 
+    public async Task<List<ServiceRequestPreviewDto>> GetUnallocatedRequests()
+    {
+        var dbServiceRequests = await _serviceRequestRepository.GetUnallocatedRequests();
+
+        var serviceRequests = _mapper.Map<List<ServiceRequestPreviewDto>>(dbServiceRequests);
+
+        return serviceRequests;
+    }
+
     public async Task<ServiceRequestDto> GetServiceRequestOverview(int requestId)
     {
         var dbServiceRequest = await _serviceRequestRepository.GetOverviewById(requestId);
@@ -107,5 +116,6 @@ public class ServiceRequestService : IServiceRequestService
         dbRequest.UpdatedDate = DateTime.UtcNow;
         dbRequest.AppointedId = updateRequest.Appointed?.Id;
         dbRequest.StatusId = updateRequest.Status.Id;
+        dbRequest.GroupId = updateRequest.Group?.Id;
     }
 }

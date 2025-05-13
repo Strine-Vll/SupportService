@@ -32,7 +32,12 @@
                     <app-comments-section [serviceRequestId]="requestId"></app-comments-section>
                 </div>
                 <div class="col-1 close-button-section">
-                    <a [routerLink]="'/group/' + groupId" class="btn btn-close"></a>
+                    <a [routerLink]="
+                        (groupId != null && groupId !== '0') 
+                            ? ['/group', groupId] 
+                            : (authService.hasAnyRole(['Менеджер', 'Специалист поддержки'])  ? '/management/requests' : '/userhome')
+                        " class="btn btn-close">
+                    </a>
                 </div>
             </div>
         </div>

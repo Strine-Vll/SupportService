@@ -38,7 +38,7 @@
 
             <div *ngIf="authService.hasRole('Менеджер') && groups.length > 0" class="form-group mb-2">
                 <select formControlName="group" class="form-control">
-                    <option [ngValue]="null">-- Не назначено --</option>
+                    <option [ngValue]="null">-- Без группы --</option>
                     <option *ngFor="let group of groups" [ngValue]="group.id">{{ group.name }}</option>
                 </select>
             </div>

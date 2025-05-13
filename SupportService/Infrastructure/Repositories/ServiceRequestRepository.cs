@@ -38,6 +38,16 @@ public class ServiceRequestRepository : BaseRepository<ServiceRequest>, IService
         return result;
     }
 
+    public async Task<List<ServiceRequest>> GetUnallocatedRequests()
+    {
+        var result = await _dbContext.ServiceRequests
+            .Where(sr => (sr.GroupId == null || sr.GroupId == 0) && sr.StatusId != 6)
+            .Include(sr => sr.Status)
+            .ToListAsync();
+
+        return result;
+    }
+
     public async Task<ServiceRequest> GetOverviewById(int requestId)
     {
         var result = await _dbContext.ServiceRequests

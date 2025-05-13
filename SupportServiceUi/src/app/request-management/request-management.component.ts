@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalService } from '../services/modal.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { RequestService } from '../services/request.service';
 import { ServiceRequestPreview } from '../interfaces/ServiceRequest';
 import { Subscription } from 'rxjs';
-import { RequestService } from '../services/request.service';
 
 @Component({
-  selector: 'app-user-home',
-  templateUrl: './user-home.component.html',
+  selector: 'app-request-management',
+  templateUrl: './request-management.component.html',
   styles: [
   ]
 })
-export class UserHomeComponent implements OnInit, OnDestroy {
+export class RequestManagementComponent {
   constructor(
     public modalService: ModalService,
     private router: Router,
@@ -21,13 +21,13 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private requestServcie: RequestService
   ){}
-
+  
   requests: ServiceRequestPreview[] = [];
   private requestSubscription!: Subscription;
   requestId!: number;
 
   ngOnInit(): void {
-    this.requestSubscription = this.requestServcie.getUserRequests(Number(this.authService.getUserId()))
+    this.requestSubscription = this.requestServcie.getUnallocatedRequests()
     .subscribe(
       (requests: ServiceRequestPreview[]) => {
         this.requests = requests;
@@ -37,7 +37,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  
   openCloseRequestModal(requestId: number) {
     this.requestId = requestId;
     this.modalService.open('closeRequest');

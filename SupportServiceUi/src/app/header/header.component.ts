@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private notificationService: NotificationService,
-    private authService: AuthService
+    public authService: AuthService
   ){}
 
   notificationCount: number = 0;
