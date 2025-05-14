@@ -6,6 +6,8 @@ public interface IUserRepository : IBaseRepository<User>
 {
     Task<List<User>> GetGroupUsersAsync(int groupId);
 
+    Task<User> GetByIdWithRole(int userId);
+
     Task<User> GetUserByEmailAsync(string email);
 
     Task<bool> IsEmailUniqueAsync(string email);

@@ -23,5 +23,29 @@ namespace SupportService.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("UsersToManage")]
+        public async Task<ActionResult> GetUsersToManage()
+        {
+            var result = await _userService.GetUsersToManage();
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetEditUser")]
+        public async Task<ActionResult> GetEditUser(int userId)
+        {
+            var result = await _userService.GetEditUser(userId);
+
+            return Ok(result);
+        }
+
+        [HttpPost("DeactivateUser")]
+        public async Task<ActionResult> DeactivateUser(int userId)
+        {
+            await _userService.DeactivateUser(userId);
+
+            return Ok();
+        }
     }
 }

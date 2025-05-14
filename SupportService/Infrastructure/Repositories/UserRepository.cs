@@ -31,9 +31,17 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         return result;
     }
 
+     public async Task<User> GetByIdWithRole(int userId)
+     {
+        var result = await _dbContext.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+
+        return result;
+     }
+
     public async Task<bool> IsEmailUniqueAsync(string email)
     {
         return !await _dbContext.Users.AnyAsync(u => u.Email == email);
     }
-
 }

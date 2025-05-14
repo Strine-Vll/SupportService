@@ -11,6 +11,7 @@ import { CreateRequestComponent } from './create-request/create-request.componen
 import { RoleGuard } from './auth/role.guard';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { RequestManagementComponent } from './request-management/request-management.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full'},
@@ -34,6 +35,8 @@ const routes: Routes = [
   { path: 'servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: ['Специалист поддержки', 'Менеджер', 'Пользователь'] } },
   { path: 'management/requests', component: RequestManagementComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: 'Менеджер' } },
+  { path: 'management/users', component: UserManagementComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: 'Менеджер' } },
 ];
 

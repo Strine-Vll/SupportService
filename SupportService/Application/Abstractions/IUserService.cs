@@ -7,6 +7,10 @@ public interface IUserService
 {
     Task<List<UserPreviewDto>> GetGroupUsersAsync(int groupId);
 
+    Task<List<UserPreviewDto>> GetUsersToManage();
+
+    Task<EditUserDto> GetEditUser(int userId);
+
     Task RegisterAsync(RegisterDto userToRegistrate);
 
     Task<string> Authenticate(AuthenticationRequest request);
@@ -14,4 +18,6 @@ public interface IUserService
     string CreatePassword(string password, out byte[] passwordSalt);
 
     bool VerifyPasswordHash(string password, string passwordHash, byte[] passwordSalt);
+
+    Task DeactivateUser(int userId);
 }

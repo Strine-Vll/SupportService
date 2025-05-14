@@ -9,6 +9,7 @@ using Domain.Enums;
 using FluentValidation;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Application.Services;
 
@@ -37,6 +38,24 @@ public class UserService : IUserService
         var viewUsers = _mapper.Map<List<UserPreviewDto>>(dbUsers);
 
         return viewUsers;
+    }
+
+    public async Task<List<UserPreviewDto>> GetUsersToManage()
+    {
+        var dbUsers = await _user.GetAllAsync();
+
+        var viewUsers = _mapper.Map<List<UserPreviewDto>>(dbUsers);
+
+        return viewUsers;
+    }
+
+    public async Task<EditUserDto> GetEditUser(int userId)
+    {
+        var dbUser = await _user.GetByIdAsync(userId);
+
+        var viewUser = _mapper.Map<EditUserDto>(dbUser);
+
+        return viewUser;
     }
 
     public async Task RegisterAsync(RegisterDto userToRegistrate)
@@ -104,6 +123,18 @@ public class UserService : IUserService
             var translatedHash = Encoding.UTF8.GetString(computedHash);
 
             return translatedHash.Equals(passwordHash);
+        }
+    }
+
+    public async Task DeactivateUser(int userId)
+    {
+        var user = await _user.GetByIdAsync(userId);
+
+        if (user != null)
+        {
+            user.IsDeactivated = true;
+
+            await _user.UpdateAsync(user);
         }
     }
 }

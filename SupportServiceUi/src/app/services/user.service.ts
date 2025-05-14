@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from 'src/environments/environment.development';
-import { map, Observable } from 'rxjs';
-import { UserPreview } from '../interfaces/User';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import { EditUser, UserPreview } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,22 @@ export class UserService {
     let params = new HttpParams().set('groupId', groupId);
     
     return this.http.get<UserPreview[]>(this.baseUrl + '/user/groupusers', { params })
+    .pipe(
+      map(data => data)
+    );
+  }
+
+  getUsersToManage() {
+    return this.http.get<UserPreview[]>(this.baseUrl + '/user/UsersToManage')
+    .pipe(
+      map(data => data)
+    );
+  }
+
+  getUserToEdit(userId: number) {
+    let params = new HttpParams().set('userId', userId);
+    
+    return this.http.get<EditUser>(this.baseUrl + '/user/GetEditUser', { params })
     .pipe(
       map(data => data)
     );
@@ -38,5 +54,14 @@ export class UserService {
     }
 
     return this.http.post(this.baseUrl + '/auth/login', body);
+  }
+
+  deactivateUser(userId: number) {
+    return this.http.post<any>(`${this.baseUrl}/user/DeactivateUser`, { userId }).pipe(
+      catchError(error => {
+        console.error('Ошибка при деактивации пользователя:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }

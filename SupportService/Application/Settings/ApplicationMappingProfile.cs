@@ -18,6 +18,8 @@ public class ApplicationMappingProfile : Profile
 
         CreateMap<User, UserPreviewDto>().ReverseMap();
 
+        CreateMap<User, EditUserDto>().ReverseMap();
+
         CreateMap<Group, GroupDto>().ReverseMap();
 
         CreateMap<ServiceRequest, ServiceRequestDto>()
@@ -35,7 +37,6 @@ public class ApplicationMappingProfile : Profile
         CreateMap<Comment, CommentDto>()
             .ForMember(x => x.Name, y => y.MapFrom(x => x.CreatedBy != null ? x.CreatedBy.Name : null))
             .ForMember(x => x.Email, y => y.MapFrom(x => x.CreatedBy != null ? x.CreatedBy.Email : null));
-
 
         CreateMap<CreateCommentDto, Comment>();
 

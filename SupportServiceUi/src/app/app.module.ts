@@ -29,6 +29,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { CloseRequestModalComponent } from './close-request-modal/close-request-modal.component';
 import { RequestManagementComponent } from './request-management/request-management.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
     UserHomeComponent,
     CloseRequestModalComponent,
     RequestManagementComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
     <a [routerLink]="authService.hasAnyRole(['Менеджер', 'Специалист поддержки']) ? '/home' : '/userhome'" class="logo-link nav-link navbar-brand">SupportService</a>
     <div class="nav-section navbar-brand">
         <a *ngIf="authService.hasAnyRole(['Менеджер', 'Специалист поддержки'])" routerLink="/home" class="nav-link navbar-brand">Группы</a>
-        <a *ngIf="authService.hasRole('Менеджер')" routerLink="/transactions/report" class="nav-link navbar-brand">Управление пользователями</a>
+        <a *ngIf="authService.hasRole('Менеджер')" routerLink="/management/users" class="nav-link navbar-brand">Управление пользователями</a>
         <a *ngIf="authService.hasRole('Менеджер')" routerLink="/management/requests" class="nav-link navbar-brand">Нераспределённые заявки</a>
         <a routerLink="/notifications" class="nav-link navbar-brand">Оповещения ({{notificationCount}})</a>
         <a class="nav-link navbar-brand" (click)="onLogout()">Выйти</a>
