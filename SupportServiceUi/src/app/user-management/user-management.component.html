@@ -5,23 +5,28 @@
             <h1>Пользователи в системе</h1>
             <div *ngFor="let user of users" class="element-entry">
                 <div class="element-entry-text">
-                    {{ `${user.name} - ${user.email}` }}
+                    {{ user.name }} - {{ user.email }}
                 </div>
                 <div class="element-entry-actions d-flex gap-2">
                     <a (click)="openEditModal(user.id)" class="btn btn-outline-primary">Изменить</a>
-                    <a (click)="openDeactivateModal(user.id)" class="btn btn-outline-danger">Деактивировать</a>
+                    <a 
+                        (click)="openDeactivateModal(user.id)"
+                        [ngClass]="user.isDeactivated ? 'btn btn-outline-primary' : 'btn btn-outline-danger'">
+                        {{ user.isDeactivated ? 'Активировать' : 'Деактивировать' }}
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <app-modal *ngIf="(modalService.isVisible$('editUser') | async)" [modalId]="'editUser'" [title]="'Изменить'">
-        <app-edit-user></app-edit-user>
+        <app-edit-user [userId]="userId"></app-edit-user>
     </app-modal>
 
-    <app-modal *ngIf="(modalService.isVisible$('deactivateUser') | async)" [modalId]="'deactivateUser'" [title]="'Удаление пользователя'">
+    <app-modal *ngIf="(modalService.isVisible$('deactivateUser') | async)" [modalId]="'deactivateUser'"
+        [title]="'Активация/Деактивация пользователя'">
         <app-prompt-modal 
-            [promptText]="'Вы уверены, что хотите деактивировать данного пользователя?'"
+            [promptText]="'Вы уверены?'"
             (confirm)="deactivateUser()"
             (cancel)="modalService.close('deactivateUser')">
         </app-prompt-modal>

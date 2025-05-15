@@ -51,7 +51,7 @@ public class UserService : IUserService
 
     public async Task<EditUserDto> GetEditUser(int userId)
     {
-        var dbUser = await _user.GetByIdAsync(userId);
+        var dbUser = await _user.GetByIdWithRole(userId);
 
         var viewUser = _mapper.Map<EditUserDto>(dbUser);
 
@@ -89,7 +89,7 @@ public class UserService : IUserService
 
         var user = await _user.GetUserByEmailAsync(request.Email);
 
-        if (user == null)
+        if (user == null || user.IsDeactivated)
         {
             throw new InvalidCredentialsException();
         }
@@ -126,13 +126,24 @@ public class UserService : IUserService
         }
     }
 
+    public async Task UpdateUser(EditUserDto user)
+    {
+        var dbUser = await _user.GetByIdWithRole(user.Id);
+
+        dbUser.Name = user.Name;
+        dbUser.Email = user.Email;
+        dbUser.RoleId = user.Role.Id;
+
+        await _user.UpdateAsync(dbUser);
+    }
+
     public async Task DeactivateUser(int userId)
     {
         var user = await _user.GetByIdAsync(userId);
 
         if (user != null)
         {
-            user.IsDeactivated = true;
+            user.IsDeactivated = !user.IsDeactivated;
 
             await _user.UpdateAsync(user);
         }

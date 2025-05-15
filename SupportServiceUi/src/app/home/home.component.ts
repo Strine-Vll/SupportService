@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     public modalService: ModalService,
     private router: Router,
     private groupService: GroupService,
-    private authService: AuthService,
+    public authService: AuthService,
     private toastr: ToastrService
   ){}
 

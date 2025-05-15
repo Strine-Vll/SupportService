@@ -1,6 +1,7 @@
 ﻿using Application.Dtos.AttachmentDtos;
 using Application.Dtos.CommentDtos;
 using Application.Dtos.GroupDtos;
+using Application.Dtos.NotificationDtos;
 using Application.Dtos.ServiceRequestDtos;
 using Application.Dtos.UserDtos;
 using AutoMapper;
@@ -43,5 +44,7 @@ public class ApplicationMappingProfile : Profile
         CreateMap<Attachment, AttachmentDto>()
             .ForMember(x => x.Url,
                        y => y.MapFrom(src => $"https://localhost:7239/api/Attachment?attachmentId={src.Id}"));
+
+        CreateMap<Notification, NotificationDto>();
     }
 }

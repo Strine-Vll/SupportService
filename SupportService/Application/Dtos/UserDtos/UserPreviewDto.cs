@@ -12,5 +12,7 @@ public class UserPreviewDto
 
     public string Name { get; set; }
 
-    public string Email {  get; set; }
+    public string Email { get; set; }
+
+    public bool IsDeactivated { get; set; }
 }

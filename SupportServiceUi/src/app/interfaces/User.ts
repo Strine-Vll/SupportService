@@ -4,6 +4,7 @@ export interface UserPreview {
     id: number;
     name: string;
     email: string;
+    isDeactivated: boolean;
 }
 
 export interface EditUser {

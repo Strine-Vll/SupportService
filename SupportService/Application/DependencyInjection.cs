@@ -13,6 +13,7 @@ public static class DependencyInjection
         var assembly = typeof(DependencyInjection).Assembly;
         services.AddValidatorsFromAssembly(assembly);
         services.AddAutoMapper(assembly);
+        services.AddHttpContextAccessor();
 
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IUserService, UserService>();

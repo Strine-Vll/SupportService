@@ -40,6 +40,14 @@ namespace SupportService.Controllers
             return Ok(result);
         }
 
+        [HttpPut("UpdateUser")]
+        public async Task<ActionResult> UpdateUser(EditUserDto user)
+        {
+            await _userService.UpdateUser(user);
+
+            return Ok();
+        }
+
         [HttpPost("DeactivateUser")]
         public async Task<ActionResult> DeactivateUser(int userId)
         {

@@ -14,6 +14,8 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
 
+        services.AddHttpContextAccessor();
+
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IGroupRepository, GroupRepository>();
         services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
@@ -21,6 +23,7 @@ public static class DependencyInjection
         services.AddScoped<IAttachmentRepository, AttachmentRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<IServiceRequestStatsRepository, ServiceRequestStatsRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
 
         return services;
     }

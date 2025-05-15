@@ -9,14 +9,14 @@
                     {{group.name}}
                 </div>
                 <div class="element-entry-actions d-flex gap-2">
-                    <a (click)="openDeleteModal(group.id)" class="btn btn-outline-danger">Удалить</a>
                     <a [routerLink]="'/group/' + group.id" class="btn btn-outline-primary">Открыть</a>
+                    <a (click)="openDeleteModal(group.id)" class="btn btn-outline-danger">Удалить</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div style="position: fixed; right: 30px; bottom: 30px;">
+    <div *ngIf="authService.hasRole('Менеджер')" style="position: fixed; right: 30px; bottom: 30px;">
         <button type="submit" class="btn btn-main float-right" (click)="modalService.open('createGroup')">
             Создать
         </button>

@@ -19,5 +19,7 @@ public interface IUserService
 
     bool VerifyPasswordHash(string password, string passwordHash, byte[] passwordSalt);
 
+    Task UpdateUser(EditUserDto user);
+
     Task DeactivateUser(int userId);
 }

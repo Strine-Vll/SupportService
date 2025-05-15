@@ -56,8 +56,19 @@ export class UserService {
     return this.http.post(this.baseUrl + '/auth/login', body);
   }
 
+  editUser(user: EditUser) {
+    const url = `${this.baseUrl}/user/UpdateUser`;
+
+    return this.http.put<any>(url, user).pipe(
+      catchError(error => {
+        console.error('Ошибка при обновлении пользователя:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   deactivateUser(userId: number) {
-    return this.http.post<any>(`${this.baseUrl}/user/DeactivateUser`, { userId }).pipe(
+    return this.http.post<any>(`${this.baseUrl}/user/DeactivateUser?userId=${userId}`, {}).pipe(
       catchError(error => {
         console.error('Ошибка при деактивации пользователя:', error);
         return throwError(() => error);
