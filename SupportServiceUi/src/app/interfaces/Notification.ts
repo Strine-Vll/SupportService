@@ -1,10 +1,13 @@
 export interface Notification {
     id: number,
     title: string,
-    notificationText: string
+    message: string,
+    isRead: boolean,
+    createdAt: Date
 }
 
-export interface NotificationPreview {
-    id: number,
-    title: string
+export interface CreateNotification {
+    title: string,
+    message: string,
+    userId: number
 }

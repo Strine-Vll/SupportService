@@ -23,6 +23,7 @@ public static class DependencyInjection
         services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddScoped<IStatusService, StatusService>();
         services.AddScoped<IServiceRequestStatsService, ServiceRequestStatsService>();
+        services.AddScoped<INotificationService, NotificationService>();
 
         return services;
     }

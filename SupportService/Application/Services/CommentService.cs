@@ -16,11 +16,14 @@ public class CommentService : ICommentService
 {
     private readonly ICommentRepository _commentRepository;
 
+    private readonly INotificationRepository _notificationRepository;
+
     private IMapper _mapper;
 
-    public CommentService(ICommentRepository commentRepository, IMapper mapper)
+    public CommentService(ICommentRepository commentRepository, INotificationRepository notificationRepository, IMapper mapper)
     {
         _commentRepository = commentRepository;
+        _notificationRepository = notificationRepository;
         _mapper = mapper;
     }
 
@@ -58,5 +61,6 @@ public class CommentService : ICommentService
         comment.Attachments = attachments;
 
         await _commentRepository.CreateAsync(comment);
+        await _notificationRepository.CreateCommentNotification(commentDto.ServiceRequestId, commentDto.CreatedById);
     }
 }

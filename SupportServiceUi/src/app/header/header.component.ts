@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   private notificationSubscription!: Subscription;
 
   ngOnInit(): void {
-    /*this.notificationSubscription = this.notificationService.getNotificationCount(this.jwtService.getUserId())
+    this.notificationSubscription = this.notificationService.getNotificationCount(this.authService.getUserId())
     .subscribe(
       (count: number) => {
         this.notificationCount = count;
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
       error => {
         console.error('Ошибка при получении оповещений:', error);
       }
-    );*/
+    );
   }
 
   onLogout(){

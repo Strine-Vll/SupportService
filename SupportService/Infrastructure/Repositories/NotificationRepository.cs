@@ -26,4 +26,47 @@ public class NotificationRepository : BaseRepository<Notification>, INotificatio
 
         return result;
     }
+
+    public async Task<int> GetNotificationCount(int userId)
+    {
+        var result = await _dbContext.Notifications
+            .Where(n => n.UserId == userId)
+            .CountAsync();
+
+        return result;
+    }
+
+    public async Task CreateCommentNotification(int requestId, int createdById)
+    {
+        var request = await _dbContext.ServiceRequests
+            .Include(sr => sr.Appointed)
+            .Include(sr => sr.CreatedBy)
+            .FirstOrDefaultAsync(sr => sr.Id == requestId);
+
+        if (request != null)
+        {
+            const string title = "Новый комментарий";
+
+            string message = $"В заявке '{request.Title}' был оставлен новый комментарий";
+
+            if (createdById != request.Appointed.Id)
+            {
+                await _dbContext.Notifications.AddAsync(new Notification 
+                { 
+                    Title = title, 
+                    Message = message,
+                    UserId = request.Appointed.Id
+                });
+            }
+            if (createdById != request.CreatedBy.Id)
+            {
+                await _dbContext.Notifications.AddAsync(new Notification
+                {
+                    Title = title,
+                    Message = message,
+                    UserId = request.CreatedBy.Id
+                });
+            }
+        }
+    }
 }

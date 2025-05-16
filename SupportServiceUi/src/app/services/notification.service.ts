@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
-import { Notification, NotificationPreview } from '../interfaces/Notification';
-import { Observable, map } from 'rxjs';
+import { CreateNotification, Notification } from '../interfaces/Notification';
+import { Observable, catchError, map, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +13,21 @@ export class NotificationService {
 
   baseUrl: string = environment.apiBaseUrl;
 
-  getNotifications(userId: string): Observable<NotificationPreview[]> {
+  getNotifications(userId: string): Observable<Notification[]> {
     let params = new HttpParams().set('userId', userId);
 
-    return this.http.get<NotificationPreview[]>(this.baseUrl + '/notification', { params })
+    return this.http.get<Notification[]>(this.baseUrl + '/notification', { params })
     .pipe(
       map(data => data)
     );
   }
 
-  getNotificationDetailed(id: string): Observable<Notification> {
-    let params = new HttpParams().set('id', id);
-
-    return this.http.get<Notification>(this.baseUrl + '/notification/detailed', { params })
-    .pipe(
-      map(data => data)
+  createNotification(notification: CreateNotification): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/notification`, notification).pipe(
+        catchError(error => {
+            console.error('Ошибка при создании оповещения:', error);
+            return throwError(error);
+        })
     );
   }
 

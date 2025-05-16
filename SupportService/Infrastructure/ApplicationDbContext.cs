@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure;
 
@@ -62,6 +63,8 @@ public class ApplicationDbContext : DbContext
 
                     if (oldValue != newValue)
                     {
+                        ResolveNotification(prop, primaryKey, (ServiceRequest)entry.Entity);
+
                         AuditLogs.Add(new AuditLog
                         {
                             EntityName = entityName,
@@ -86,6 +89,56 @@ public class ApplicationDbContext : DbContext
 
         var userIdClaim = user.FindFirst("userId") ?? user.FindFirst(ClaimTypes.NameIdentifier);
         return userIdClaim?.Value;
+    }
+
+    private void ResolveNotification(PropertyEntry prop, string? primaryKey, ServiceRequest entity)
+    {
+        switch (prop.Metadata.Name)
+        {
+            case "AppointedId":
+                {
+                    if (int.TryParse(prop.CurrentValue?.ToString(), out var appointedId) &&
+                        int.TryParse(GetCurrentUserId(), out var userId) && userId != appointedId)
+                    {
+                        string title = "Назначен запрос на обработку";
+                        string message = "Вам был назначен новый запрос на обработку, проверьте назначенные запросы";
+                        CreateNotification(title, message, appointedId);
+                    }
+                    break;
+                }
+            case "StatusId":
+                {
+                    if (int.TryParse(prop.CurrentValue?.ToString(), out var statusId) &&
+                        int.TryParse(GetCurrentUserId(), out var userId))
+                    {
+                        string title = "Изменён статус заявки";
+                        string message = $"Статус заявки '{entity.Title}' был изменён на ${entity.Status.StatusName}, проверьте заявки";
+
+                        if (userId != entity.CreatedById)
+                        {
+                            CreateNotification(title, message, entity.CreatedById);
+                        }
+                        if(entity.AppointedId != null && userId != entity.AppointedId)
+                        {
+                            CreateNotification(title, message, entity.AppointedId.Value);
+                        }
+                    }
+                    break;
+                }
+            default:
+                break;
+        }
+
+    }
+
+    private void CreateNotification(string title, string message, int recipientId)
+    {
+        Notifications.Add(new Notification
+        {
+            Title = title,
+            Message = message,
+            UserId = recipientId
+        });
     }
 
     public DbSet<User> Users { get; set; }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Abstractions;
 using Application.Dtos.NotificationDtos;
 using AutoMapper;
 using Domain.Abstractions;
@@ -12,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Services;
 
-public class NotificationService
+public class NotificationService : INotificationService
 {
     public NotificationService(INotificationRepository notificationRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
     {
@@ -34,6 +35,13 @@ public class NotificationService
         var notifications = _mapper.Map<List<NotificationDto>>(dbNotifications);
 
         return notifications;
+    }
+
+    public async Task<int> GetNotificationsCount(int userId)
+    {
+        var notificationsCount = await _notificationRepository.GetNotificationCount(userId);
+
+        return notificationsCount;
     }
 
     public async Task CreateNotification(string title, string message, int? recipientId)

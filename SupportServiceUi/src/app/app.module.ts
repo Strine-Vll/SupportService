@@ -30,6 +30,7 @@ import { CloseRequestModalComponent } from './close-request-modal/close-request-
 import { RequestManagementComponent } from './request-management/request-management.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     CloseRequestModalComponent,
     RequestManagementComponent,
     UserManagementComponent,
-    EditUserComponent
+    EditUserComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
