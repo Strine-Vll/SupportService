@@ -28,6 +28,13 @@ export class UserService {
     );
   }
 
+  getActiveUsers() {
+    return this.http.get<UserPreview[]>(this.baseUrl + '/user/ActiveUsers')
+    .pipe(
+      map(data => data)
+    );
+  }
+
   getUserToEdit(userId: number) {
     let params = new HttpParams().set('userId', userId);
     

@@ -26,4 +26,6 @@ public interface IServiceRequestService
     Task DeleteRequest(int requestId);
 
     Task CloseRequest(int requestId);
+
+    Task ReescalateRequest(int requestId);
 }

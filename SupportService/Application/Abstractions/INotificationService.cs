@@ -16,4 +16,6 @@ public interface INotificationService
     Task CreateNotification(string title, string message, int? recipientId);
 
     Task<int> GetDefaultRecipient();
+
+    Task DeleteNotification(int recipientId);
 }

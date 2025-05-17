@@ -10,5 +10,7 @@ public interface IUserRepository : IBaseRepository<User>
 
     Task<User> GetUserByEmailAsync(string email);
 
+    Task<List<User>> GetActiveUsers();
+
     Task<bool> IsEmailUniqueAsync(string email);
 }

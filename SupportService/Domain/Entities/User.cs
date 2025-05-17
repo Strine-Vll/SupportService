@@ -24,5 +24,7 @@ public class User
 
     public List<ServiceRequest> AppointedRequests { get; set; }
 
+    public List<Notification> Notifications { get; set; }
+
     #endregion
 }

@@ -1,0 +1,83 @@
+<app-header></app-header>
+<router-outlet>
+    <div class="container mt-5">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mb-4">
+        <div class="row g-3 align-items-center">
+
+        <div class="col-auto">
+            <label for="startDate" class="form-label mb-0">Дата начала</label>
+            <input type="datetime-local" id="startDate" formControlName="startDate" class="form-control" />
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
+                <small>Это поле обязательно для заполнения.</small>
+            </div>
+        </div>
+
+        <div class="col-auto">
+            <label for="endDate" class="form-label mb-0">Дата завершения</label>
+            <input type="datetime-local" id="endDate" formControlName="endDate" class="form-control" />
+            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+                <small>Это поле обязательно для заполнения.</small>
+            </div>
+        </div>
+
+        <div class="col-auto">
+            <label for="userSelect" class="form-label mb-0">Пользователь</label>
+            <select id="userSelect" formControlName="user" class="form-select">
+            <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+            </select>
+        </div>
+
+        <div class="col-auto align-self-end">
+            <button type="submit" class="btn btn-primary">Применить</button>
+        </div>
+
+        </div>
+    </form>
+
+    <div class="mb-5 p-3 border rounded bg-light">
+        <h4>Средние значения</h4>
+        <div class="row">
+
+        <div class="col-md-3 mb-2">
+            <strong>Индекс удовлетворённости:</strong> {{ averageStats.satisfactionIndex ?? 'N/A' }}
+        </div>
+
+        <div class="col-md-3 mb-2">
+            <strong>Количество реэскалаций:</strong> {{ averageStats.reescalateAmount ?? 'N/A' }}
+        </div>
+
+        <div class="col-md-3 mb-2">
+            <strong>Время до первого ответа:</strong>
+            {{ averageStats.reactionTime ? (averageStats.reactionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+        </div>
+
+        <div class="col-md-3 mb-2">
+            <strong>Время разрешения запроса:</strong>
+            {{ averageStats.resolutionTime ? (averageStats.resolutionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+        </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="stats.length === 0" class="text-muted">
+        Нет данных по выбранным фильтрам.
+    </div>
+
+    <div *ngFor="let stat of stats" class="mb-4 p-3 border rounded">
+        <div class="mb-2">
+            Индекс удовлетворённости: {{ stat.satisfactionIndex ?? 'N/A' }}
+        </div>
+        <div class="mb-2">
+            Количество реэскалаций: {{ stat.reescalateAmount ?? 'N/A' }}
+        </div>
+        <div class="mb-2">
+            Время до первого ответа: {{ stat.reactionTime ? (stat.reactionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+        </div>
+        <div class="mb-2">
+            Время разрешения запроса: {{ stat.resolutionTime ? (stat.resolutionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+        </div>
+    </div>
+
+    </div>
+</router-outlet>

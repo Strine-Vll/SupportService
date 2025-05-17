@@ -47,8 +47,8 @@ export class NotificationComponent {
     this.modalService.open('deleteNotification');
   }
 
-  deleteGroup() {
-    this.notificationService.deleteNotification(this.notificationId.toString()).subscribe(
+  deleteNotification() {
+    this.notificationService.deleteNotification(this.notificationId).subscribe(
       response => {
         this.modalService.close('deleteNotification');
         window.location.reload();

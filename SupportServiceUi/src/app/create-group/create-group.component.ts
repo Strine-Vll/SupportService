@@ -26,16 +26,16 @@ export class CreateGroupComponent {
 
   ngOnInit() {
     this.form = this.fb.group({
-      groupName: ['', Validators.required]
-    }
-  );
+        groupName: ['', Validators.required]
+      }
+    );
   }
 
   get groupName(): FormControl {
     return this.form.get('groupName') as FormControl;
   }
 
- onSubmit() {
+  onSubmit() {
     if (this.form.valid) {
       const group: Group = { 
         id: 0,

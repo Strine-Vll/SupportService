@@ -3,6 +3,7 @@ using Application.Dtos.CommentDtos;
 using Application.Dtos.GroupDtos;
 using Application.Dtos.NotificationDtos;
 using Application.Dtos.ServiceRequestDtos;
+using Application.Dtos.ServiceRequestStatsDtos;
 using Application.Dtos.UserDtos;
 using AutoMapper;
 using Domain.Entities;
@@ -46,5 +47,7 @@ public class ApplicationMappingProfile : Profile
                        y => y.MapFrom(src => $"https://localhost:7239/api/Attachment?attachmentId={src.Id}"));
 
         CreateMap<Notification, NotificationDto>();
+
+        CreateMap<ServiceRequestStats, StatDto>().ReverseMap();
     }
 }

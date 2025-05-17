@@ -40,12 +40,15 @@ export class NotificationService {
     );
   }
 
-  deleteNotification(id: string): Observable<any> {
-    let params = new HttpParams().set('id', id);
+  deleteNotification(notificationId: number): Observable<any> {
+    let params = new HttpParams().set('id', notificationId);
 
-    return this.http.delete<number>(this.baseUrl + '/notification', { params })
+    return this.http.delete<any>(`${this.baseUrl}/notification`, { params })
     .pipe(
-      map(data => data)
+      catchError(error => {
+        console.error('Ошибка при удалении оповещения:', error);
+        return throwError(() => error);
+      })
     );
   }
 }

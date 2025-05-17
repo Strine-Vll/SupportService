@@ -103,4 +103,13 @@ export class RequestService {
       })
     );
   }
+  
+  reescalateRequest(id: Number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/servicerequest/ReescalateRequest?id=${id}`, null).pipe(
+      catchError(error => {
+        console.error('Ошибка при реэскалации запроса:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 }

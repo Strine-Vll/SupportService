@@ -25,7 +25,7 @@ export class GroupComponent {
   requests: ServiceRequestPreview[] = [];
   private requestSubscription!: Subscription;
   sortAscending = true;
-  statuses: string[] = ['Новое', 'В работе', 'Не закрыта', 'Решено', 'Закрыто']
+  statuses: string[] = ['Новое', 'В работе', 'Решено', 'На доработку', 'Принято', 'Закрыто']
 
   ngOnInit(): void {
     this.groupId = this.route.snapshot.params['id'];

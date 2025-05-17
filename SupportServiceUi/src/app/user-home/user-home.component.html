@@ -3,14 +3,20 @@
     <div class="row justify-content-md-center col-12 mt-4">
         <div class="col-6">
             <h1>Ваши заявки</h1>
-            <div *ngIf="requests.length == 0">На данный момент у вас нет ни одного активного запроса</div>
+            <div *ngIf="requests.length == 0">На данный момент у вас нет ни одной активной заявки</div>
             <div *ngFor="let request of requests" class="element-entry">
                 <div class="element-entry-text">
                     {{request.title}}
                 </div>
                 <div class="element-entry-actions d-flex gap-2">
                     <a [routerLink]="'/servicerequest/' + request.id" class="btn btn-outline-primary">Открыть подробности</a>
-                    <a (click)="openCloseRequestModal(request.id)" class="btn btn-outline-primary">Закрыть заявку</a>
+                    <a 
+                        *ngIf="request.status === 'Решено'"
+                        (click)="openCloseRequestModal(request.id, 'reescalateRequest')"
+                        class="btn btn-outline-primary">
+                        На доработку
+                    </a>
+                    <a (click)="openCloseRequestModal(request.id, 'closeRequest')" class="btn btn-outline-primary">Закрыть заявку</a>
                 </div>
             </div>
         </div>
@@ -30,5 +36,12 @@
         <app-close-request-modal [requestId]="requestId">
 
         </app-close-request-modal>
+    </app-modal>
+    <app-modal *ngIf="(modalService.isVisible$('reescalateRequest') | async)" [modalId]="'reescalateRequest'" [title]="'Реэскалировать запрос?'">
+        <app-prompt-modal
+        [promptText]="'Вы уверены, что хотите отправить запрос на доработку?'"
+            (confirm)="reescalateRequest()"
+            (cancel)="modalService.close('reescalateRequest')">
+        </app-prompt-modal>
     </app-modal>
 </router-outlet>

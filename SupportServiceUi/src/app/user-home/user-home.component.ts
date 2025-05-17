@@ -38,9 +38,21 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  openCloseRequestModal(requestId: number) {
+  openCloseRequestModal(requestId: number, modalName: string) {
     this.requestId = requestId;
-    this.modalService.open('closeRequest');
+    this.modalService.open(modalName);
+  }
+
+  reescalateRequest() {
+    this.requestServcie.reescalateRequest(this.requestId).subscribe(
+      response => {
+        this.modalService.close('reescalateRequest');
+        window.location.reload();
+      },
+      error => {
+        this.toastr.error('Ошибка при реэскалации запроса');
+      }
+    );
   }
 
   ngOnDestroy() {

@@ -9,5 +9,7 @@ namespace Domain.Abstractions;
 
 public interface IServiceRequestStatsRepository : IBaseRepository<ServiceRequestStats>
 {
+    Task<List<ServiceRequestStats>> FilterStats(DateTime? startDatte, DateTime? endDate, int? userId);
+
     Task<ServiceRequestStats> GetByRequestIdAsync(int requestId);
 }

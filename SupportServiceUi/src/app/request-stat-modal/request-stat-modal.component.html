@@ -1,0 +1,22 @@
+<div class="row col-md-12 mb-2 justify-content-center">
+    <div class="row text">
+        <div>
+            <div>
+                <div class="mb-2">
+                    Индекс удовлетворённости: {{ stat.satisfactionIndex ?? 'N/A' }}
+                </div>
+                <div class="mb-2">
+                    Количество реэскалаций: {{ stat.reescalateAmount ?? 'N/A' }}
+                </div>
+                <div class="mb-2">
+                    Время до первого ответа: 
+                    {{ stat.reactionTime ? (stat.reactionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+                </div>
+                <div class="mb-2">
+                    Время разрешения запроса: 
+                    {{ stat.resolutionTime ? (stat.resolutionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

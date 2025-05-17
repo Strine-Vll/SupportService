@@ -9,6 +9,8 @@ public interface IUserService
 
     Task<List<UserPreviewDto>> GetUsersToManage();
 
+    Task<List<UserPreviewDto>> GetActiveUsers();
+
     Task<EditUserDto> GetEditUser(int userId);
 
     Task RegisterAsync(RegisterDto userToRegistrate);

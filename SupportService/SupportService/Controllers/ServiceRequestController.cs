@@ -129,4 +129,13 @@ public class ServiceRequestController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost("ReescalateRequest")]
+    public async Task<ActionResult> ReescalateServiceRequest(int id)
+    {
+        await _serviceRequestService.ReescalateRequest(id);
+        await _serviceRequestStatsService.ReescalateRequest(id);
+
+        return Ok();
+    }
 }

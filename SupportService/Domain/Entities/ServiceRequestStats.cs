@@ -9,9 +9,10 @@ namespace Domain.Entities;
 public class ServiceRequestStats
 {
     public int Id { get; set; }
+
     public double SatisfactionIndex { get; set; }
 
-    public int ReescalateAmount { get; set; }
+    public int ReescalateAmount { get; set; } = 0;
 
     public TimeSpan ReactionTime { get; set; }
 

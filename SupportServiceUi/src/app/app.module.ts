@@ -31,6 +31,8 @@ import { RequestManagementComponent } from './request-management/request-managem
 import { UserManagementComponent } from './user-management/user-management.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { NotificationComponent } from './notification/notification.component';
+import { RequestStatModalComponent } from './request-stat-modal/request-stat-modal.component';
+import { StatsComponent } from './stats/stats.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { NotificationComponent } from './notification/notification.component';
     RequestManagementComponent,
     UserManagementComponent,
     EditUserComponent,
-    NotificationComponent
+    NotificationComponent,
+    RequestStatModalComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,

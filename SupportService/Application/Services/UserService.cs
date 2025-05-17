@@ -49,6 +49,15 @@ public class UserService : IUserService
         return viewUsers;
     }
 
+    public async Task<List<UserPreviewDto>> GetActiveUsers()
+    {
+        var dbUsers = await _user.GetActiveUsers();
+
+        var viewUsers = _mapper.Map<List<UserPreviewDto>>(dbUsers);
+
+        return viewUsers;
+    }
+
     public async Task<EditUserDto> GetEditUser(int userId)
     {
         var dbUser = await _user.GetByIdWithRole(userId);

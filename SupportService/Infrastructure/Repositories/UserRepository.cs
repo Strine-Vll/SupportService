@@ -16,7 +16,8 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     public async Task<List<User>> GetGroupUsersAsync(int groupId)
     {
         var result = await _dbContext.Users
-            .Where(u => u.Groups.Any(g => g.Id == groupId))
+            .Where(u => u.Groups.Any(g => g.Id == groupId) 
+                && u.IsDeactivated == false)
             .ToListAsync();
 
         return result;
@@ -31,14 +32,23 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         return result;
     }
 
-     public async Task<User> GetByIdWithRole(int userId)
-     {
+    public async Task<User> GetByIdWithRole(int userId)
+    {
         var result = await _dbContext.Users
             .Include(u => u.Role)
             .FirstOrDefaultAsync(u => u.Id == userId);
 
         return result;
-     }
+    }
+
+    public async Task<List<User>> GetActiveUsers()
+    {
+        var result = await _dbContext.Users
+            .Where(u => u.IsDeactivated == false)
+            .ToListAsync();
+
+        return result;
+    }
 
     public async Task<bool> IsEmailUniqueAsync(string email)
     {

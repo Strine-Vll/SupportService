@@ -25,7 +25,7 @@ export class CloseRequestModalComponent {
 
   ngOnInit() {
     this.form = this.fb.group({
-      satisfaction: [5, Validators.required]  // Устанавливаем начальное значение 5
+      satisfaction: [5, Validators.required]
     });
   }
 

@@ -93,12 +93,14 @@ public class ApplicationDbContext : DbContext
 
     private void ResolveNotification(PropertyEntry prop, string? primaryKey, ServiceRequest entity)
     {
+        string? tempUserId = GetCurrentUserId();
+
         switch (prop.Metadata.Name)
         {
             case "AppointedId":
                 {
                     if (int.TryParse(prop.CurrentValue?.ToString(), out var appointedId) &&
-                        int.TryParse(GetCurrentUserId(), out var userId) && userId != appointedId)
+                        int.TryParse(tempUserId, out var userId) && userId != appointedId)
                     {
                         string title = "Назначен запрос на обработку";
                         string message = "Вам был назначен новый запрос на обработку, проверьте назначенные запросы";
@@ -109,10 +111,10 @@ public class ApplicationDbContext : DbContext
             case "StatusId":
                 {
                     if (int.TryParse(prop.CurrentValue?.ToString(), out var statusId) &&
-                        int.TryParse(GetCurrentUserId(), out var userId))
+                        int.TryParse(tempUserId, out var userId))
                     {
                         string title = "Изменён статус заявки";
-                        string message = $"Статус заявки '{entity.Title}' был изменён на ${entity.Status.StatusName}, проверьте заявки";
+                        string message = $"Статус заявки '{entity.Title}' был изменён на '{entity.Status.StatusName}', проверьте заявки";
 
                         if (userId != entity.CreatedById)
                         {

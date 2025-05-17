@@ -67,4 +67,14 @@ public class NotificationService : INotificationService
 
         return int.TryParse(userIdClaim?.Value, out userId) ? userId : 0;
     }
+
+    public async Task DeleteNotification(int notificationId)
+    {
+        var notification = await _notificationRepository.GetByIdAsync(notificationId);
+
+        if(notification != null)
+        {
+            await _notificationRepository.DeleteAsync(notification);
+        }
+    }
 }

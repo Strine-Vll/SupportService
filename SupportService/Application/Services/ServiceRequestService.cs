@@ -109,12 +109,27 @@ public class ServiceRequestService : IServiceRequestService
         await _serviceRequestRepository.UpdateAsync(result);
     }
 
+    public async Task ReescalateRequest(int requestId)
+    {
+        var result = await _serviceRequestRepository.GetByIdAsync(requestId);
+
+        result.StatusId = 5;
+        result.Status = new Status
+        {
+            Id = 5,
+            StatusName = "На доработку"
+        };
+
+        await _serviceRequestRepository.UpdateAsync(result);
+    }
+
     private void UpdateRequestFields(ServiceRequest dbRequest, EditServiceRequestDto updateRequest)
     {
         dbRequest.Title = updateRequest.Title;
         dbRequest.Description = updateRequest.Description;
         dbRequest.UpdatedDate = DateTime.UtcNow;
         dbRequest.AppointedId = updateRequest.Appointed?.Id;
+        dbRequest.Status = updateRequest.Status;
         dbRequest.StatusId = updateRequest.Status.Id;
         dbRequest.GroupId = updateRequest.Group?.Id;
     }

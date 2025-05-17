@@ -1,32 +1,38 @@
 <app-header></app-header>
 <router-outlet>
     <div class="row justify-content-md-center col-12 mt-4">
-        <div class="col-6">
-            <h1>Ваши уведомления</h1>
+        <div class="col-8">
+        <h1>Ваши уведомления</h1>
 
-            <div *ngIf="notifications.length === 0">Уведомления отсутствуют</div>
+        <div *ngIf="notifications.length === 0">Уведомления отсутствуют</div>
 
-            <div *ngFor="let notification of notifications" class="element-entry mb-3 p-3 border rounded">
-            <div class="element-entry-text mb-2">
-                <h5>{{ notification.title }}</h5>
-                <p>{{ notification.message }}</p>
-                <small class="text-muted">
+        <div *ngFor="let notification of notifications" class="element-entry mb-3 p-3 border rounded d-flex justify-content-between align-items-start">
+            <div class="flex-grow-1 me-3">
+            <h5 class="mb-2">{{ notification.title }}</h5>
+
+            <div>
+                <p class="mb-1">{{ notification.message }}</p>
+                <small class="text-muted d-block mt-1">
                     {{ notification.createdAt | date:'dd.MM.yyyy, HH:mm' }}
-                    <span *ngIf="!notification.isRead" class="badge bg-primary ms-2">Новое</span>
-                    <span *ngIf="notification.isRead" class="text-success ms-2">Прочитано</span>
                 </small>
             </div>
-            <div class="element-entry-actions d-flex gap-2">
-                <a (click)="openDeleteModal(notification.id)" class="btn btn-outline-danger">Удалить</a>
             </div>
+            <div class="element-entry-actions">
+                <button (click)="openDeleteModal(notification.id)" class="btn btn-outline-danger">
+                    Удалить
+                </button>
             </div>
+
+        </div>
         </div>
     </div>
+
     <app-modal *ngIf="(modalService.isVisible$('deleteNotification') | async)" [modalId]="'deleteNotification'" [title]="'Подтверждение'">
         <app-prompt-modal 
-            [promptText]="'Вы уверены, что хотите удалить данную группу? Это действие невозможно отменить'"
-            (confirm)="deleteGroup()"
-            (cancel)="modalService.close('deleteNotification')">
+        [promptText]="'Вы уверены, что хотите удалить данное оповщение? Это действие невозможно отменить'"
+        (confirm)="deleteNotification()"
+        (cancel)="modalService.close('deleteNotification')">
         </app-prompt-modal>
     </app-modal>
 </router-outlet>
+

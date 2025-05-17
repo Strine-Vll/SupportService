@@ -32,6 +32,14 @@ namespace SupportService.Controllers
             return Ok(result);
         }
 
+        [HttpGet("ActiveUsers")]
+        public async Task<ActionResult> GetActiveUsersPreview()
+        {
+            var result = await _userService.GetActiveUsers();
+
+            return Ok(result);
+        }
+
         [HttpGet("GetEditUser")]
         public async Task<ActionResult> GetEditUser(int userId)
         {

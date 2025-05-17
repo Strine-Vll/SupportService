@@ -31,5 +31,13 @@ namespace SupportService.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteNotification(int id)
+        {
+            await _notificationService.DeleteNotification(id);
+
+            return Ok();
+        }
     }
 }

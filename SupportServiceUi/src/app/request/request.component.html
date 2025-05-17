@@ -23,7 +23,8 @@
                         <div *ngIf="request.appointed !='' " class="mb-4 task-detail-task">
                             Заявку обрабатывает: {{ request.appointed && request.appointed.trim() !== '' ? request.appointed : '-' }}
                         </div>
-                        <div >
+                        <div>
+                            <a *ngIf="authService.hasRole('Менеджер')" class="btn btn-outline-primary m-2" (click)="modalService.open('stats')">Статистика</a>
                             <a class="btn btn-outline-primary" (click)="modalService.open('editRequest')">Редактировать</a>
                             <a class="btn btn-outline-danger m-2" (click)="modalService.open('deleteRequest')">Удалить</a>
                         </div>
@@ -51,5 +52,10 @@
             (confirm)="deleteRequest()"
             (cancel)="modalService.close('deleteRequest')">
         </app-prompt-modal>
+    </app-modal>
+    <app-modal *ngIf="(modalService.isVisible$('stats') | async)" [modalId]="'stats'" [title]="'Статистика'">
+        <app-request-stat-modal [requestId]="this.requestId">
+
+        </app-request-stat-modal>
     </app-modal>
 </div>

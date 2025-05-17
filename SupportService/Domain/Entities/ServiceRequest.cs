@@ -24,7 +24,7 @@ public class ServiceRequest
 
     public User Appointed { get; set; }
 
-    public int? StatusId { get; set; } = 1;
+    public int StatusId { get; set; } = 1;
 
     public Status Status { get; set; } 
 

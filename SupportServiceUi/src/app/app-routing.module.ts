@@ -13,6 +13,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { RequestManagementComponent } from './request-management/request-management.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { NotificationComponent } from './notification/notification.component';
+import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full'},
@@ -40,6 +41,8 @@ const routes: Routes = [
   { path: 'management/requests', component: RequestManagementComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: 'Менеджер' } },
   { path: 'management/users', component: UserManagementComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: 'Менеджер' } },
+  { path: 'management/stats', component: StatsComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: 'Менеджер' } },
 ];
 
