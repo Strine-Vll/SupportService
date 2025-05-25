@@ -40,6 +40,15 @@ public class UserService : IUserService
         return viewUsers;
     }
 
+    public async Task<List<UserPreviewDto>> GetUsersToInviteAsync(int groupId)
+    {
+        var dbUsers = await _user.GetUsersToInviteAsync(groupId);
+
+        var viewUsers = _mapper.Map<List<UserPreviewDto>>(dbUsers);
+
+        return viewUsers;
+    }
+
     public async Task<List<UserPreviewDto>> GetUsersToManage()
     {
         var dbUsers = await _user.GetAllAsync();

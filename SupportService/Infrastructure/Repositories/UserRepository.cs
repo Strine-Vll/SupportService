@@ -23,6 +23,26 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         return result;
     }
 
+    public async Task<List<User>> GetUsersToInviteAsync(int groupId)
+    {
+        var result = await _dbContext.Users
+            .Where(u => u.IsDeactivated == false
+                && !u.Groups.Any(g => g.Id == groupId)
+                && (u.RoleId == 2 || u.RoleId == 3))
+            .ToListAsync();
+
+        return result;
+    }
+
+    public async Task<List<User>> GetByIdsAsync(List<int> userIds)
+    {
+        var result = await _dbContext.Users
+            .Where(u => userIds.Contains(u.Id))
+            .ToListAsync();
+
+        return result;
+    }
+
     public async Task<User> GetUserByEmailAsync(string email)
     {
         var result = await _dbContext.Users

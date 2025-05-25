@@ -26,7 +26,7 @@
     <app-modal *ngIf="(modalService.isVisible$('deactivateUser') | async)" [modalId]="'deactivateUser'"
         [title]="'Активация/Деактивация пользователя'">
         <app-prompt-modal 
-            [promptText]="'Вы уверены?'"
+            [promptText]="'Вы уверены, что хотите деактивировать данного пользователя?'"
             (confirm)="deactivateUser()"
             (cancel)="modalService.close('deactivateUser')">
         </app-prompt-modal>

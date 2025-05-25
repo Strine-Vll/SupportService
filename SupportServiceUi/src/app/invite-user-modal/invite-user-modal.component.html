@@ -1,0 +1,31 @@
+<div class="row col-md-12 mb-2 justify-content-center">
+    <div class="row text">
+      <div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="form-group mb-2">
+                <label class="control-label">Выберите сотрудника</label>
+
+                <select 
+                    class="form-control" 
+                    formControlName="selectedUserId"
+                    >
+                    <option value="" disabled>-- Выберите пользователя --</option>
+                    <option *ngFor="let user of usersToInvite" [value]="user.id">
+                        {{ user.name }} - {{ user.email }}
+                    </option>
+                </select>
+
+                <span *ngIf="form.controls['selectedUserId'].invalid && form.controls['selectedUserId'].touched" class="text-danger">
+                Пожалуйста, выберите сотрудника
+                </span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-main float-right" [disabled]="!form.valid">
+                Пригласить
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

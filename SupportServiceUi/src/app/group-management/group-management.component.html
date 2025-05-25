@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="container mt-5">
+    <div class="col-md-12">
+        <div >
+            <form class="mb-4 d-flex align-items-center gap-2" [formGroup]="form" (submit)="updateGroup()" autocomplete="off">
+                <input type="text" class="form-control" formControlName="groupName" required />
+                <button class="btn btn-primary">
+                    Сохранить
+                </button>
+                <span *ngIf="groupName.hasError('required') && groupName.touched" class="text-danger">Пожалуйста, введите значение</span>
+            </form>
+        </div>
+        <div class="row mb-2">
+            <div class="row task-detail-row">
+                <div class="col-11 task-detail">
+                    <h1>Пользователи в группе</h1>
+                    <div *ngFor="let user of users" class="element-entry">
+                        <div class="element-entry-text">
+                            {{ user.name }} - {{ user.email }}
+                        </div>
+                        <div class="element-entry-actions d-flex gap-2">
+                            <a (click)="removeUser(user.id)" class="btn btn-outline-danger">Удалить из группы</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 close-button-section">
+                    <a [routerLink]="['/group', groupId]" class="btn btn-close"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: fixed; right: 30px; bottom: 80px;">
+        <button type="submit" class="btn btn-main float-right" (click)="modalService.open('invite')">
+            Пригласить сотрудника
+        </button>
+    </div>
+
+    <app-modal *ngIf="(modalService.isVisible$('invite') | async)" [modalId]="'invite'" [title]="'Пригласить'">
+        <app-invite-user-modal [users]="this.users" [groupId]="this.groupId">
+
+        </app-invite-user-modal>
+    </app-modal>
+</div>

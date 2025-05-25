@@ -24,6 +24,14 @@ namespace SupportService.Controllers
             return Ok(result);
         }
 
+        [HttpGet("UsersToInvite")]
+        public async Task<ActionResult> UsersToInvite(int groupId)
+        {
+            var result = await _userService.GetUsersToInviteAsync(groupId);
+
+            return Ok(result);
+        }
+
         [HttpGet("UsersToManage")]
         public async Task<ActionResult> GetUsersToManage()
         {

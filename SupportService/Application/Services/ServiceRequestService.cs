@@ -33,6 +33,15 @@ public class ServiceRequestService : IServiceRequestService
         return serviceRequests;
     }
 
+    public async Task<List<ServiceRequestPreviewDto>> GetRequestsForProcessing(int userId)
+    {
+        var dbServiceRequests = await _serviceRequestRepository.GetRequestsForProcessing(userId);
+
+        var serviceRequests = _mapper.Map<List<ServiceRequestPreviewDto>>(dbServiceRequests);
+
+        return serviceRequests;
+    }
+
     public async Task<List<ServiceRequestPreviewDto>> GetUserRequestsPreview(int userId)
     {
         var dbServiceRequests = await _serviceRequestRepository.GetPreviewByUser(userId);

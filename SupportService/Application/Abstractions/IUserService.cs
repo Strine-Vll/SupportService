@@ -7,6 +7,8 @@ public interface IUserService
 {
     Task<List<UserPreviewDto>> GetGroupUsersAsync(int groupId);
 
+    Task<List<UserPreviewDto>> GetUsersToInviteAsync(int groupId);
+
     Task<List<UserPreviewDto>> GetUsersToManage();
 
     Task<List<UserPreviewDto>> GetActiveUsers();

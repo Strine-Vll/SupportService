@@ -31,6 +31,15 @@ export class RequestService {
     );
   }
 
+  getRequestsForProcessing(userId: number): Observable<ServiceRequestPreview[]> {
+    let params = new HttpParams().set('userId', userId.toString());
+    
+    return this.http.get<ServiceRequestPreview[]>(this.baseUrl + '/ServiceRequest/GetRequestsForProcessing', { params })
+    .pipe(
+      map(data => data)
+    );
+  }
+
   getUserRequests(userId: number): Observable<ServiceRequestPreview[]> {
     let params = new HttpParams().set('userId', userId.toString());
     

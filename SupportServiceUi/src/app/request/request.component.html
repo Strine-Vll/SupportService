@@ -24,9 +24,10 @@
                             Заявку обрабатывает: {{ request.appointed && request.appointed.trim() !== '' ? request.appointed : '-' }}
                         </div>
                         <div>
-                            <a *ngIf="authService.hasRole('Менеджер')" class="btn btn-outline-primary m-2" (click)="modalService.open('stats')">Статистика</a>
-                            <a class="btn btn-outline-primary" (click)="modalService.open('editRequest')">Редактировать</a>
-                            <a class="btn btn-outline-danger m-2" (click)="modalService.open('deleteRequest')">Удалить</a>
+                            <a *ngIf="authService.hasRole('Менеджер')" class="btn btn-outline-primary mx-2" (click)="modalService.open('stats')">Статистика</a>
+                            <a class="btn btn-outline-primary mx-2" (click)="modalService.open('editRequest')">Редактировать</a>
+                            <a class="btn btn-outline-primary mx-2" (click)="modalService.open('editRequest')">История</a>
+                            <a class="btn btn-outline-danger mx-2" (click)="modalService.open('deleteRequest')">Удалить</a>
                         </div>
                     </div>
                     <hr class="my-3">

@@ -22,6 +22,15 @@ public class GroupRepository : BaseRepository<Group>, IGroupRepository
         return result;
     }
 
+    public async Task<Group> GetByIdWithUsersAsync(int groupId)
+    {
+        var result = await _dbContext.Groups
+            .Include(g => g.Users)
+            .FirstOrDefaultAsync(g => g.Id == groupId);
+
+        return result;
+    }
+
     public async Task<Group> GetGroupByIdWithUsers(int groupId)
     {
         var result = await _dbContext.Groups

@@ -11,6 +11,8 @@ public interface IServiceRequestService
 {
     Task<List<ServiceRequestPreviewDto>> GetGroupRequestsPreview(int groupId);
 
+    Task<List<ServiceRequestPreviewDto>> GetRequestsForProcessing(int userId);
+
     Task<List<ServiceRequestPreviewDto>> GetUserRequestsPreview(int userId);
 
     Task<List<ServiceRequestPreviewDto>> GetUnallocatedRequests();

@@ -33,6 +33,10 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RequestStatModalComponent } from './request-stat-modal/request-stat-modal.component';
 import { StatsComponent } from './stats/stats.component';
+import { AppointedRequestsComponent } from './appointed-requests/appointed-requests.component';
+import { GroupManagementComponent } from './group-management/group-management.component';
+import { InviteUserModalComponent } from './invite-user-modal/invite-user-modal.component';
+import { RequestHistoryModalComponent } from './request-history-modal/request-history-modal.component';
 
 
 @NgModule({
@@ -59,7 +63,11 @@ import { StatsComponent } from './stats/stats.component';
     EditUserComponent,
     NotificationComponent,
     RequestStatModalComponent,
-    StatsComponent
+    StatsComponent,
+    AppointedRequestsComponent,
+    GroupManagementComponent,
+    InviteUserModalComponent,
+    RequestHistoryModalComponent
   ],
   imports: [
     BrowserModule,

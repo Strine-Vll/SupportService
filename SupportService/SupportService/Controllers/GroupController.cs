@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions;
 using Application.Dtos.GroupDtos;
+using Application.Dtos.UserDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,12 +16,28 @@ public class GroupController : ControllerBase
         _groupService = groupService;
     }
 
-    [HttpGet]
+    [HttpGet("groups")]
     public async Task<ActionResult> GetUserGroups(int userId)
     {
         var groups = await _groupService.GetUserGroups(userId);
 
         return Ok(groups);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult> GetGroup(int groupId)
+    {
+        var group = await _groupService.GetGroupById(groupId);
+
+        return Ok(group);
+    }
+
+    [HttpPost("updateUsers")]
+    public async Task<ActionResult> UpdateUsers([FromQuery] int groupId, [FromBody] List<UserPreviewDto> users)
+    {
+        await _groupService.UpdateUsers(groupId, users);
+
+        return Ok();
     }
 
     [HttpPost]
@@ -43,6 +60,14 @@ public class GroupController : ControllerBase
     public async Task<ActionResult> RemoveUserFromGroup(int groupId, int userId)
     {
         await _groupService.RemoveUserFromGroup(groupId, userId);
+
+        return Ok();
+    }
+
+    [HttpPut("update")]
+    public async Task<ActionResult> RemoveUserFromGroup(GroupDto group)
+    {
+        await _groupService.UpdateGroup(group);
 
         return Ok();
     }

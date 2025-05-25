@@ -21,6 +21,15 @@ export class UserService {
     );
   }
 
+  getUsersToInvite(groupId: number){
+    let params = new HttpParams().set('groupId', groupId);
+    
+    return this.http.get<UserPreview[]>(this.baseUrl + '/user/UsersToInvite', { params })
+    .pipe(
+      map(data => data)
+    );
+  }
+
   getUsersToManage() {
     return this.http.get<UserPreview[]>(this.baseUrl + '/user/UsersToManage')
     .pipe(

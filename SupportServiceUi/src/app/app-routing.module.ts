@@ -14,6 +14,8 @@ import { RequestManagementComponent } from './request-management/request-managem
 import { UserManagementComponent } from './user-management/user-management.component';
 import { NotificationComponent } from './notification/notification.component';
 import { StatsComponent } from './stats/stats.component';
+import { AppointedRequestsComponent } from './appointed-requests/appointed-requests.component';
+import { GroupManagementComponent } from './group-management/group-management.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full'},
@@ -32,6 +34,8 @@ const routes: Routes = [
     data: { roles: ['Специалист поддержки', 'Менеджер'] } },
   { path: ':groupid/servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: ['Специалист поддержки', 'Менеджер'] } },
+  { path: 'requests/appointed', component: AppointedRequestsComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: ['Специалист поддержки', 'Менеджер'] } },
   { path: 'userhome', component: UserHomeComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: 'Пользователь' }},
   { path: 'servicerequest/:id', component: RequestComponent, canActivate: [AuthGuard, RoleGuard], 
@@ -43,6 +47,8 @@ const routes: Routes = [
   { path: 'management/users', component: UserManagementComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: 'Менеджер' } },
   { path: 'management/stats', component: StatsComponent, canActivate: [AuthGuard, RoleGuard], 
+    data: { roles: 'Менеджер' } },
+  { path: 'management/groups/:id', component: GroupManagementComponent, canActivate: [AuthGuard, RoleGuard], 
     data: { roles: 'Менеджер' } },
 ];
 

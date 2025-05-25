@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories;
@@ -22,6 +23,16 @@ public class ServiceRequestRepository : BaseRepository<ServiceRequest>, IService
     {
         var result = await _dbContext.ServiceRequests
             .Where(sr => sr.GroupId == groupId)
+            .Include(sr => sr.Status)
+            .ToListAsync();
+
+        return result;
+    }
+
+    public async Task<List<ServiceRequest>> GetRequestsForProcessing(int userId)
+    {
+        var result = await _dbContext.ServiceRequests
+            .Where(sr => sr.AppointedId == userId && sr.StatusId != 6)
             .Include(sr => sr.Status)
             .ToListAsync();
 

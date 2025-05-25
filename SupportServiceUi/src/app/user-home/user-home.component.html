@@ -32,14 +32,14 @@
         <app-create-request-modal></app-create-request-modal>
     </app-modal>
 
-    <app-modal *ngIf="(modalService.isVisible$('closeRequest') | async)" [modalId]="'closeRequest'" [title]="'Закрытие запроса'">
+    <app-modal *ngIf="(modalService.isVisible$('closeRequest') | async)" [modalId]="'closeRequest'" [title]="'Закрытие заявки'">
         <app-close-request-modal [requestId]="requestId">
 
         </app-close-request-modal>
     </app-modal>
-    <app-modal *ngIf="(modalService.isVisible$('reescalateRequest') | async)" [modalId]="'reescalateRequest'" [title]="'Реэскалировать запрос?'">
+    <app-modal *ngIf="(modalService.isVisible$('reescalateRequest') | async)" [modalId]="'reescalateRequest'" [title]="'Реэскалировать заявку?'">
         <app-prompt-modal
-        [promptText]="'Вы уверены, что хотите отправить запрос на доработку?'"
+        [promptText]="'Вы уверены, что хотите отправить заявку на доработку?'"
             (confirm)="reescalateRequest()"
             (cancel)="modalService.close('reescalateRequest')">
         </app-prompt-modal>

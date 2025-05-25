@@ -48,6 +48,21 @@ public class ServiceRequestController : ControllerBase
         }
     }
 
+    [HttpGet("GetRequestsForProcessing")]
+    public async Task<ActionResult> GetRequestsForProcessing(int userId)
+    {
+        try
+        {
+            var result = await _serviceRequestService.GetRequestsForProcessing(userId);
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     [HttpGet("GetUserRequests")]
     public async Task<ActionResult> GetUserRequestsPreview(int userId)
     {

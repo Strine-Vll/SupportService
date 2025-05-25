@@ -18,9 +18,15 @@
         </div>
     </div>
 
+    <div style="position: fixed; right: 30px; bottom: 80px;">
+        <button type="submit" class="btn btn-main float-right" style="width: 250px;" [routerLink]="['/management/groups', groupId]">
+            Настройки группы
+        </button>
+    </div>
+
     <div style="position: fixed; right: 30px; bottom: 30px;">
-        <button type="submit" class="btn btn-main float-right" (click)="modalService.open('createRequest')">
-            Создать
+        <button type="submit" class="btn btn-main float-right" style="width: 250px;" (click)="modalService.open('createRequest')">
+            Создать заявку
         </button>
     </div>
 

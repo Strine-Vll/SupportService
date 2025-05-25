@@ -2,6 +2,7 @@
     <a [routerLink]="authService.hasAnyRole(['Менеджер', 'Специалист поддержки']) ? '/home' : '/userhome'" class="logo-link nav-link navbar-brand">SupportService</a>
     <div class="nav-section navbar-brand">
         <a *ngIf="authService.hasAnyRole(['Менеджер', 'Специалист поддержки'])" routerLink="/home" class="nav-link navbar-brand">Группы</a>
+        <a *ngIf="authService.hasAnyRole(['Менеджер', 'Специалист поддержки'])" routerLink="/requests/appointed" class="nav-link navbar-brand">Назначенные заявки</a>
         <a *ngIf="authService.hasRole('Менеджер')" routerLink="/management/users" class="nav-link navbar-brand">Управление пользователями</a>
         <a *ngIf="authService.hasRole('Менеджер')" routerLink="/management/requests" class="nav-link navbar-brand">Нераспределённые заявки</a>
         <a *ngIf="authService.hasRole('Менеджер')" routerLink="/management/stats" class="nav-link navbar-brand">Статистика</a>
