@@ -36,14 +36,15 @@ namespace SupportService.Controllers
 
             var names = await _dbContext.Users
                 .Where(u => userIds.Contains(u.Id))
-                .Select(u => u.Name)
+                .Select(u => new { u.Id, u.Name })
                 .ToListAsync();
 
             var dtos = _mapper.Map<List<AuditLogDto>>(dbResult);
 
-            for (int i = 0; i < names.Count; i++)
+            for (int i = 0; i < dtos.Count; i++)
             {
-                dtos[i].ChangedBy = names[i];
+                var resName = names.FirstOrDefault(n => n.Id.ToString() == dtos[i].ChangedBy);
+                dtos[i].ChangedBy = resName?.Name;
             }
 
             return Ok(dtos);

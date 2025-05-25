@@ -11,5 +11,7 @@ public interface IServiceRequestStatsRepository : IBaseRepository<ServiceRequest
 {
     Task<List<ServiceRequestStats>> FilterStats(DateTime? startDatte, DateTime? endDate, int? userId);
 
+    Task CloseRequestStatsUpdate(int requestId);
+
     Task<ServiceRequestStats> GetByRequestIdAsync(int requestId);
 }

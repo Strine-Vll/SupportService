@@ -121,7 +121,15 @@ export class EditRequestModalComponent {
     const appointedId = this.form.value.appointed;
     const groupId = this.form.value.group;
     const selectedStatus = this.statuses.find(s => s.id == statusId) || null;
-    const selectedAppointed = this.users.find(u => u.id == appointedId) || null;
+    let selectedAppointed;
+    if(!this.groupId) {
+      selectedAppointed = !this.request || !this.request.appointed || this.request.appointed.id === 0 ? null : this.request.appointed;
+    }
+    else {
+      selectedAppointed = this.users.find(u => u.id == appointedId) || null;
+    }
+    console.log(selectedAppointed);
+
     const selectedGroup = this.groups.find(g => g.id == groupId) || null;
 
     const updatedRequest: EditServiceRequest = {
@@ -132,6 +140,8 @@ export class EditRequestModalComponent {
       appointed: selectedAppointed,
       group: selectedGroup
     };
+
+    console.log(updatedRequest)
 
     this.requestService.editRequest(updatedRequest).subscribe({
       next: () => {

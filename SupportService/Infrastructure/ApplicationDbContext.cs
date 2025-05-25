@@ -114,7 +114,7 @@ public class ApplicationDbContext : DbContext
                         int.TryParse(tempUserId, out var userId))
                     {
                         string title = "Изменён статус заявки";
-                        string message = $"Статус заявки '{entity.Title}' был изменён на '{entity.Status.StatusName}', проверьте заявки";
+                        string message = $"Статус заявки '{entity.Title}' был изменён на '{Statuses.FirstOrDefault(s => s.Id == entity.StatusId)?.StatusName}', проверьте заявки";
 
                         if (userId != entity.CreatedById)
                         {

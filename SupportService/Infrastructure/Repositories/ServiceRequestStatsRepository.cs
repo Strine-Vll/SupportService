@@ -79,5 +79,7 @@ public class ServiceRequestStatsRepository : BaseRepository<ServiceRequestStats>
         result.ReactionTime = firstResponceEnd.ChangedAt - firstResponceStart.CreatedDate;
         result.ResolutionTime = resolutionEnd.ChangedAt - resolutionStart.ChangedAt;
         result.UserId = firstResponceStart.AppointedId;
+
+        await _dbContext.SaveChangesAsync();
     }
 }

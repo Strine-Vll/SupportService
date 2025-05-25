@@ -138,7 +138,6 @@ public class ServiceRequestService : IServiceRequestService
         dbRequest.Description = updateRequest.Description;
         dbRequest.UpdatedDate = DateTime.UtcNow;
         dbRequest.AppointedId = updateRequest.Appointed?.Id;
-        dbRequest.Status = updateRequest.Status;
         dbRequest.StatusId = updateRequest.Status.Id;
         dbRequest.GroupId = updateRequest.Group?.Id;
     }

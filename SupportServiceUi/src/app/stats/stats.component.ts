@@ -25,12 +25,10 @@ export class StatsComponent {
   form!: FormGroup;
   public requestId: number = 0;
   public groupId: number | null = null;
-  averageStats = {
-    satisfactionIndex: null,
-    reescalateAmount: null,
-    reactionTime: null,
-    resolutionTime: null,
-  };
+  public satisfactionIndex: number | null = null;
+  public reescalateAmount: number | null = null;
+  public reactionTime: Date | null = null;
+  public resolutionTime: Date | null = null;
   public stats: Stat[] = [];
   public users: UserPreview[] = [];
 
@@ -60,6 +58,10 @@ export class StatsComponent {
 
   calculateAverages() {
     if (this.stats.length === 0) {
+      this.satisfactionIndex = null;
+      this.reescalateAmount = null;
+      this.reactionTime = null;
+      this.resolutionTime = null;
       return;
     }
 
@@ -68,13 +70,20 @@ export class StatsComponent {
         acc.satisfactionIndex += stat.satisfactionIndex ?? 0;
         acc.reescalateAmount += stat.reescalateAmount ?? 0;
 
-        acc.reactionTime += stat.reactionTime ? new Date(stat.reactionTime).getTime() : 0;
-        acc.resolutionTime += stat.resolutionTime ? new Date(stat.resolutionTime).getTime() : 0;
+        acc.reactionTime += stat.reactionTime ? stat.reactionTime.getTime() : 0;
+        acc.resolutionTime += stat.resolutionTime ? stat.resolutionTime.getTime() : 0;
 
         return acc;
       },
       { satisfactionIndex: 0, reescalateAmount: 0, reactionTime: 0, resolutionTime: 0 }
     );
+
+    const count = this.stats.length;
+    this.satisfactionIndex = sum.satisfactionIndex / count;
+    this.reescalateAmount = sum.reescalateAmount / count;
+
+    this.reactionTime = sum.reactionTime > 0 ? new Date(sum.reactionTime / count) : null;
+    this.resolutionTime = sum.resolutionTime > 0 ? new Date(sum.resolutionTime / count) : null;
   }
 
   onSubmit() {
@@ -95,11 +104,25 @@ export class StatsComponent {
 
     this.statService.filterStat(statFilter)
     .subscribe(stats => {
-        this.stats = stats;
+        this.stats = stats.map(stat => ({
+            ...stat,
+            reactionTime: this.convertTimeSpanToDate(stat.reactionTime!.toString()),
+            resolutionTime: this.convertTimeSpanToDate(stat.resolutionTime!.toString())
+        }));
         this.calculateAverages();
     }, error => {
         console.error('Ошибка:', error);
         this.toastr.error('Ошибка при получении данных');
     });
+}
+
+  private convertTimeSpanToDate(timeSpan: string | null): Date | null {
+    if (!timeSpan || timeSpan === '00:00:00') {
+      return null;
+    }
+    const [hours, minutes, seconds] = timeSpan.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, seconds);
+    return date;
   }
 }

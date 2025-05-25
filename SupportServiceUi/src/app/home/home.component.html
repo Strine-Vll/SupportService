@@ -10,7 +10,7 @@
                 </div>
                 <div class="element-entry-actions d-flex gap-2">
                     <a [routerLink]="'/group/' + group.id" class="btn btn-outline-primary">Открыть</a>
-                    <a (click)="openDeleteModal(group.id)" class="btn btn-outline-danger">Удалить</a>
+                    <a *ngIf="authService.hasRole('Менеджер')" (click)="openDeleteModal(group.id)" class="btn btn-outline-danger">Удалить</a>
                 </div>
             </div>
         </div>

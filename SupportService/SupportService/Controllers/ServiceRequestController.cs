@@ -125,6 +125,11 @@ public class ServiceRequestController : ControllerBase
     {
         await _serviceRequestService.UpdateRequest(serviceRequest);
 
+        if (serviceRequest.Status.Id == 6)
+        {
+            await _serviceRequestStatsService.CloseServiceRequest(serviceRequest.Id, 0);
+        }
+
         return Ok();
     }
 

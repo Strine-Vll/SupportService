@@ -40,21 +40,21 @@
         <div class="row">
 
         <div class="col-md-3 mb-2">
-            <strong>Индекс удовлетворённости:</strong> {{ averageStats.satisfactionIndex ?? 'N/A' }}
+            <strong>Индекс удовлетворённости:</strong> {{ satisfactionIndex ?? 'N/A' }}
         </div>
 
         <div class="col-md-3 mb-2">
-            <strong>Количество реэскалаций:</strong> {{ averageStats.reescalateAmount ?? 'N/A' }}
+            <strong>Количество реэскалаций:</strong> {{ reescalateAmount ?? 'N/A' }}
         </div>
 
         <div class="col-md-3 mb-2">
             <strong>Время до первого ответа:</strong>
-            {{ averageStats.reactionTime ? (averageStats.reactionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+            {{ reactionTime ? (reactionTime | date:'HH:mm:ss') : 'N/A' }}
         </div>
 
         <div class="col-md-3 mb-2">
             <strong>Время разрешения запроса:</strong>
-            {{ averageStats.resolutionTime ? (averageStats.resolutionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+            {{ resolutionTime ? (resolutionTime | date:'HH:mm:ss') : 'N/A' }}
         </div>
 
         </div>
@@ -72,10 +72,10 @@
             Количество реэскалаций: {{ stat.reescalateAmount ?? 'N/A' }}
         </div>
         <div class="mb-2">
-            Время до первого ответа: {{ stat.reactionTime ? (stat.reactionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+            Время до первого ответа: {{ stat.reactionTime ? (stat.reactionTime | date:'HH:mm:ss') : 'N/A' }}
         </div>
         <div class="mb-2">
-            Время разрешения запроса: {{ stat.resolutionTime ? (stat.resolutionTime | date:'dd.MM.yyyy, HH:mm') : 'N/A' }}
+            Время разрешения запроса: {{ stat.resolutionTime ? (stat.resolutionTime | date:'HH:mm:ss') : 'N/A' }}
         </div>
     </div>
 

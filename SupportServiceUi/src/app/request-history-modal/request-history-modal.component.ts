@@ -29,7 +29,6 @@ export class RequestHistoryModalComponent {
     .subscribe(
       (logs: AuditLog[]) => {
         this.logs = logs;
-        console.log(this.logs);
       },
       error => {
         console.error('Ошибка при получении истории:', error);

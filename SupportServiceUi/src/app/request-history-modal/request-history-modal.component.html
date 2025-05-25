@@ -1,5 +1,6 @@
 <div class="row col-md-12 mb-2 justify-content-center">
     <div class="row text w-100">
+        <div *ngIf="logs.length === 0">Отсутствуют действия с этой заявкой</div>
         <div *ngFor="let log of logs" class="card mb-3 w-100" style="position: relative;">
             <div style="position: absolute; top: 10px; right: 15px; font-size: 0.85rem; color: gray;">
                 {{ log.changedAt | date:'dd.MM.yyyy, HH:mm' }}

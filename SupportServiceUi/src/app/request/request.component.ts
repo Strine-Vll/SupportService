@@ -61,11 +61,12 @@ export class RequestComponent {
   deleteRequest() {
     this.requestService.deleteRequest(this.requestId).subscribe(
       response => {
+        this.modalService.close('deleteRequest');
         if(this.groupId && this.groupId.length > 0) {
           this.router.navigate(['/group', this.groupId]);
         }
         else {
-          
+          this.router.navigate(['/home']);
         }
       },
       error => {

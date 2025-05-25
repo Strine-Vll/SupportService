@@ -52,6 +52,7 @@ public class ServiceRequestStatsService : IServiceRequestStatsService
         result.SatisfactionIndex = satisfactionIndex;
 
         await _serviceRequestStatsRepository.UpdateAsync(result);
+        await _serviceRequestStatsRepository.CloseRequestStatsUpdate(requestId);
     }
 
     public async Task ReescalateRequest(int requestId)
