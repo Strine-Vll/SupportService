@@ -49,7 +49,7 @@ public class NotificationRepository : BaseRepository<Notification>, INotificatio
 
             string message = $"В заявке '{request.Title}' был оставлен новый комментарий";
 
-            if (createdById != request.Appointed.Id)
+            if (request.Appointed != null && createdById != request.Appointed.Id)
             {
                 await _dbContext.Notifications.AddAsync(new Notification 
                 { 

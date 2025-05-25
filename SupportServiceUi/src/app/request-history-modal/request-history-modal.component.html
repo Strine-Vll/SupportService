@@ -1,1 +1,21 @@
-<p>request-history-modal works!</p>
+<div class="row col-md-12 mb-2 justify-content-center">
+    <div class="row text w-100">
+        <div *ngFor="let log of logs" class="card mb-3 w-100" style="position: relative;">
+            <div style="position: absolute; top: 10px; right: 15px; font-size: 0.85rem; color: gray;">
+                {{ log.changedAt | date:'dd.MM.yyyy, HH:mm' }}
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">{{ log.propertyName }}</h5>
+                <p class="card-text">
+                    <strong>{{ log.oldValue ? log.oldValue : '(empty)' }}</strong>
+                    <span style="margin: 0 10px;">→</span>
+                    <strong>{{ log.newValue ? log.newValue : '(empty)' }}</strong>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">Changed by: {{ log.changedBy ? log.changedBy : 'Unknown' }}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -26,8 +26,8 @@
                         <div>
                             <a *ngIf="authService.hasRole('Менеджер')" class="btn btn-outline-primary mx-2" (click)="modalService.open('stats')">Статистика</a>
                             <a class="btn btn-outline-primary mx-2" (click)="modalService.open('editRequest')">Редактировать</a>
-                            <a class="btn btn-outline-primary mx-2" (click)="modalService.open('editRequest')">История</a>
-                            <a class="btn btn-outline-danger mx-2" (click)="modalService.open('deleteRequest')">Удалить</a>
+                            <a *ngIf="authService.hasRole('Менеджер')" class="btn btn-outline-primary mx-2" (click)="modalService.open('history')">История</a>
+                            <a *ngIf="authService.hasRole('Менеджер')" class="btn btn-outline-danger mx-2" (click)="modalService.open('deleteRequest')">Удалить</a>
                         </div>
                     </div>
                     <hr class="my-3">
@@ -58,5 +58,8 @@
         <app-request-stat-modal [requestId]="this.requestId">
 
         </app-request-stat-modal>
+    </app-modal>
+    <app-modal *ngIf="(modalService.isVisible$('history') | async)" [modalId]="'history'" [title]="'История'">
+        <app-request-history-modal [requestId]="+this.requestId"></app-request-history-modal>
     </app-modal>
 </div>

@@ -2,8 +2,8 @@
     (click)="close()">
 </div>
 
-<div class="creation-form rounded" (click)="$event.stopPropagation()">
-    <h2 class="text-center mb-2">{{title}}</h2>
+<div class="creation-form rounded" style="max-height: 700px; overflow-y: auto;" (click)="$event.stopPropagation()">
+    <h2 class="text-center mt-2 mb-2">{{title}}</h2>
 
     <ng-content></ng-content>
 </div>

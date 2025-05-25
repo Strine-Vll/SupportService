@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.AttachmentDtos;
+using Application.Dtos.AuditLogDtos;
 using Application.Dtos.CommentDtos;
 using Application.Dtos.GroupDtos;
 using Application.Dtos.NotificationDtos;
@@ -55,5 +56,8 @@ public class ApplicationMappingProfile : Profile
             .ForMember(x => x.CreatedAt, y => y.MapFrom(x => x.CreatedAt.ToLocalTime()));
 
         CreateMap<ServiceRequestStats, StatDto>().ReverseMap();
+
+        CreateMap<AuditLog, AuditLogDto>()
+            .ForMember(x => x.ChangedAt, y => y.MapFrom(x => x.ChangedAt.ToLocalTime()));
     }
 }

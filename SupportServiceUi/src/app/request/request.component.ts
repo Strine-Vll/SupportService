@@ -59,8 +59,6 @@ export class RequestComponent {
   }
 
   deleteRequest() {
-    this.requestService.deleteRequest(this.requestId);
-
     this.requestService.deleteRequest(this.requestId).subscribe(
       response => {
         if(this.groupId && this.groupId.length > 0) {

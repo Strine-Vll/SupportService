@@ -67,7 +67,7 @@ import { RequestHistoryModalComponent } from './request-history-modal/request-hi
     AppointedRequestsComponent,
     GroupManagementComponent,
     InviteUserModalComponent,
-    RequestHistoryModalComponent
+    RequestHistoryModalComponent,
   ],
   imports: [
     BrowserModule,
